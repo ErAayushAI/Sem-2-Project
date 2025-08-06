@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FeedbackDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public FeedbackDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class FeedbackDAO {
     /**
      * To Submit Feedback on database.
      *
+     * @param scanner object for user input
      * @return true if feedback is added
      */
-    public boolean submitFeedback() {
+    public boolean submitFeedback(Scanner scanner) {
         System.out.println("---------- ADD FEEDBACK ----------");
         System.out.println();
         String query = "INSERT INTO feedback (UserId, PlaceName, Comments, Rating) VALUES (?, ?, ?, ?)";

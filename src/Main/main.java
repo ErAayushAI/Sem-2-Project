@@ -66,7 +66,7 @@ public class main {
                                         int ch1 = sc.nextInt();
                                         switch (ch1) {
                                             case 1:
-                                                boolean b1 = a.addArea();
+                                                boolean b1 = a.addArea(sc);
                                                 if (b1) {
                                                     System.out.println("Added successfully");
                                                 } else {
@@ -76,7 +76,7 @@ public class main {
 
                                             case 2:
 
-                                                boolean b2 = a.updateArea();
+                                                boolean b2 = a.updateArea(sc);
                                                 if (b2) {
                                                     System.out.println("updated successfully");
                                                 } else {
@@ -86,7 +86,7 @@ public class main {
 
                                             case 3:
 
-                                                boolean b3 = a.deleteArea();
+                                                boolean b3 = a.deleteArea(sc);
                                                 if (b3) {
                                                     System.out.println("Deleted successfully");
                                                 } else {
@@ -115,7 +115,7 @@ public class main {
                                         int ch2 = sc.nextInt();
                                         switch (ch2) {
                                             case 1:
-                                                boolean b2 = a.addBus();
+                                                boolean b2 = a.addBus(sc);
                                                 if (b2) {
                                                     System.out.println("Added successfully");
                                                 } else {
@@ -125,7 +125,7 @@ public class main {
 
                                             case 2:
 
-                                                boolean b3 = a.updateBusLocation();
+                                                boolean b3 = a.updateBusLocation(sc);
                                                 if (b3) {
                                                     System.out.println("updated successfully");
                                                 } else {
@@ -135,7 +135,7 @@ public class main {
 
                                             case 3:
 
-                                                boolean b4 = a.updateBusRoute();
+                                                boolean b4 = a.updateBusRoute(sc);
                                                 if (b4) {
                                                     System.out.println("Updated successfully");
                                                 } else {
@@ -164,7 +164,7 @@ public class main {
                                         switch (ch3) {
                                             case 1: //add
 
-                                                boolean b2 = ab.addEmergencyService();
+                                                boolean b2 = ab.addEmergencyService(sc);
                                                 if (b2) {
                                                     System.out.println("Added successfully");
                                                 } else {

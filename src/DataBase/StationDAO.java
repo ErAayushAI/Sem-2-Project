@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StationDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public StationDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class StationDAO {
     /**
      * Add a new Station.
      *
+     * @param scanner object for user input
      * @return true if Station is added
      */
-    public boolean addStation() {
+    public boolean addStation(Scanner scanner) {
         System.out.println("---------- ADD STATION ----------");
         System.out.println();
         String query = "INSERT INTO Station (Name, AreaId, IsBusStation, IsMetroStation) VALUES (?, ?, ?, ?)";
@@ -53,9 +53,10 @@ public class StationDAO {
     /**
      * Get Station by id.
      *
+     * @param scanner object for user input
      * @return Object of Station
      */
-    public Station getStationById() {
+    public Station getStationById(Scanner scanner) {
         System.out.println("---------- STATION BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Station WHERE Id = ?";
@@ -110,9 +111,10 @@ public class StationDAO {
     /**
      * Get Station in Location.
      *
+     * @param scanner object for user input
      * @return List of Station
      */
-    public List<Station> getStopsByAreaId() {
+    public List<Station> getStopsByAreaId(Scanner scanner) {
         System.out.println("---------- STATION BY AREA ----------");
         System.out.println();
         List<Station> stations = new ArrayList<>();

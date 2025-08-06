@@ -7,12 +7,11 @@ import java.io.*;
 import java.util.Scanner;
 
 public class TicketDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public TicketDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
             connection.setAutoCommit(false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -22,9 +21,10 @@ public class TicketDAO {
     /**
      * Add a new Ticket.
      *
+     * @param scanner object for user input
      * @return true if new ticket is added
      */
-    public boolean addTicket() {
+    public boolean addTicket(Scanner scanner) {
         Ticket ticket = new Ticket();
         System.out.println("---------- ADD TICKET ----------");
         System.out.println();
@@ -71,10 +71,11 @@ public class TicketDAO {
     /**
      * To confirm Ticket by User.
      *
+     * @param scanner object for user input
      * @throws SQLException for connection
      * @throws IOException  for generate bill
      */
-    void commitTicket() throws SQLException, IOException {
+    void commitTicket(Scanner scanner) throws SQLException, IOException {
         System.out.println("---------- CONFIRM TICKET ----------");
         System.out.println();
         connection.commit();
@@ -87,9 +88,10 @@ public class TicketDAO {
     /**
      * To cancel Ticket by User.
      *
+     * @param scanner object for user input
      * @throws SQLException for connection
      */
-    void rollbackTicket() throws SQLException {
+    void rollbackTicket(Scanner scanner) throws SQLException {
         System.out.println("---------- CANCEL TICKET ----------");
         System.out.println();
         System.out.print("Enter Ticket Id: ");
@@ -129,9 +131,10 @@ public class TicketDAO {
     /**
      * To search Ticket by route and user.
      *
+     * @param scanner object for user input
      * @throws SQLException for connection
      */
-    public void searchTickets() throws SQLException {
+    public void searchTickets(Scanner scanner) throws SQLException {
         System.out.println("---------- SEARCH TICKET ----------");
         System.out.println();
         String sql = "SELECT * FROM ticket WHERE RouteId = ? OR UserId = ?";

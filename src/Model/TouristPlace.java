@@ -30,7 +30,7 @@ public class TouristPlace {
     public String getName() { return name; }
 
     public void showPlaceInfo() {
-        System.out.println("📍 " + name + " — " + location);
+        System.out.println("📍 " + name + " — " + areaId);
         System.out.println("Category: " + category);
         System.out.println("★ Average Rating: " + getAverageRating() + " stars");
     }

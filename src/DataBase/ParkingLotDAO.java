@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ParkingLotDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public ParkingLotDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class ParkingLotDAO {
     /**
      * Add a new Parking Lot.
      *
+     * @param scanner object for user input
      * @return true if lot is added
      */
-    public boolean addParkingLot() {
+    public boolean addParkingLot(Scanner scanner) {
         System.out.println("---------- ADD PARKING LOT ----------");
         System.out.println();
         String query = "INSERT INTO ParkingLot (Name, Capacity, CurrentOccupancy, AreaId) VALUES (?, ?, ?, ?)";
@@ -52,9 +52,10 @@ public class ParkingLotDAO {
     /**
      * Get Parking Lot by id.
      *
+     * @param scanner object for user input
      * @return Object of Parking lot
      */
-    public ParkingLot getParkingLotById() {
+    public ParkingLot getParkingLotById(Scanner scanner) {
         System.out.println("---------- PARKING LOT BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM ParkingLot WHERE Id = ?";
@@ -109,9 +110,10 @@ public class ParkingLotDAO {
     /**
      * Update Parking occupancy by id.
      *
+     * @param scanner object for user input
      * @return true if Parking Lot is Updated
      */
-    public boolean updateParkingOccupancy() {
+    public boolean updateParkingOccupancy(Scanner scanner) {
         System.out.println("---------- UPDATE PARKING LOT ----------");
         System.out.println();
         String query = "UPDATE ParkingLot SET CurrentOccupancy = ? WHERE Id = ?";

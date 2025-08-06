@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BusDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public BusDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class BusDAO {
     /**
      * Add a new Bus.
      *
+     * @param scanner object for user input
      * @return true if Bus is added
      */
-    public boolean addBus() {
+    public boolean addBus(Scanner scanner) {
         System.out.println("---------- ADD BUS ----------");
         System.out.println();
         String query = "INSERT INTO Bus (LicensePlate, Capacity, CurrentRouteID, CurrentAreaID) VALUES (?, ?, ?, ?)";
@@ -53,9 +53,10 @@ public class BusDAO {
     /**
      * Get Bus by id.
      *
+     * @param scanner object for user input
      * @return Object of Bus
      */
-    public Bus getBusByID() {
+    public Bus getBusByID(Scanner scanner) {
         System.out.println("---------- BUS BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Bus WHERE Id = ?";
@@ -110,9 +111,10 @@ public class BusDAO {
     /**
      * Update Bus current Location.
      *
+     * @param scanner object for user input
      * @return true if Bus is Updated
      */
-    public boolean updateBusLocation() {
+    public boolean updateBusLocation(Scanner scanner) {
         System.out.println("---------- UPDATE BUS AREA ----------");
         System.out.println();
         String query = "UPDATE Bus SET CurrentAreaID = ? WHERE Id = ?";
@@ -135,9 +137,10 @@ public class BusDAO {
     /**
      * Update Bus Current Route.
      *
+     * @param scanner object for user input
      * @return true if Bus is Updated
      */
-    public boolean updateBusRoute() {
+    public boolean updateBusRoute(Scanner scanner) {
         System.out.println("---------- UPDATE BUS ROUTE ----------");
         System.out.println();
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";

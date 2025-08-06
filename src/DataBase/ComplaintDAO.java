@@ -8,12 +8,11 @@ import java.util.Scanner;
 
 public class ComplaintDAO {
     private CustomQueue<Complaint> complaintQueue = new CustomQueue<>();
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public ComplaintDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class ComplaintDAO {
     /**
      * To Register Complaint.
      *
+     * @param scanner object for user input
      * @return true if complaint is filed
      */
-    public boolean fileComplaint() {
+    public boolean fileComplaint(Scanner scanner) {
         System.out.println("---------- ADD COMPLAINT ----------");
         System.out.println();
         String query = "INSERT INTO complaint (Department, UserId, Issue, Status) VALUES (?, ?, ?, ?)";

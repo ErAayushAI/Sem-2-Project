@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StreetDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public StreetDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -24,7 +23,7 @@ public class StreetDAO {
      *
      * @return true if Street is added
      */
-    public boolean addStreet() {
+    public boolean addStreet(Scanner scanner) {
         System.out.println("---------- ADD STREET ----------");
         System.out.println();
         String query = "INSERT INTO Street (Id, StartAreaId, EndAreaId, Distance, IsOneWay) VALUES (?, ?, ?, ?, ?)";
@@ -58,7 +57,7 @@ public class StreetDAO {
      *
      * @return Object of Street
      */
-    public Street getStreetById() {
+    public Street getStreetById(Scanner scanner) {
         System.out.println("---------- STREET BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Street WHERE Id = ?";
@@ -88,7 +87,7 @@ public class StreetDAO {
      *
      * @return Object of street
      */
-    public Street getStreetByAreaId() {
+    public Street getStreetByAreaId(Scanner scanner) {
         System.out.println("---------- STREET BY AREA ----------");
         System.out.println();
         String query = "SELECT * FROM Street WHERE areaId = ? LIMIT 1";
@@ -145,7 +144,7 @@ public class StreetDAO {
      *
      * @return true if Street is Updated
      */
-    public boolean updateStreet() {
+    public boolean updateStreet(Scanner scanner) {
         System.out.println("---------- UPDATE STREET ----------");
         System.out.println();
         String query = "UPDATE Street SET StartAreaId = ?, EndAreaId = ?, IsOneWay = ? WHERE Id = ?";
@@ -176,7 +175,7 @@ public class StreetDAO {
      *
      * @return true if Street is deleted
      */
-    public boolean deleteStreet() {
+    public boolean deleteStreet(Scanner scanner) {
         System.out.println("---------- DELETE STREET ----------");
         System.out.println();
         String query = "DELETE FROM Street WHERE Id = ?";

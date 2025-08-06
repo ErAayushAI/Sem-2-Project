@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RouteDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public RouteDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class RouteDAO {
     /**
      * Add a new Route.
      *
+     * @param scanner object for user input
      * @return true if Route is added
      */
-    public boolean addRoute() {
+    public boolean addRoute(Scanner scanner) {
         System.out.println("---------- ADD ROUTE ----------");
         System.out.println();
         String query = "INSERT INTO Route (Name, Length, IsBusRoute, IsMetroRoute) VALUES (?, ?, ?, ?)";
@@ -53,9 +53,10 @@ public class RouteDAO {
     /**
      * Get Route by id.
      *
+     * @param scanner object for user input
      * @return Object of Route
      */
-    public Route getRouteById() {
+    public Route getRouteById(Scanner scanner) {
         System.out.println("---------- ROUTE BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Route WHERE Id = ?";

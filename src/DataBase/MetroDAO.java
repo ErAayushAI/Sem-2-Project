@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MetroDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public MetroDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class MetroDAO {
     /**
      * Add a new Metro.
      *
+     * @param scanner object for user input
      * @return true if Metro is added
      */
-    public boolean addMetro() {
+    public boolean addMetro(Scanner scanner) {
         System.out.println("---------- ADD METRO ----------");
         System.out.println();
         String query = "INSERT INTO Metro (TrainName, Capacity, CurrentRouteID, CurrentAreaID) VALUES (?, ?, ?, ?)";
@@ -53,9 +53,10 @@ public class MetroDAO {
     /**
      * Get Metro by id.
      *
+     * @param scanner object for user input
      * @return Object of Metro
      */
-    public Metro getMetroByID() {
+    public Metro getMetroByID(Scanner scanner) {
         System.out.println("---------- METRO BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Metro WHERE Id = ?";
@@ -110,9 +111,10 @@ public class MetroDAO {
     /**
      * Update Metro current Location.
      *
+     * @param scanner object for user input
      * @return true if Metro is Updated
      */
-    public boolean updateMetroLocation() {
+    public boolean updateMetroLocation(Scanner scanner) {
         System.out.println("---------- UPDATE METRO AREA ----------");
         System.out.println();
         String query = "UPDATE Metro SET CurrentAreaID = ? WHERE Id = ?";
@@ -135,9 +137,10 @@ public class MetroDAO {
     /**
      * Update Metro current Route.
      *
+     * @param scanner object for user input
      * @return true if Metro is Updated
      */
-    public boolean updateMetroRoute() {
+    public boolean updateMetroRoute(Scanner scanner) {
         System.out.println("---------- UPDATE METRO ROUTE ----------");
         System.out.println();
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";

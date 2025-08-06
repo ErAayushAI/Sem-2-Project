@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class AreaDAO {
     private Connection connection;
-    public Scanner scanner = new Scanner(System.in);
 
     public AreaDAO() {
         try {
@@ -20,11 +19,12 @@ public class AreaDAO {
     }
 
     /**
-     * Add a new Area.
+     * Add new Area.
      *
+     * @param scanner object for user input
      * @return true if area is added
      */
-    public boolean addArea() {
+    public boolean addArea(Scanner scanner) {
         System.out.println("---------- ADD AREA ----------");
         System.out.println();
         String query = "INSERT INTO Area (Id, Name, Latitude, Longitude, IsEmergencyPoint) VALUES (?, ?, ?, ?, ?)";
@@ -57,9 +57,10 @@ public class AreaDAO {
     /**
      * Get Area by id.
      *
+     * @param scanner object for user input
      * @return Object of Area
      */
-    public Area getAreaById() {
+    public Area getAreaById(Scanner scanner) {
         System.out.println("---------- AREA BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM Area WHERE Id = ?";
@@ -114,9 +115,10 @@ public class AreaDAO {
     /**
      * Update area name and Emergency point.
      *
+     * @param scanner object for user input
      * @return true if Area is updated
      */
-    public boolean updateArea() {
+    public boolean updateArea(Scanner scanner) {
         System.out.println("---------- UPDATE AREA ----------");
         System.out.println();
         String query = "UPDATE Area SET name = ?, isEmergencyPoint = ? WHERE id = ?";
@@ -142,9 +144,10 @@ public class AreaDAO {
     /**
      * To Delete Area by id.
      *
+     * @param scanner object for user input
      * @return true if Area is Deleted
      */
-    public boolean deleteArea() {
+    public boolean deleteArea(Scanner scanner) {
         System.out.println("---------- DELETE AREA ----------");
         System.out.println();
         String query = "DELETE FROM Area WHERE id = ?";
@@ -164,9 +167,10 @@ public class AreaDAO {
     /**
      * Get list of Areas inside Area given by user in the city.
      *
+     * @param scanner object for user input
      * @return list of Area inside the area
      */
-    public List<Area> getAreaInArea() {
+    public List<Area> getAreaInArea(Scanner scanner) {
         System.out.println("---------- UPDATE AREA BY ID ----------");
         System.out.println();
         List<Area> areas = new ArrayList<>();

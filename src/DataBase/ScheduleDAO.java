@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ScheduleDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public ScheduleDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class ScheduleDAO {
     /**
      * Add a new Schedule.
      *
+     * @param scanner object for user input
      * @return true if schedule is added
      */
-    public boolean addSchedule() {
+    public boolean addSchedule(Scanner scanner) {
         System.out.println("---------- ADD SCHEDULE ----------");
         System.out.println();
         String query = "INSERT INTO Schedule (RouteId, DepartureTime) VALUES (?, ?)";
@@ -54,9 +54,10 @@ public class ScheduleDAO {
     /**
      * Get Schedule by route.
      *
+     * @param scanner object for user input
      * @return Object of Schedule
      */
-    public Schedule getScheduleByRouteId() {
+    public Schedule getScheduleByRouteId(Scanner scanner) {
         System.out.println("---------- SCHEDULE BY ROUTE ----------");
         System.out.println();
         String query = "SELECT * FROM Schedule WHERE RouteId = ? ";

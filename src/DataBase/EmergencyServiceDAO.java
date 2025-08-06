@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmergencyServiceDAO {
-    private Connection connection = DataBaseManager.connection;
-    public Scanner scanner = new Scanner(System.in);
+    private Connection connection;
 
     public EmergencyServiceDAO() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,9 +21,10 @@ public class EmergencyServiceDAO {
     /**
      * Add a new Emergency Service.
      *
+     * @param scanner object for user input
      * @return true if Service is added
      */
-    public boolean addEmergencyService() {
+    public boolean addEmergencyService(Scanner scanner) {
         System.out.println("---------- ADD EMERGENCY SERVICE ----------");
         System.out.println();
         String query = "INSERT INTO EmergencyService (Name, Type, AreaId, ContactNumber) VALUES (?, ?, ?, ?)";
@@ -60,7 +60,7 @@ public class EmergencyServiceDAO {
      *
      * @return Object of EmergencyService
      */
-    public EmergencyService getEmergencyServiceByID() {
+    public EmergencyService getEmergencyServiceByID(Scanner scanner) {
         System.out.println("---------- EMERGENCY SERVICE BY ID ----------");
         System.out.println();
         String query = "SELECT * FROM EmergencyService WHERE Id = ?";
@@ -88,10 +88,10 @@ public class EmergencyServiceDAO {
     /**
      * Get Emergency Service By Type (For Example = Medical, Fire, Police)
      *
-     * @param type Service type (For Example = Hospital, Fire, Police)
+     * @param scanner object for user input
      * @return Object of EmergencyService
      */
-    public EmergencyService getEmergencyServiceByType(String type) {
+    public EmergencyService getEmergencyServiceByType(Scanner scanner) {
         System.out.println("---------- EMERGENCY SERVICE BY TYPE ----------");
         System.out.println();
         String query = "SELECT * FROM EmergencyService WHERE Type = ? LIMIT 1";
