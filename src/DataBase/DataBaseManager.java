@@ -26,12 +26,14 @@ public class DataBaseManager {
      *
      * @throws SQLException if Connection to database not found
      */
-    public static void getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         connection = DriverManager.getConnection(URL, USER, PASSWORD);
         if (connection != null) {
-            System.out.println("Connected");
+            System.out.println("Connected to DataBase.");
+            return connection;
         } else {
-            System.out.println("Failed.");
+            System.out.println("Failed to connect with DataBase.");
+            return null;
         }
     }
 

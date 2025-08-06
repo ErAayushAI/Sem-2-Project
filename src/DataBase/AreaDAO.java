@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AreaDAO {
-    private Connection connection = DataBase.DataBaseManager.connection;
+    private Connection connection;
     public Scanner scanner = new Scanner(System.in);
 
     public AreaDAO() {
         try {
-            DataBase.DataBaseManager.getConnection();
+           connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
