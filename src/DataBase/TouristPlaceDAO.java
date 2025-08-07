@@ -5,7 +5,10 @@ import Model.TouristPlace;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TouristPlaceDAO {
@@ -22,7 +25,7 @@ public class TouristPlaceDAO {
     }
 
 
-    public boolean addPlace(String name, String location, String category)  {
+    public boolean addPlace(String name, String location, String category) {
         System.out.println("---------- ADD TOURIST PLACE ----------");
         System.out.println();
         String query = "INSERT INTO TouristPlace (Name, Location, Category, Ratings) VALUES (?, ?, ?, ?)";
@@ -48,7 +51,7 @@ public class TouristPlaceDAO {
         }
     }
 
-    public void applyFeedback(Feedback fb)  {
+    public void applyFeedback(Feedback fb) {
         TouristPlace tp = places.get(fb.placeName);
         if (tp != null) {
             tp.addRating(fb.rating);
@@ -65,11 +68,30 @@ public class TouristPlaceDAO {
         }
     }
 
-    public void displayPlacesByCategory(String category) {
-        System.out.println("Places in category: " + category);
-        places.values().stream()
-                .filter(tp -> tp.getCategory().equalsIgnoreCase(category))
-                .forEach(TouristPlace::showPlaceInfo);
+    public List<TouristPlace> displayPlacesByCategory(Scanner scanner) {
+        System.out.println("---------- TOURIST PLACE BY CATEGORY ----------");
+        System.out.println();
+        String query = "SELECT * FROM TouristPlace WHERE Category = ?";
+        List<TouristPlace> places = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            System.out.print("Enter Category: ");
+            stmt.setString(1, scanner.nextLine().trim());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                TouristPlace place = new TouristPlace();
+                place.setId(rs.getInt(1));
+                place.setName(rs.getString(2));
+                place.setCategory(rs.getString(3));
+                place.setAreaId(rs.getInt(4));
+                place.setRatings(rs.getDouble(5));
+                places.add(place);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return places;
     }
 
     public void displayTopRatedPlaces(double threshold) {

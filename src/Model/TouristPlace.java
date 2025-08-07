@@ -1,38 +1,61 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TouristPlace {
+    int id;
     String name;
     String category;
     int areaId;
-    private List<Integer> ratings;
+    double ratings;
 
-    public TouristPlace(String name, String category, int areaId, List<Integer> ratings) {
+    public TouristPlace(int id, String name, String category, int areaId, double ratings) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.areaId = areaId;
         this.ratings = ratings;
     }
 
-    public void addRating(int rating) {
-        if (rating >= 1 && rating <= 5) ratings.add(rating);
+    public TouristPlace() {}
+
+    public int getId() {
+        return id;
     }
 
-    public double getAverageRating() {
-        if (ratings.isEmpty()) return 0.0;
-        return Math.round(ratings.stream().mapToInt(Integer::intValue).average().orElse(0.0) * 100.0) / 100.0;
+    public String getName() {
+        return name;
     }
 
-    public String getCategory() { return category; }
+    public String getCategory() {
+        return category;
+    }
 
-    public String getName() { return name; }
+    public int getAreaId() {
+        return areaId;
+    }
 
-    public void showPlaceInfo() {
-        System.out.println("📍 " + name + " — " + areaId);
-        System.out.println("Category: " + category);
-        System.out.println("★ Average Rating: " + getAverageRating() + " stars");
+    public double getRatings() {
+        return ratings;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
+    }
+
+    public void setRatings(double ratings) {
+        this.ratings = ratings;
     }
 }
 

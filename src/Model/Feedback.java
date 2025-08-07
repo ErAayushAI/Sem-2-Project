@@ -3,7 +3,7 @@ package Model;
 public class Feedback {
     int id;
     int userId;
-    String placeName;
+    int placeId;
     String comments;
     int rating;
 
@@ -12,14 +12,14 @@ public class Feedback {
      *
      * @param id        for Feedback id
      * @param userId    for user who Rates
-     * @param placeName for which place user is rating
+     * @param placeId for which place user is rating
      * @param comments  for comments user wants to add
      * @param rating    for rating between 1 and 5 stars
      */
-    public Feedback(int id, int userId, String placeName, String comments, int rating) {
+    public Feedback(int id, int userId, int placeId, String comments, int rating) {
         this.id = id;
         this.userId = userId;
-        this.placeName = placeName;
+        this.placeId = placeId;
         this.comments = comments;
         this.rating = rating;
     }
@@ -51,10 +51,10 @@ public class Feedback {
     /**
      * getter for place on which user are giving feedback.
      *
-     * @return place name
+     * @return place id
      */
-    public String getPlaceName() {
-        return placeName;
+    public int getPlaceName() {
+        return placeId;
     }
 
     /**
@@ -96,10 +96,10 @@ public class Feedback {
     /**
      * setter for place name.
      *
-     * @param placeName place which is rated by user
+     * @param placeId place which is rated by user
      */
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     /**

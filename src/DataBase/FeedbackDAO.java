@@ -27,15 +27,14 @@ public class FeedbackDAO {
     public boolean submitFeedback(Scanner scanner) {
         System.out.println("---------- ADD FEEDBACK ----------");
         System.out.println();
-        String query = "INSERT INTO feedback (UserId, PlaceName, Comments, Rating) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO feedback (UserId, PlaceId, Comments, Rating) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter User ID: ");
             stmt.setInt(1, scanner.nextInt());
 
-            System.out.print("Enter Place Name: ");
-            scanner.nextLine();
-            stmt.setString(2, scanner.nextLine().trim());
+            System.out.print("Enter Place Id: ");
+            stmt.setInt(2, scanner.nextInt());
 
             System.out.print("Enter Comments: ");
             scanner.nextLine();
@@ -68,7 +67,7 @@ public class FeedbackDAO {
                 Feedback fb = new Feedback();
                 fb.setId(rs.getInt(1));
                 fb.setUserId(rs.getInt(2));
-                fb.setPlaceName(rs.getString(3));
+                fb.setPlaceId(rs.getInt(3));
                 fb.setComments(rs.getString(4));
                 fb.setRating(rs.getInt(5));
                 feedbacks.add(fb);
@@ -77,5 +76,27 @@ public class FeedbackDAO {
             e.printStackTrace();
         }
         return feedbacks;
+    }
+
+    /**
+     * To find average of ratings.
+     *
+     * @param scanner object for user input
+     * @return average of rating given by user on particular place
+     */
+    public double getAverageRating(Scanner scanner) {
+        double avg = 0.0;
+        String query = "SELECT AVG(Rating) FROM Feedback WHERE placeId = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            System.out.print("Enter Place Id: ");
+            stmt.setInt(1, scanner.nextInt());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                avg = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return avg;
     }
 }
