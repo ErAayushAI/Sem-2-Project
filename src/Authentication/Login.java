@@ -13,11 +13,11 @@ import java.util.Scanner;
 
 
 public class Login {
-    Connection connection = DataBaseManager.connection;
+    private Connection connection;
 
     public Login() {
         try {
-            DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
