@@ -1,6 +1,5 @@
 package DataBase;
 
-import Model.Feedback;
 import Model.TouristPlace;
 
 import java.sql.Connection;
@@ -13,6 +12,7 @@ import java.util.Scanner;
 
 public class TouristPlaceDAO {
 
+    FeedbackDAO fb = new FeedbackDAO();
     private Connection connection;
     public Scanner scanner = new Scanner(System.in);
 
@@ -24,8 +24,12 @@ public class TouristPlaceDAO {
         }
     }
 
-
-    public boolean addPlace(String name, String location, String category) {
+    /**
+     * To add a new Tourist place.
+     *
+     * @return true if the place is added
+     */
+    public boolean addPlace() {
         System.out.println("---------- ADD TOURIST PLACE ----------");
         System.out.println();
         String query = "INSERT INTO TouristPlace (Name, Location, Category, Ratings) VALUES (?, ?, ?, ?)";
@@ -51,23 +55,23 @@ public class TouristPlaceDAO {
         }
     }
 
-    public void applyFeedback(Feedback fb) {
-        TouristPlace tp = places.get(fb.placeName);
-        if (tp != null) {
-            tp.addRating(fb.rating);
-            double newAvg = tp.getAverageRating();
-
-            PreparedStatement pstmt = connection.prepareStatement("UPDATE tourist_place SET average_rating = ? WHERE name = ?");
-            pstmt.setDouble(1, newAvg);
-            pstmt.setString(2, fb.placeName);
-            pstmt.executeUpdate();
-
-            System.out.println("Updated rating for " + fb.placeName + ": " + newAvg + " stars");
-        } else {
-            System.out.println("⚠Place not found: " + fb.placeName);
-        }
+    /**
+     * To submit feedback of the place.
+     *
+     * @param scanner object for user input
+     */
+    public void applyFeedback(Scanner scanner) {
+        System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
+        System.out.println();
+        fb.submitFeedback(scanner);
     }
 
+    /**
+     * To find places Category wise.
+     *
+     * @param scanner object for user inputs
+     * @return list of places
+     */
     public List<TouristPlace> displayPlacesByCategory(Scanner scanner) {
         System.out.println("---------- TOURIST PLACE BY CATEGORY ----------");
         System.out.println();
@@ -94,15 +98,62 @@ public class TouristPlaceDAO {
         return places;
     }
 
-    public void displayTopRatedPlaces(double threshold) {
-        System.out.println("Top-Rated Places (≥ " + threshold + " stars):");
-        places.values().stream()
-                .filter(tp -> tp.getAverageRating() >= threshold)
-                .forEach(TouristPlace::showPlaceInfo);
+    /**
+     * To find top-rated place given by user.
+     *
+     * @param scanner object for user inputs
+     * @return list of places
+     */
+    public List<TouristPlace> displayTopRatedPlaces(Scanner scanner) {
+        System.out.println("---------- TOP-RATED PLACES ----------");
+        System.out.println();
+        String query = "SELECT * FROM TouristPlace WHERE Ratings >= ?";
+        List<TouristPlace> places = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            System.out.print("Enter Ratings: ");
+            stmt.setInt(1, scanner.nextInt());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                TouristPlace place = new TouristPlace();
+                place.setId(rs.getInt(1));
+                place.setName(rs.getString(2));
+                place.setCategory(rs.getString(3));
+                place.setAreaId(rs.getInt(4));
+                place.setRatings(rs.getDouble(5));
+                places.add(place);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return places;
     }
 
-    public void displayAllPlaces() {
-        places.values().forEach(TouristPlace::showPlaceInfo);
+    /**
+     * Get all the Tourist Places in the city.
+     *
+     * @return list of places
+     */
+    public List<TouristPlace> displayAllPlaces() {
+        System.out.println("---------- ALL TOURIST PLACE ----------");
+        System.out.println();
+        String query = "SELECT * FROM TouristPlace";
+        List<TouristPlace> places = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                TouristPlace place = new TouristPlace();
+                place.setId(rs.getInt(1));
+                place.setName(rs.getString(2));
+                place.setCategory(rs.getString(3));
+                place.setAreaId(rs.getInt(4));
+                place.setRatings(rs.getDouble(5));
+                places.add(place);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return places;
     }
-
 }
