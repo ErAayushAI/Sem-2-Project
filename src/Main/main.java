@@ -1,25 +1,13 @@
 package Main;
 
-import DataBase.DataBaseManager;
 import Authentication.Login;
 
-import java.sql.Array;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) throws SQLException {
         Login l = new Login();
-        DataBase.DataBaseManager db = new DataBaseManager();
-        try {
-            db.getInstance();
-            db.getConnection();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("-----------------------------------------------------------------");
