@@ -6,6 +6,7 @@ import DataBase.BusDAO;
 //import DataBase.DataBaseManager;
 import DataBase.EmergencyServiceDAO;
 import DataBase.DataBaseManager;
+import Model.EmergencyService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,33 +23,33 @@ public class Login {
             e.printStackTrace();
         }
     }
-    Scanner sc=new Scanner(System.in);
-//        void loginMenu() {
-//            System.out.println("Welcome to the Login System");
-//            System.out.println("1. Admin Login");
-//            System.out.println("2. Customer Login");
-//            System.out.println("3. Customer Registration");
-//            System.out.print("Select an option: ");
-//
-//            int choice = sc.nextInt();
-//            sc.nextLine(); // Consume newline
-//
-//            switch (choice) {
-//                case 1:
-//                    adminLogin();
-//                    break;
-//                case 2:
-//                    customerLogin();
-//                    break;
-//                case 3:
-//                    customerRegistration();
-//                    break;
-//                default:
-//                    System.out.println("Invalid option!");
-//            }
-//        }
+   static Scanner sc=new Scanner(System.in);
+        public void loginMenu() throws SQLException {
+            System.out.println("Welcome to the Login System");
+            System.out.println("1. Admin Login");
+            System.out.println("2. Customer Login");
+            System.out.println("3. Customer Registration");
+            System.out.print("Select an option: ");
 
-    public boolean adminLogin() throws SQLException {
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    adminLogin();
+                    break;
+                case 2:
+                    customerLogin();
+                    break;
+                case 3:
+                    customerRegistration();
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+
+    public void adminLogin() throws SQLException {
         int attempts = 0;
         int MAX_ATTEMPTS = 3;
         int r=0;
@@ -85,15 +86,15 @@ public class Login {
         }
         if(r==1)
         {
-            return true;
+            adminDashboard();
         }
         else {
             System.out.println("Maximum login attempts reached. Please try again later.");
-            return false;
+            loginMenu();
         }
     }
 
-    public boolean customerLogin() throws SQLException {
+    public void customerLogin() throws SQLException {
         int attempts = 0;
         int MAX_ATTEMPTS = 3;
         int r=0;
@@ -132,11 +133,11 @@ public class Login {
         }
         if(r==1)
         {
-            return true;
+            customerDashboard();
         }
         else {
             System.out.println("Maximum login attempts reached. Please try again later.");
-            return false;
+            loginMenu();
         }
     }
 
@@ -185,194 +186,173 @@ public class Login {
         }
     }
 
-//        void adminDashboard() {
-//            System.out.println("\nAdmin Dashboard");
-//            System.out.println("1. View all customers");
-//            System.out.println("2. Area");
-//            System.out.println("3. Bus");
-//            System.out.println("4. EmergencyServices");
-//            System.out.println("5. Metro");
-//            System.out.println("6. ParkingLot");
-//            System.out.println("6. Route");
-//            System.out.println("6. Schedule");
-//            System.out.println("6. Station");
-//            System.out.println("6. Street");
-//            System.out.println("2. Logout");
-//            System.out.print("Select an option: ");
-//
-//            int choice = sc.nextInt();
-//            sc.nextLine(); // Consume newline
-//
-//            switch (choice) {
-//                case 1: {
-//                    viewAllCustomers();
-//                    adminDashboard(); // Show menu again
-//                    break;
-//                }
-//                case 2: {
-//                    DataBase.AreaDAO a=new AreaDAO();
-//                    System.out.println("1. To add Area");
-//                    System.out.println("2. To Update Area");
-//                    System.out.println("3. To delete Area");
-//                    System.out.println("4. To exit");
-//                    System.out.println("Enter choice: ");
-//                    int ch=sc.nextInt();
-//                    switch(ch) {
-//                        case 1: {
-//                            System.out.println("Enter area id: ");
-//                            boolean b = a.addArea(sc.nextInt(););
-//                            if (b) {
-//                                System.out.println("Added successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 2:
-//                        {
-//                            boolean b=a.updateArea();
-//                            if (b) {
-//                                System.out.println("updated successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 3:
-//                        {
-//                            boolean b= a.deleteArea();
-//                            if (b) {
-//                                System.out.println("Deleted successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 4:
-//                            System.out.println("Exiting.....");
-//                            break;
-//                        default:
-//                            System.out.println("Invalid option!");
-//                            break;
-//                    }
-//                    break;
-//                }
-//                case 3:
-//                {
-//                    DataBase.BusDAO a=new BusDAO();
-//                    System.out.println("Bus System");
-//                    System.out.println("1.Add bus");
-//                    System.out.println("2.Update bus Location");
-//                    System.out.println("3.Update bus Route");
-//                    System.out.println("4.Exit");
-//                    int ch=sc.nextInt();
-//                    switch (ch)
-//                    {
-//                        case 1: {
-//                            boolean b = a.addBus();
-//                            if (b) {
-//                                System.out.println("Added successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 2:
-//                        {
-//                            boolean b=a.updateBusLocation();
-//                            if (b) {
-//                                System.out.println("updated successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 3:
-//                        {
-//                            boolean b= a.updateBusRoute();
-//                            if (b) {
-//                                System.out.println("Updated successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 4:
-//                            System.out.println("Exiting.....");
-//                            break;
-//                        default:
-//                            System.out.println("Invalid option!");
-//                            break;
-//                    }
-//                    break;
-//                }
-//                case 4: {
-//                    DataBase.EmergencyServiceDAO a=new EmergencyServiceDAO();
-//                    System.out.println("1. To add EmergencyServices");
-//                    System.out.println("2.display all EmergencyServices");
-//                    System.out.println("3. To exit");
-//                    System.out.println("Enter choice: ");
-//                    int ch=sc.nextInt();
-//                    switch(ch) {
-//                        case 1: //add
-//                        {
-//                            boolean b = a.addEmergencyService();
-//                            if (b) {
-//                                System.out.println("Added successfully");
-//                            }
-//                            else {
-//                                System.out.println("Failed");
-//                            }
-//                            break;
-//                        }
-//                        case 2: //display
-//                        {
-//                            ArrayList b=a.getAllEmergencyService();
-//                            break;
-//                        }
-//                        case 3:
-//                            System.out.println("Exiting.....");
-//                            break;
-//                        default:
-//                            System.out.println("Invalid option!");
-//                            break;
-//                    }
-//                    break;
-//                }
-//                default:
-//                    System.out.println("Invalid option!");
-//                    adminDashboard();
-//            }
-//        }
+        void adminDashboard() throws SQLException {
+            boolean b;
+            System.out.println("\nAdmin Dashboard");
+            System.out.println("1. View all customers");
+            System.out.println("2. Area");
+            System.out.println("3. Bus");
+            System.out.println("4. EmergencyServices");
+            System.out.println("5. Metro");
+            System.out.println("6. ParkingLot");
+            System.out.println("6. Route");
+            System.out.println("6. Schedule");
+            System.out.println("6. Station");
+            System.out.println("6. Street");
+            System.out.println("2. Logout");
+            System.out.print("Select an option: ");
 
-//        void customerDashboard() {
-//            System.out.println("\nCustomer Dashboard");
-//            System.out.println("1. View profile");
-//            System.out.println("2. Logout");
-//            System.out.print("Select an option: ");
-//
-//            int choice = sc.nextInt();
-//            sc.nextLine(); // Consume newline
-//
-//            switch (choice) {
-//                case 1:
-//                    System.out.println("Profile information would be displayed here.");
-//                    customerDashboard(); // Show menu again
-//                    break;
-//                case 2:
-//                    System.out.println("Logged out successfully.");
-//                    break;
-//                default:
-//                    System.out.println("Invalid option!");
-//                    customerDashboard();
-//            }
-//        }
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    viewAllCustomers();
+                    adminDashboard(); // Show menu again
+                    break;
+                case 2:
+                    DataBase.AreaDAO a=new AreaDAO();
+                    System.out.println("1. To add Area");
+                    System.out.println("2. To Update Area");
+                    System.out.println("3. To delete Area");
+                    System.out.println("4. To exit");
+                    System.out.println("Enter choice: ");
+                    int ch2=sc.nextInt();
+                    switch(ch2) {
+                        case 1:
+                            System.out.println("Enter area id: ");
+                            b = a.addArea(sc);
+                            if (b) {
+                                System.out.println("Added successfully");
+                            } else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 2:
+                            b = a.updateArea(sc);
+                            if (b) {
+                                System.out.println("updated successfully");
+                            } else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 3:
+                            b = a.deleteArea(sc);
+                            if (b) {
+                                System.out.println("Deleted successfully");
+                            } else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 4:
+                            System.out.println("Exiting.....");
+                            break;
+                        default:
+                            System.out.println("Invalid option!");
+                            break;
+                    }
+                    break;
+                case 3:
+                    DataBase.BusDAO a3=new BusDAO();
+                    System.out.println("Bus System");
+                    System.out.println("1.Add bus");
+                    System.out.println("2.Update bus Location");
+                    System.out.println("3.Update bus Route");
+                    System.out.println("4.Exit");
+                    int ch3=sc.nextInt();
+                    switch (ch3)
+                    {
+                        case 1:
+                             b = a3.addBus(sc);
+                            if (b) {
+                                System.out.println("Added successfully");
+                            }
+                            else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 2:
+                             b=a3.updateBusLocation(sc);
+                            if (b) {
+                                System.out.println("updated successfully");
+                            }
+                            else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 3:
+                            b= a3.updateBusRoute(sc);
+                            if (b) {
+                                System.out.println("Updated successfully");
+                            }
+                            else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 4:
+                            System.out.println("Exiting.....");
+                            break;
+                        default:
+                            System.out.println("Invalid option!");
+                            break;
+                    }
+                    break;
+                case 4:
+                    DataBase.EmergencyServiceDAO a4=new EmergencyServiceDAO();
+                    System.out.println("1. To add EmergencyServices");
+                    System.out.println("2.display all EmergencyServices");
+                    System.out.println("3. To exit");
+                    System.out.println("Enter choice: ");
+                    int ch4=sc.nextInt();
+                    switch(ch4) {
+                        case 1: //add
+                             b = a4.addEmergencyService(sc);
+                            if (b) {
+                                System.out.println("Added successfully");
+                            } else {
+                                System.out.println("Failed");
+                            }
+                            break;
+                        case 2: //display
+                            ArrayList<EmergencyService> r = (ArrayList<EmergencyService>) a4.getAllEmergencyService();
+                            break;
+                        case 3:
+                            System.out.println("Exiting.....");
+                            break;
+                        default:
+                            System.out.println("Invalid option!");
+                            break;
+                    }
+                    break;
+
+                default:
+                    System.out.println("Invalid option!");
+                    adminDashboard();
+        }
+        }
+
+        public void customerDashboard() {
+            System.out.println("\nCustomer Dashboard");
+            System.out.println("1. View profile");
+            System.out.println("2. Logout");
+            System.out.print("Select an option: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Profile information would be displayed here.");
+                    customerDashboard(); // Show menu again
+                    break;
+                case 2:
+                    System.out.println("Logged out successfully.");
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+                    customerDashboard();
+            }
+        }
 
     public void viewAllCustomers() throws SQLException {
         String sql = "SELECT id, username, email, full_name, created_at FROM customers";
