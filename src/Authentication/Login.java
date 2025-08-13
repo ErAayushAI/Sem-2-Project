@@ -1,13 +1,12 @@
 package Authentication;
 
 
-import DataBase.AreaDAO;
-import DataBase.BusDAO;
+import DataBase.*;
 //import DataBase.DataBaseManager;
-import DataBase.EmergencyServiceDAO;
-import DataBase.DataBaseManager;
+import DataStructure.AreaEmergencyDispatcher;
 import Model.EmergencyService;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -114,7 +113,7 @@ public class Login {
 
             if (rs.next()) {
                 String dbPassword = rs.getString("password");
-                String fullName = rs.getString("full_name");
+                String fullName = rs.getString("fullName");
 
                 if (password.equals(dbPassword)) {
                     System.out.println("Customer login successful!");
@@ -157,7 +156,7 @@ public class Login {
         String fullName = sc.nextLine();
 
         // Check if username or email already exists
-        String checkSql = "SELECT id FROM customers WHERE username = ? OR email = ?";
+        String checkSql = "SELECT id FROM customer WHERE username = ? OR email = ?";
         PreparedStatement checkStmt = connection.prepareStatement(checkSql);
         checkStmt.setString(1, username);
         checkStmt.setString(2, email);
@@ -170,7 +169,7 @@ public class Login {
         }
 
         // Insert new customer (password stored in plain text - not recommended for production)
-        String insertSql = "INSERT INTO customers (username, password, email, full_name) VALUES (?, ?, ?, ?)";
+        String insertSql = "INSERT INTO customer (username, password, email, fullName) VALUES (?, ?, ?, ?)";
         PreparedStatement insertStmt = connection.prepareStatement(insertSql);
         insertStmt.setString(1, username);
         insertStmt.setString(2, password);
@@ -331,10 +330,16 @@ public class Login {
         }
         }
 
-        public void customerDashboard() {
+        public void customerDashboard() throws SQLException {
             System.out.println("\nCustomer Dashboard");
-            System.out.println("1. View profile");
-            System.out.println("2. Logout");
+            System.out.println("1. Travelling routes and schedules");
+            System.out.println("2. Emergency Service");
+            System.out.println("3. Book tickets");
+            System.out.println("4. Tourist places");
+            System.out.println("5. Parking lot");
+            System.out.println("6. submit Feedback");
+            System.out.println("7. file a complaint");
+            System.out.println("8. Logout");
             System.out.print("Select an option: ");
 
             int choice = sc.nextInt();
@@ -342,10 +347,82 @@ public class Login {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Profile information would be displayed here.");
-                    customerDashboard(); // Show menu again
+                    RouteDAO r=new RouteDAO();
+                    ScheduleDAO s=new ScheduleDAO();
+                    System.out.println("1. get all route");
+                    System.out.println("2. get route by id");
+                    System.out.println("3. get schedule by root id");
+                    int ch=sc.nextInt();
+                    switch (ch)
+                    {
+                        case 1: r.getAllRoutes(); break;
+                        case 2:r.getRouteById(sc);break;
+                        case 3:s.getScheduleByRouteId(sc);break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
                     break;
                 case 2:
+                    EmergencyServiceDAO e=new EmergencyServiceDAO();
+                    AreaEmergencyDispatcher a=new AreaEmergencyDispatcher(e.getAllEmergencyService());
+                    System.out.println("1. get all Emergency services");
+                    System.out.println("2. get Emergency services by type");
+                    System.out.println("3. call Emergency service");
+                    ch=sc.nextInt();
+                    switch(ch)
+                    {
+                        case 1:
+                            e.getAllEmergencyService(); break;
+                        case 2:e.getEmergencyServiceByType(sc);
+                        case 3:
+                            a.dispatchEmergency(sc.next(),sc.nextInt()); break; //scanner class implement
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+                case 3:
+                    TicketDAO t=new TicketDAO();
+                    System.out.println("1.book ticket");
+                    System.out.println("2.search ticket");
+                    ch=sc.nextInt();
+                    switch(ch)
+                    {
+                        case 1: t.addTicket(sc); break;//implement commit and rollback inside the method\
+                        case 2: t.searchTickets(sc);break;
+                        default:
+                            System.out.println("Enter valid input");
+
+                    }
+                    break;
+                case 4:
+                    TouristPlaceDAO tt=new TouristPlaceDAO();
+                    System.out.println("1.Display all places");
+                    System.out.println("2.Display top rated places");
+                    System.out.println("3.Display places by category");
+                    System.out.println("4.give feedback for places");
+                    ch=sc.nextInt();
+                    switch (ch)
+                    {
+                        case 1: tt.displayAllPlaces();break;
+                        case 2: tt.displayTopRatedPlaces(sc);break;
+                        case 3: tt.displayPlacesByCategory(sc);break;
+                        case 4: tt.applyFeedback(sc);break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+                case 5:
+                    //parking lot mai ek aur method jisme book parking lot aur occupancy change ek saath ho
+                    break;
+                case 6:
+                    FeedbackDAO f=new FeedbackDAO();
+                    f.submitFeedback(sc);
+                    break;
+                case 7:
+                    ComplaintDAO c=new ComplaintDAO();
+                    c.fileComplaint(sc);
+                    break;
+                case 8:
                     System.out.println("Logged out successfully.");
                     break;
                 default:
