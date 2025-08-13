@@ -1,27 +1,32 @@
 package Model;
 
+import DataBase.EmergencyServiceDAO;
+
 public class EmergencyService {
     int id;
     String name;
     String type;
     int areaId;
     long contactNumber;
+    int availableVehicles;
 
     /**
      * Constructor for EmergencyService Class.
      *
-     * @param id            for service id
-     * @param name          for service name
-     * @param type          for service type (for example =  Hospital, Police, Fire)
-     * @param areaId        for location of service
-     * @param contactNumber for service contact number
+     * @param id                for service id
+     * @param name              for service name
+     * @param type              for service type (for example =  Hospital, Police, Fire)
+     * @param areaId            for location of service
+     * @param contactNumber     for service contact number
+     * @param availableVehicles for count vehicles that service have
      */
-    public EmergencyService(int id, String name, String type, int areaId, long contactNumber) {
+    public EmergencyService(int id, String name, String type, int areaId, long contactNumber, int availableVehicles) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.areaId = areaId;
         this.contactNumber = contactNumber;
+        this.availableVehicles = availableVehicles;
     }
 
     /**
@@ -76,6 +81,15 @@ public class EmergencyService {
     }
 
     /**
+     * getter for available service vehicle.
+     *
+     * @return count of vehicle
+     */
+    public int getAvailableVehicles() {
+        return availableVehicles;
+    }
+
+    /**
      * setter for service id.
      *
      * @param id for id of service
@@ -118,5 +132,56 @@ public class EmergencyService {
      */
     public void setContactNumber(long contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    /**
+     * setter for count of service vehicle.
+     *
+     * @param availableVehicles number of vehicles
+     */
+    public void setAvailableVehicles(int availableVehicles) {
+        this.availableVehicles = availableVehicles;
+    }
+
+    /**
+     * To Find how many Vehicle are left.
+     *
+     * @return true if Vehicle is available
+     */
+    public boolean dispatchVehicle() {
+        if (availableVehicles > 0) {
+            availableVehicles--;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This Method Allot the service and add again into available service after 10sec.
+     */
+    public void dispatchWithDelay(EmergencyServiceDAO dao) {
+        if (availableVehicles > 0) {
+            availableVehicles--;
+            dao.updateVehicleCount(id, availableVehicles); // Update DB
+            System.out.println("Vehicle dispatched from " + name + " (" + type + ")");
+
+            Thread returnThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(10000); // Wait 10 seconds
+                        availableVehicles++;
+                        dao.updateVehicleCount(id, availableVehicles); // Update DB again
+                        System.out.println("Vehicle returned to " + name + " (" + type + ")");
+                    } catch (InterruptedException e) {
+                        System.out.println("Dispatch interrupted for " + name);
+                    }
+                }
+            });
+
+            returnThread.start();
+        } else {
+            System.out.println("No vehicles available at " + name);
+        }
     }
 }

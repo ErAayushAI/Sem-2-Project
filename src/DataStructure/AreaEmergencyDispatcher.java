@@ -1,0 +1,58 @@
+package DataStructure;
+
+import DataBase.EmergencyServiceDAO;
+import Model.EmergencyService;
+
+import java.util.List;
+
+//To simulate emergency response based on user location and vehicle availability
+//This demonstrates understanding of data structures like lists, object state management, and traversal algorithms.
+public class AreaEmergencyDispatcher {
+
+    List<EmergencyService> allServices;
+
+    /**
+     * Constructor for Area Dispatcher.
+     *
+     * @param services list of all services
+     */
+    public AreaEmergencyDispatcher(List<EmergencyService> services) {
+        this.allServices = services;
+    }
+
+    /**
+     * To Allot an Emergency Vehicle to nearest area.
+     *
+     * @param type       of emergency service which user wants
+     * @param userAreaId in which area this service is needed
+     * @return true if service is available
+     */
+    public boolean dispatchEmergency(String type, int userAreaId) {
+        System.out.println("Emergency Request: " + type + " in Area " + userAreaId);
+        EmergencyServiceDAO dao = new EmergencyServiceDAO();
+
+        for (EmergencyService service : allServices) {
+            if (service.getType().equalsIgnoreCase(type) && service.getAreaId() == userAreaId) {
+                if (service.getAvailableVehicles() > 0) {
+                    service.dispatchWithDelay(dao);
+                    return true;
+                } else {
+                    System.out.println("⚠️ No vehicles left at " + service.getName());
+                }
+            }
+        }
+
+        for (EmergencyService service : allServices) {
+            if (service.getType().equalsIgnoreCase(type) && service.getAreaId() != userAreaId) {
+                if (service.getAvailableVehicles() > 0) {
+                    service.dispatchWithDelay(dao);
+                    return true;
+                }
+            }
+        }
+
+        System.out.println("No available emergency vehicles for type: " + type);
+        return false;
+    }
+
+}

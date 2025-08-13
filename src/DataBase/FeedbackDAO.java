@@ -1,5 +1,6 @@
 package DataBase;
 
+import DataStructure.FeedbackLinkedList;
 import Model.Feedback;
 
 import java.sql.*;
@@ -98,5 +99,19 @@ public class FeedbackDAO {
             e.printStackTrace();
         }
         return avg;
+    }
+
+    /**
+     * To Assign Feedbacks into Linked List of Feedback.
+     * To search, display feedbacks using DS.
+     */
+    public void loadFeedbacksIntoLinkedList() {
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        List<Feedback> feedbacks = feedbackDAO.reviewLatestFeedback();
+        FeedbackLinkedList list = new FeedbackLinkedList();
+        for (Feedback fb : feedbacks) {
+            list.addFeedback(fb);
+        }
+        list.displayFeedbacks();
     }
 }

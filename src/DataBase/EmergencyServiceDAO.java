@@ -27,7 +27,7 @@ public class EmergencyServiceDAO {
     public boolean addEmergencyService(Scanner scanner) {
         System.out.println("---------- ADD EMERGENCY SERVICE ----------");
         System.out.println();
-        String query = "INSERT INTO EmergencyService (Name, Type, AreaId, ContactNumber) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO EmergencyService (Name, Type, AreaId, ContactNumber, AvailableVehicles) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Name: ");
@@ -46,6 +46,9 @@ public class EmergencyServiceDAO {
                 number = scanner.nextLong();
                 stmt.setLong(4, number);
             } while (isValidContactNumber(number));
+
+            System.out.print("Enter Vehicle Count: ");
+            stmt.setInt(5, scanner.nextInt());
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -77,6 +80,7 @@ public class EmergencyServiceDAO {
                 service.setType(rs.getString(3));
                 service.setAreaId(rs.getInt(4));
                 service.setContactNumber(rs.getLong(5));
+                service.setAvailableVehicles(rs.getInt(6));
                 return service;
             }
         } catch (SQLException e) {
@@ -109,6 +113,7 @@ public class EmergencyServiceDAO {
                 service.setType(rs.getString(3));
                 service.setAreaId(rs.getInt(4));
                 service.setContactNumber(rs.getLong(5));
+                service.setAvailableVehicles(rs.getInt(6));
                 return service;
             }
         } catch (SQLException e) {
@@ -136,6 +141,7 @@ public class EmergencyServiceDAO {
                 service.setType(rs.getString(3));
                 service.setAreaId(rs.getInt(4));
                 service.setContactNumber(rs.getLong(5));
+                service.setAvailableVehicles(rs.getInt(6));
                 services.add(service);
             }
         } catch (SQLException e) {
@@ -164,6 +170,23 @@ public class EmergencyServiceDAO {
         }
 
         return false;
+    }
+
+    /**
+     * To Update Emergency Service Vehicles Count.
+     *
+     * @param serviceId for service id
+     * @param newCount  of Service Vehicles
+     */
+    public void updateVehicleCount(int serviceId, int newCount) {
+        String query = "UPDATE EmergencyService SET AvailableVehicles = ? WHERE Id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, newCount);
+            stmt.setInt(2, serviceId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
