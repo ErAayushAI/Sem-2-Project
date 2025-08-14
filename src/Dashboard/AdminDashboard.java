@@ -36,7 +36,6 @@ public class AdminDashboard {
             System.out.print("Select an option: ");
 
             int choice = sc.nextInt();
-            sc.nextLine(); // consume newline
 
             switch (choice) {
                 case 1:

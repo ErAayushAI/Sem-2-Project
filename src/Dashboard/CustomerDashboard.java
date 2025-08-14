@@ -31,9 +31,7 @@ public class CustomerDashboard {
             System.out.println("7. File a Complaint");
             System.out.println("8. Logout");
             System.out.print("Select an option: ");
-
             int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
