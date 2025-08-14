@@ -6,7 +6,6 @@ import DataBase.*;
 import DataStructure.AreaEmergencyDispatcher;
 import Model.EmergencyService;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -194,11 +193,12 @@ public class Login {
             System.out.println("4. EmergencyServices");
             System.out.println("5. Metro");
             System.out.println("6. ParkingLot");
-            System.out.println("6. Route");
-            System.out.println("6. Schedule");
-            System.out.println("6. Station");
-            System.out.println("6. Street");
-            System.out.println("2. Logout");
+            System.out.println("7. Route");
+            System.out.println("8. add Schedule");
+            System.out.println("9. Station");
+            System.out.println("10. Street");
+            System.out.println("11. Tourist place");
+            System.out.println("12. Logout");
             System.out.print("Select an option: ");
 
             int choice = sc.nextInt();
@@ -216,8 +216,8 @@ public class Login {
                     System.out.println("3. To delete Area");
                     System.out.println("4. To exit");
                     System.out.println("Enter choice: ");
-                    int ch2=sc.nextInt();
-                    switch(ch2) {
+                    int ch5=sc.nextInt();
+                    switch(ch5) {
                         case 1:
                             System.out.println("Enter area id: ");
                             b = a.addArea(sc);
@@ -245,6 +245,7 @@ public class Login {
                             break;
                         case 4:
                             System.out.println("Exiting.....");
+                            adminDashboard();
                             break;
                         default:
                             System.out.println("Invalid option!");
@@ -258,8 +259,8 @@ public class Login {
                     System.out.println("2.Update bus Location");
                     System.out.println("3.Update bus Route");
                     System.out.println("4.Exit");
-                    int ch3=sc.nextInt();
-                    switch (ch3)
+                    ch5=sc.nextInt();
+                    switch (ch5)
                     {
                         case 1:
                              b = a3.addBus(sc);
@@ -290,6 +291,7 @@ public class Login {
                             break;
                         case 4:
                             System.out.println("Exiting.....");
+                            adminDashboard();
                             break;
                         default:
                             System.out.println("Invalid option!");
@@ -302,8 +304,8 @@ public class Login {
                     System.out.println("2.display all EmergencyServices");
                     System.out.println("3. To exit");
                     System.out.println("Enter choice: ");
-                    int ch4=sc.nextInt();
-                    switch(ch4) {
+                    ch5=sc.nextInt();
+                    switch(ch5) {
                         case 1: //add
                              b = a4.addEmergencyService(sc);
                             if (b) {
@@ -317,13 +319,147 @@ public class Login {
                             break;
                         case 3:
                             System.out.println("Exiting.....");
+                            adminDashboard();
                             break;
                         default:
                             System.out.println("Invalid option!");
                             break;
                     }
                     break;
+                case 5:
+                    MetroDAO m=new MetroDAO();
+                    System.out.println("1. Add metro");
+                    System.out.println("2. Get all metro");
+                    System.out.println("3. update metro location");
+                    System.out.println("4. update metro route");
+                    System.out.println("5. to Exit");
+                    ch5= sc.nextInt();
+                    switch(ch5)
+                    {
+                        case 1: m.addMetro(sc);break;
+                        case 2: m.getAllMetros();break;
+                        case 3: m.updateMetroLocation(sc);break;
+                        case 4: m.updateMetroRoute(sc);break;
+                        case 5:
+                            System.out.println("Exiting.....");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
 
+                case 6:
+                    ParkingLotDAO p=new ParkingLotDAO();
+                    System.out.println("1. get all parking lots");
+                    System.out.println("2. to add parking lot");
+                    System.out.println("3. to update parking occupancy");
+                    System.out.println("4. to exit");
+                    ch5=sc.nextInt();
+                    switch(ch5)
+                    {
+                        case 1: p.getAllParkingLots();break;
+                        case 2: p.addParkingLot(sc);break;
+                        case 3: p.updateParkingOccupancy(sc);break;
+                        case 4:
+                            System.out.println("Exiting.....");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+
+                case 7:
+                    RouteDAO r=new RouteDAO();
+                    System.out.println("1. get all routes");
+                    System.out.println("2. add a route");
+                    System.out.println("2. to exit");
+                    ch5=sc.nextInt();
+                    switch (ch5)
+                    {
+                        case 1: r.getAllRoutes();break;
+                        case 2: r.addRoute(sc);break;
+                        case 3:
+                            System.out.println("Exiting.....");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+
+                case 8:
+                    ScheduleDAO s=new ScheduleDAO();
+                    s.addSchedule(sc);
+                    adminDashboard();
+                    break;
+
+                case 9:
+                    StationDAO st=new StationDAO();
+                    System.out.println("1. get all stops");
+                    System.out.println("2. add station");
+                    System.out.println("3. to exit");
+                    ch5=sc.nextInt();
+                    switch(ch5)
+                    {
+                        case 1: st.getAllStops();break;
+                        case 2: st.addStation(sc); break;
+                        case 3:
+                            System.out.println("Exiting......");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+
+                case 10:
+                    StreetDAO sr=new StreetDAO();
+                    System.out.println("1. get all street");
+                    System.out.println("2. add street");
+                    System.out.println("3. update street");
+                    System.out.println("4. delete street");
+                    System.out.println("5. to exit");
+                    ch5=sc.nextInt();
+                    switch(ch5)
+                    {
+                        case 1:sr.getAllStreet();break;
+                        case 2:sr.addStreet(sc);break;
+                        case 3:sr.updateStreet(sc);break;
+                        case 4:sr.deleteStreet(sc);break;
+                        case 5:
+                            System.out.println("Exiting....");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+
+                case 11:
+                    TouristPlaceDAO to=new TouristPlaceDAO();
+                    System.out.println("1. get all tourist places");
+                    System.out.println("2. add tourist places");
+                    System.out.println("3. to exit");
+                    ch5=sc.nextInt();
+                    switch(ch5)
+                    {
+                        case 1: to.displayAllPlaces();break;
+                        case 2: to.addPlace(); break;
+                        case 3:
+                            System.out.println("Exiting......");
+                            adminDashboard();
+                            break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
+                    break;
+
+                case 12:
+                    System.out.println("logged out successfully");
+                    loginMenu();
+                    break;
                 default:
                     System.out.println("Invalid option!");
                     adminDashboard();
@@ -352,12 +488,17 @@ public class Login {
                     System.out.println("1. get all route");
                     System.out.println("2. get route by id");
                     System.out.println("3. get schedule by root id");
+                    System.out.println("4. to exit");
                     int ch=sc.nextInt();
                     switch (ch)
                     {
                         case 1: r.getAllRoutes(); break;
                         case 2:r.getRouteById(sc);break;
                         case 3:s.getScheduleByRouteId(sc);break;
+                        case 4:
+                            System.out.println("Exiting....");
+                            customerDashboard();
+                            break;
                         default:
                             System.out.println("Enter valid input");
                     }
@@ -368,6 +509,7 @@ public class Login {
                     System.out.println("1. get all Emergency services");
                     System.out.println("2. get Emergency services by type");
                     System.out.println("3. call Emergency service");
+                    System.out.println("4. to exit");
                     ch=sc.nextInt();
                     switch(ch)
                     {
@@ -376,6 +518,10 @@ public class Login {
                         case 2:e.getEmergencyServiceByType(sc);
                         case 3:
                             a.dispatchEmergency(sc.next(),sc.nextInt()); break; //scanner class implement
+                        case 4:
+                            System.out.println("Exiting....");
+                            customerDashboard();
+                            break;
                         default:
                             System.out.println("Enter valid input");
                     }
@@ -384,11 +530,16 @@ public class Login {
                     TicketDAO t=new TicketDAO();
                     System.out.println("1.book ticket");
                     System.out.println("2.search ticket");
+                    System.out.println("3. to exit");
                     ch=sc.nextInt();
                     switch(ch)
                     {
                         case 1: t.addTicket(sc); break;//implement commit and rollback inside the method\
                         case 2: t.searchTickets(sc);break;
+                        case 3:
+                            System.out.println("Exiting....");
+                            customerDashboard();
+                            break;
                         default:
                             System.out.println("Enter valid input");
 
@@ -400,6 +551,7 @@ public class Login {
                     System.out.println("2.Display top rated places");
                     System.out.println("3.Display places by category");
                     System.out.println("4.give feedback for places");
+                    System.out.println("5. to exit");
                     ch=sc.nextInt();
                     switch (ch)
                     {
@@ -407,6 +559,10 @@ public class Login {
                         case 2: tt.displayTopRatedPlaces(sc);break;
                         case 3: tt.displayPlacesByCategory(sc);break;
                         case 4: tt.applyFeedback(sc);break;
+                        case 5:
+                            System.out.println("Exiting....");
+                            customerDashboard();
+                            break;
                         default:
                             System.out.println("Enter valid input");
                     }
@@ -417,13 +573,16 @@ public class Login {
                 case 6:
                     FeedbackDAO f=new FeedbackDAO();
                     f.submitFeedback(sc);
+                    customerDashboard();
                     break;
                 case 7:
                     ComplaintDAO c=new ComplaintDAO();
                     c.fileComplaint(sc);
+                    customerDashboard();
                     break;
                 case 8:
                     System.out.println("Logged out successfully.");
+                    loginMenu();
                     break;
                 default:
                     System.out.println("Invalid option!");
