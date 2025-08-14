@@ -241,7 +241,7 @@ public class Display {
 
         System.out.println("\n🌐 Area Details");
         System.out.println("--------------------------------------------------");
-        System.out.printf("ID: %d%n", area.getId());
+        System.out.printf("ID: %d%n", area.getAreaId());
         System.out.printf("Name: %s%n", area.getName());
         System.out.printf("Latitude: %.6f%n", area.getLatitude());
         System.out.printf("Longitude: %.6f%n", area.getLongitude());
