@@ -233,12 +233,4 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
-    public static void printCustomers(List<Customer> customers) {
-        // Similar structure for customer list
-    }
-
-    public static void printComplaints(List<Complaint> complaints) {
-        // Similar structure for complaints
-    }
-
 }
