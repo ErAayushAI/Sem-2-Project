@@ -234,7 +234,7 @@ public class AdminDashboard {
                         System.out.println("\n🅿️ Parking Lot Management");
                         System.out.println("1. View All Parking Lots");
                         System.out.println("2. Add Parking Lot");
-                        System.out.println("3. Update Parking Occupancy");
+                        System.out.println("3. Update Parking Capacity");
                         System.out.println("4. Exit to Dashboard");
 
                         System.out.print("Enter choice: ");
@@ -249,7 +249,7 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (parkingDAO.updateParkingOccupancy(sc)) System.out.println("✅ Added successfully");
+                                if (parkingDAO.updateParkingCapacity(sc)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:

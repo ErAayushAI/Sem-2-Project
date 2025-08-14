@@ -111,13 +111,13 @@ public class ParkingLotDAO {
      * @param scanner object for user input
      * @return true if Parking Lot is Updated
      */
-    public boolean updateParkingOccupancy(Scanner scanner) {
+    public boolean updateParkingCapacity(Scanner scanner) {
         System.out.println("---------- UPDATE PARKING LOT ----------");
         System.out.println();
-        String query = "UPDATE ParkingLot SET CurrentOccupancy = ? WHERE Id = ?";
+        String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Occupancy: ");
+            System.out.print("Enter new Capacity: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Lot Id to Update: ");
