@@ -233,4 +233,100 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    public static void printArea(Area area) {
+        if (area == null) {
+            System.out.println("⚠️ Area not found.");
+            return;
+        }
+
+        System.out.println("\n🌐 Area Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", area.getId());
+        System.out.printf("Name: %s%n", area.getName());
+        System.out.printf("Latitude: %.6f%n", area.getLatitude());
+        System.out.printf("Longitude: %.6f%n", area.getLongitude());
+        System.out.printf("Emergency Point: %s%n", area.isEmergencyPoint() ? "✅ Yes" : "❌ No");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printStreet(Street street) {
+        if (street == null) {
+            System.out.println("⚠️ Street not found.");
+            return;
+        }
+
+        System.out.println("\n🛣️ Street Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", street.getId());
+        System.out.printf("Start Area ID: %d%n", street.getStartAreaId());
+        System.out.printf("End Area ID: %d%n", street.getEndAreaId());
+        System.out.printf("Distance: %.2f km%n", street.getDistance());
+        System.out.printf("One Way: %s%n", street.isOneWay() ? "➡️ Yes" : "↔️ No");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printStation(Station station) {
+        if (station == null) {
+            System.out.println("⚠️ Station not found.");
+            return;
+        }
+
+        System.out.println("\n🚏 Station Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", station.getId());
+        System.out.printf("Name: %s%n", station.getName());
+        System.out.printf("Area ID: %d%n", station.getAreaId());
+        System.out.printf("Bus Station: %s%n", station.isBusStation() ? "✅ Yes" : "❌ No");
+        System.out.printf("Metro Station: %s%n", station.isMetroStation() ? "✅ Yes" : "❌ No");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printMetro(Metro metro) {
+        if (metro == null) {
+            System.out.println("⚠️ Metro not found.");
+            return;
+        }
+
+        System.out.println("\n🚇 Metro Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", metro.getId());
+        System.out.printf("Train Name: %s%n", metro.getTrainName());
+        System.out.printf("Capacity: %d%n", metro.getCapacity());
+        System.out.printf("Current Route ID: %s%n", metro.getCurrentRouteID() != null ? metro.getCurrentRouteID() : "—");
+        System.out.printf("Current Area ID: %s%n", metro.getCurrentAreaID() != null ? metro.getCurrentAreaID() : "—");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printEmergencyService(EmergencyService es) {
+        if (es == null) {
+            System.out.println("⚠️ Emergency service not found.");
+            return;
+        }
+
+        System.out.println("\n🚨 Emergency Service Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", es.getId());
+        System.out.printf("Name: %s%n", es.getName());
+        System.out.printf("Type: %s%n", es.getType());
+        System.out.printf("Area ID: %d%n", es.getAreaId());
+        System.out.printf("Contact Number: %d%n", es.getContactNumber());
+        System.out.printf("Available Vehicles: %d%n", es.getAvailableVehicles());
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printBus(Bus bus) {
+        if (bus == null) {
+            System.out.println("⚠️ Bus not found.");
+            return;
+        }
+
+        System.out.println("\n🚌 Bus Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", bus.getId());
+        System.out.printf("License Plate: %s%n", bus.getLicensePlate());
+        System.out.printf("Capacity: %d%n", bus.getCapacity());
+        System.out.printf("Current Route ID: %s%n", bus.getCurrentRouteId() != null ? bus.getCurrentRouteId() : "—");
+        System.out.printf("Current Area ID: %s%n", bus.getCurrentAreaID() != null ? bus.getCurrentAreaID() : "—");
+        System.out.println("--------------------------------------------------");
+    }
 }
