@@ -16,13 +16,17 @@ public class MainMenu {
         this.connection = connection;
     }
 
+    static {
+        System.out.println("-------------------------------------------------");
+        System.out.println("          Welcome to Smart City Hub              ");
+        System.out.println("-------------------------------------------------");
+    }
+
     public void start() throws SQLException {
         LoginManager loginManager = new LoginManager(connection, scanner);
 
         while (true) {
-            System.out.println("-------------------------------------------------");
-            System.out.println("          Welcome to Smart City Hub              ");
-            System.out.println("-------------------------------------------------");
+            System.out.println("-----------------------------");
             System.out.println("1. Admin Login");
             System.out.println("2. Customer Login");
             System.out.println("3. Customer Registration");
