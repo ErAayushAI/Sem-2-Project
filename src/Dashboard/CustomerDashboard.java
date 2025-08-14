@@ -138,7 +138,6 @@ public class CustomerDashboard {
                     List<TouristPlace> places;
                     boolean placeLoop = true;
 
-                    System.out.print("Enter choice: ");
                     while (placeLoop) {
                         System.out.println("\n🏞️ Tourist Places");
                         System.out.println("1. View All Places");
@@ -147,6 +146,7 @@ public class CustomerDashboard {
                         System.out.println("4. Give Feedback");
                         System.out.println("5. Back");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -178,7 +178,6 @@ public class CustomerDashboard {
                     ParkingLot p = new ParkingLot();
                     boolean parkingLoop = true;
 
-                    System.out.print("Enter choice: ");
                     while (parkingLoop) {
                         System.out.println("\n🅿️ Parking Lot");
                         System.out.println("1. View Available Lots");
@@ -186,6 +185,7 @@ public class CustomerDashboard {
                         System.out.println("3. Book Slot");
                         System.out.println("4. Back");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
