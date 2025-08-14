@@ -106,7 +106,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
-    public static void printParkingLots(List<ParkingLot> parkingList){
+    public static void printParkingLots(List<ParkingLot> parkingList) {
         if (parkingList == null || parkingList.isEmpty()) {
             System.out.println("⚠️ No parking lot data found.");
             return;
@@ -328,5 +328,77 @@ public class Display {
         System.out.printf("Current Route ID: %s%n", bus.getCurrentRouteId() != null ? bus.getCurrentRouteId() : "—");
         System.out.printf("Current Area ID: %s%n", bus.getCurrentAreaID() != null ? bus.getCurrentAreaID() : "—");
         System.out.println("--------------------------------------------------");
+    }
+
+    public static void printComplaintTable(List<Complaint> complaints) {
+        if (complaints == null || complaints.isEmpty()) {
+            System.out.println("⚠️ No complaints to display.");
+            return;
+        }
+
+        String format = "| %-4s | %-15s | %-7s | %-9s | %-45s |%n";
+        String separator = String.format("+%s+", "-".repeat(86));
+
+        System.out.println("\n📋 Complaint Summary Table");
+        System.out.println(separator);
+        System.out.format(format, "ID", "Department", "UserID", "Status", "Issue (Preview)");
+        System.out.println(separator);
+
+        for (Complaint c : complaints) {
+            String issuePreview = getIssuePreview(c.getIssue(), 45);
+            String statusStr = c.getStatus() ? "Resolved" : "Pending";
+            System.out.format(format, c.getId(), c.getDepartment(), c.getUserId(), statusStr, issuePreview);
+        }
+
+        System.out.println(separator);
+        System.out.println("🔍 Use viewFullIssue(id) to see complete issue text.\n");
+    }
+
+    /**
+     * Helper method to Print Issue.
+     *
+     * @param issue     in text
+     * @param maxLength to print length in console
+     * @return issue with max length
+     */
+    private static String getIssuePreview(String issue, int maxLength) {
+        if (issue == null || issue.isEmpty()) return "(No issue)";
+        issue = issue.replaceAll("\\r?\\n", " "); // Flatten line breaks
+        return issue.length() <= maxLength ? issue : issue.substring(0, maxLength - 3) + "...";
+    }
+
+    public static void viewFullIssue(List<Complaint> complaints, int id) {
+        for (Complaint c : complaints) {
+            if (c.getId() == id) {
+                System.out.println("\n📝 Full Issue for Complaint ID: " + id);
+                System.out.println("--------------------------------------------------");
+                System.out.println(indentMultilineText(c.getIssue(), "--> "));
+                System.out.println("--------------------------------------------------");
+                return;
+            }
+        }
+        System.out.println("❌ Complaint with ID " + id + " not found.");
+    }
+
+    /**
+     * Helper Method to Print Full issue.
+     *
+     * @param text   issue full text
+     * @param indent if it contains new line then arrow will be print after that new line will be printed
+     * @return formated issue
+     */
+    private static String indentMultilineText(String text, String indent) {
+        if (text == null || text.isEmpty()) return indent + "(No issue description)";
+
+        //Matches carriage return (\r)
+        //Means "optional" — so it matches with or without \r
+        //Matches newline (\n)
+        String[] lines = text.split("\\r?\\n");
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(indent).append(line).append("\n");
+        }
+        return sb.toString();
     }
 }

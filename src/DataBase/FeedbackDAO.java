@@ -82,15 +82,14 @@ public class FeedbackDAO {
     /**
      * To find average of ratings.
      *
-     * @param scanner object for user input
+     * @param placeId for find avg of ratings given by the user
      * @return average of rating given by user on particular place
      */
-    public double getAverageRating(Scanner scanner) {
+    public double getAverageRating(int placeId) {
         double avg = 0.0;
         String query = "SELECT AVG(Rating) FROM Feedback WHERE placeId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            System.out.print("Enter Place Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            stmt.setInt(1, placeId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 avg = rs.getDouble(1);
@@ -106,8 +105,22 @@ public class FeedbackDAO {
      * To search, display feedbacks using DS.
      */
     public void loadFeedbacksIntoLinkedList() {
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        List<Feedback> feedbacks = feedbackDAO.reviewLatestFeedback();
+        List<Feedback> feedbacks = new ArrayList<>();
+        String query = "SELECT * FROM Feedback";
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Feedback fb = new Feedback();
+                fb.setId(rs.getInt(1));
+                fb.setUserId(rs.getInt(2));
+                fb.setPlaceId(rs.getInt(3));
+                fb.setComments(rs.getString(4));
+                fb.setRating(rs.getInt(5));
+                feedbacks.add(fb);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         FeedbackLinkedList list = new FeedbackLinkedList();
         for (Feedback fb : feedbacks) {
             list.addFeedback(fb);

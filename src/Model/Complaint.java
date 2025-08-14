@@ -23,6 +23,11 @@ public class Complaint {
     }
 
     /**
+     * Default Constructor.
+     */
+    public Complaint() {}
+
+    /**
      * getter for complaint id.
      *
      * @return complaint id
@@ -65,6 +70,42 @@ public class Complaint {
      */
     public Boolean getStatus() {
         return status;
+    }
+
+    /**
+     * setter for set complaint id.
+     *
+     * @param id complaint's id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * setter for complaint department.
+     *
+     * @param department name
+     */
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    /**
+     * setter for user who file a Complaint.
+     *
+     * @param userId id of user
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * setter for issue which filed in complaint.
+     *
+     * @param issue content
+     */
+    public void setIssue(String issue) {
+        this.issue = issue;
     }
 
     /**

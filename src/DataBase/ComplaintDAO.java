@@ -4,6 +4,8 @@ import DataStructure.CustomQueue;
 import Model.Complaint;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ComplaintDAO {
@@ -54,6 +56,31 @@ public class ComplaintDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * To get all the complaint.
+     *
+     * @return list of complaint
+     */
+    public List<Complaint> getAllComplaint() {
+        List<Complaint> complaints = new ArrayList<>();
+        String query = "SELECT * FROM complaint";
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Complaint complaint = new Complaint();
+                complaint.setId(rs.getInt(1));
+                complaint.setDepartment(rs.getString(2));
+                complaint.setUserId(rs.getInt(3));
+                complaint.setIssue(rs.getString(4));
+                complaint.setStatus(rs.getBoolean(5));
+                complaints.add(complaint);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return complaints;
     }
 
     /**
