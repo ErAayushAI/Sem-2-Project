@@ -87,8 +87,6 @@ public class BusDAO {
      * @return list of Buses
      */
     public List<Bus> getAllBuses() {
-        System.out.println("---------- ALL BUS ----------");
-        System.out.println();
         List<Bus> buses = new ArrayList<>();
         String query = "SELECT * FROM Bus";
         try (Statement stmt = connection.createStatement()) {

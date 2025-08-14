@@ -91,8 +91,6 @@ public class AreaDAO {
      * @return list of all the area
      */
     public List<Area> getAllArea() {
-        System.out.println("---------- ALL AREA ----------");
-        System.out.println();
         List<Area> areas = new ArrayList<>();
         String query = "SELECT * FROM Area";
         try (Statement stmt = connection.createStatement()) {

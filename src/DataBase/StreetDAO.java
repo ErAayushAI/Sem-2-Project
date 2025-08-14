@@ -118,8 +118,6 @@ public class StreetDAO {
      * @return list of Streets
      */
     public List<Street> getAllStreet() {
-        System.out.println("---------- ALL STREET ----------");
-        System.out.println();
         List<Street> streets = new ArrayList<>();
         String query = "SELECT * FROM Street";
         try (Statement stmt = connection.createStatement()) {

@@ -86,8 +86,6 @@ public class RouteDAO {
      * @return list of all the Routes
      */
     public List<Route> getAllRoutes() {
-        System.out.println("---------- ALL ROUTES ----------");
-        System.out.println();
         List<Route> routes = new ArrayList<>();
         String query = "SELECT * FROM Route";
         try (Statement stmt = connection.createStatement()) {

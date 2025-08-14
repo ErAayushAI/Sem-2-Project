@@ -30,6 +30,7 @@ public class AreaEmergencyDispatcher {
         System.out.println("---------- EMERGENCY SERVICE DISPATCHER ----------");
         System.out.println();
         System.out.print("Enter Service Type: ");
+        scanner.nextLine();
         String type = scanner.nextLine().trim().toUpperCase();
         System.out.print("Enter Area ID: ");
         int userAreaId = scanner.nextInt();

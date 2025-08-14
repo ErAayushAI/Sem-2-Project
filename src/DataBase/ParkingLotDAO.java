@@ -86,8 +86,6 @@ public class ParkingLotDAO {
      * @return list of Parking lots
      */
     public List<ParkingLot> getAllParkingLots() {
-        System.out.println("---------- ALL PARKING LOT ----------");
-        System.out.println();
         List<ParkingLot> lots = new ArrayList<>();
         String query = "SELECT * FROM ParkingLot";
         try (Statement stmt = connection.createStatement()) {
@@ -139,8 +137,6 @@ public class ParkingLotDAO {
      * @return list of Parking Lots
      */
     public List<ParkingLot> getAvailableParkingLots() {
-        System.out.println("---------- AVAILABLE PARKING LOTS ----------");
-        System.out.println();
         List<ParkingLot> availableLots = new ArrayList<>();
         String query = "SELECT * FROM ParkingLot WHERE CurrentOccupancy < Capacity";
         try (Statement stmt = connection.createStatement()) {

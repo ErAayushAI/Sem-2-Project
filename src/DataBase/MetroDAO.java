@@ -87,8 +87,6 @@ public class MetroDAO {
      * @return list of Metros
      */
     public List<Metro> getAllMetros() {
-        System.out.println("---------- ALL METRO ----------");
-        System.out.println();
         List<Metro> metros = new ArrayList<>();
         String query = "SELECT * FROM Metro";
         try (Statement stmt = connection.createStatement()) {

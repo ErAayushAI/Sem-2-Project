@@ -87,8 +87,6 @@ public class StationDAO {
      * @return list of the all Stations
      */
     public List<Station> getAllStops() {
-        System.out.println("---------- ALL STATION ----------");
-        System.out.println();
         List<Station> stations = new ArrayList<>();
         String query = "SELECT * FROM Station";
         try (Statement stmt = connection.createStatement()) {
