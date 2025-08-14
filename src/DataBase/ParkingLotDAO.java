@@ -55,13 +55,13 @@ public class ParkingLotDAO {
      * @param scanner object for user input
      * @return Object of Parking lot
      */
-    public ParkingLot getParkingLotById(Scanner scanner) {
+    public ParkingLot getParkingLotByAreaId(Scanner scanner) {
         System.out.println("---------- PARKING LOT BY ID ----------");
         System.out.println();
-        String query = "SELECT * FROM ParkingLot WHERE Id = ?";
+        String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Lot Id: ");
+            System.out.print("Enter Area Id: ");
             stmt.setInt(1, scanner.nextInt());
 
             ResultSet rs = stmt.executeQuery();
@@ -86,8 +86,6 @@ public class ParkingLotDAO {
      * @return list of Parking lots
      */
     public List<ParkingLot> getAllParkingLots() {
-        System.out.println("---------- ALL PARKING LOT ----------");
-        System.out.println();
         List<ParkingLot> lots = new ArrayList<>();
         String query = "SELECT * FROM ParkingLot";
         try (Statement stmt = connection.createStatement()) {
@@ -113,13 +111,13 @@ public class ParkingLotDAO {
      * @param scanner object for user input
      * @return true if Parking Lot is Updated
      */
-    public boolean updateParkingOccupancy(Scanner scanner) {
+    public boolean updateParkingCapacity(Scanner scanner) {
         System.out.println("---------- UPDATE PARKING LOT ----------");
         System.out.println();
-        String query = "UPDATE ParkingLot SET CurrentOccupancy = ? WHERE Id = ?";
+        String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Occupancy: ");
+            System.out.print("Enter new Capacity: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Lot Id to Update: ");
@@ -139,8 +137,6 @@ public class ParkingLotDAO {
      * @return list of Parking Lots
      */
     public List<ParkingLot> getAvailableParkingLots() {
-        System.out.println("---------- AVAILABLE PARKING LOTS ----------");
-        System.out.println();
         List<ParkingLot> availableLots = new ArrayList<>();
         String query = "SELECT * FROM ParkingLot WHERE CurrentOccupancy < Capacity";
         try (Statement stmt = connection.createStatement()) {
@@ -158,5 +154,22 @@ public class ParkingLotDAO {
             e.printStackTrace();
         }
         return availableLots;
+    }
+
+    /**
+     * To Update Parking Occupancy.
+     *
+     * @param lotId        for parking lot to book parking
+     * @param newOccupancy change occupancy of parking lot
+     */
+    public void updateOccupancyById(int lotId, int newOccupancy) {
+        String query = "UPDATE ParkingLot SET CurrentOccupancy = ? WHERE Id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, newOccupancy);
+            stmt.setInt(2, lotId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

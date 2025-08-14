@@ -4,6 +4,7 @@ import DataBase.EmergencyServiceDAO;
 import Model.EmergencyService;
 
 import java.util.List;
+import java.util.Scanner;
 
 //To simulate emergency response based on user location and vehicle availability
 //This demonstrates understanding of data structures like lists, object state management, and traversal algorithms.
@@ -23,11 +24,16 @@ public class AreaEmergencyDispatcher {
     /**
      * To Allot an Emergency Vehicle to nearest area.
      *
-     * @param type       of emergency service which user wants
-     * @param userAreaId in which area this service is needed
      * @return true if service is available
      */
-    public boolean dispatchEmergency(String type, int userAreaId) {
+    public boolean dispatchEmergency(Scanner scanner) {
+        System.out.println("---------- EMERGENCY SERVICE DISPATCHER ----------");
+        System.out.println();
+        System.out.print("Enter Service Type: ");
+        scanner.nextLine();
+        String type = scanner.nextLine().trim().toUpperCase();
+        System.out.print("Enter Area ID: ");
+        int userAreaId = scanner.nextInt();
         System.out.println("Emergency Request: " + type + " in Area " + userAreaId);
         EmergencyServiceDAO dao = new EmergencyServiceDAO();
 
@@ -37,7 +43,7 @@ public class AreaEmergencyDispatcher {
                     service.dispatchWithDelay(dao);
                     return true;
                 } else {
-                    System.out.println("⚠️ No vehicles left at " + service.getName());
+                    System.out.println("No vehicles left at " + service.getName());
                 }
             }
         }

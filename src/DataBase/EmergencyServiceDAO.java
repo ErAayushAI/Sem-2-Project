@@ -128,8 +128,6 @@ public class EmergencyServiceDAO {
      * @return list of Emergency Services
      */
     public List<EmergencyService> getAllEmergencyService() {
-        System.out.println("---------- ALL EMERGENCY SERVICE ----------");
-        System.out.println();
         List<EmergencyService> services = new ArrayList<>();
         String query = "SELECT * FROM EmergencyService";
         try (Statement stmt = connection.createStatement()) {

@@ -26,9 +26,11 @@ public class TicketDAO {
      */
     public boolean addTicket(Scanner scanner) {
         Ticket ticket = new Ticket();
+        TicketDAO ticketDAO = new TicketDAO();
         System.out.println("---------- ADD TICKET ----------");
         System.out.println();
         String query = "INSERT INTO ticket (UserID, RouteId, IsBusTransport, IsMetroTransport, Time, TotalBill, Distance) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        boolean status = false;
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -61,11 +63,28 @@ public class TicketDAO {
 
             System.out.println("Ticket pending confirmation: " + ticket.getId());
             int rowsInserted = stmt.executeUpdate();
-            return rowsInserted > 0;
+            if (rowsInserted > 0) {
+                System.out.println("1. Confirm Ticket\n2. Cancel Ticket");
+                System.out.print("Enter Choice: ");
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        status = ticketDAO.commitTicket(scanner);
+                        break;
+                    case 2:
+                        status = ticketDAO.rollbackTicket(scanner);
+                        break;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+        return status;
     }
 
     /**
@@ -75,7 +94,7 @@ public class TicketDAO {
      * @throws SQLException for connection
      * @throws IOException  for generate bill
      */
-    void commitTicket(Scanner scanner) throws SQLException, IOException {
+    public boolean commitTicket(Scanner scanner) throws SQLException, IOException {
         System.out.println("---------- CONFIRM TICKET ----------");
         System.out.println();
         connection.commit();
@@ -83,6 +102,7 @@ public class TicketDAO {
         int ticketId = scanner.nextInt();
         generateBill(ticketId);
         System.out.println("Ticket confirmed and saved: " + ticketId);
+        return true;
     }
 
     /**
@@ -91,13 +111,14 @@ public class TicketDAO {
      * @param scanner object for user input
      * @throws SQLException for connection
      */
-    void rollbackTicket(Scanner scanner) throws SQLException {
+    public boolean rollbackTicket(Scanner scanner) throws SQLException {
         System.out.println("---------- CANCEL TICKET ----------");
         System.out.println();
         System.out.print("Enter Ticket Id: ");
         int ticketId = scanner.nextInt();
         connection.rollback();
         System.out.println("Transaction rolled back, ticket cancelled: " + ticketId);
+        return false;
     }
 
     /**

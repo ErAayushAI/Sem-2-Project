@@ -136,8 +136,6 @@ public class TouristPlaceDAO {
      * @return list of places
      */
     public List<TouristPlace> displayAllPlaces() {
-        System.out.println("---------- ALL TOURIST PLACE ----------");
-        System.out.println();
         String query = "SELECT * FROM TouristPlace";
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

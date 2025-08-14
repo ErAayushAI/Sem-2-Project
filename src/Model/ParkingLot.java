@@ -1,5 +1,10 @@
 package Model;
 
+import DataBase.ParkingLotDAO;
+
+import java.util.Random;
+import java.util.Scanner;
+
 public class ParkingLot {
     int id;
     String name;
@@ -119,4 +124,38 @@ public class ParkingLot {
     public void setCurrentOccupancy(int currentOccupancy) {
         this.currentOccupancy = currentOccupancy;
     }
+
+    /**
+     * To book a new slot.
+     *
+     * @param dao object to update database and occupancy
+     */
+    public void bookSlot(ParkingLotDAO dao) {
+        if (currentOccupancy < capacity) {
+            currentOccupancy++;
+            dao.updateOccupancyById(id, currentOccupancy); // Update DB
+            System.out.println("Slot booked at " + name + " (Area " + areaId + ")");
+
+            // Simulate release after random time
+            Thread releaseThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        int delay = new Random().nextInt(20) + 1; // 1 to 20 seconds
+                        Thread.sleep(delay * 1000);
+                        currentOccupancy--;
+                        dao.updateOccupancyById(id, currentOccupancy); // Update DB again
+                        System.out.println("Slot released at " + name + " after " + delay + " sec");
+                    } catch (InterruptedException e) {
+                        System.out.println("Booking interrupted at " + name);
+                    }
+                }
+            });
+
+            releaseThread.start();
+        } else {
+            System.out.println("No slots available at " + name);
+        }
+    }
+
 }
