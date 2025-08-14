@@ -71,7 +71,7 @@ public class CustomerDashboard {
 
                 case 2:
                     EmergencyServiceDAO e = new EmergencyServiceDAO();
-                    AreaEmergencyDispatcher dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
+                    AreaEmergencyDispatcher dispatcher;
                     boolean esLoop = true;
 
                     while(esLoop) {
@@ -92,6 +92,7 @@ public class CustomerDashboard {
                                 e.getEmergencyServiceByType(sc);
                                 break;
                             case 3:
+                                dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
                                 dispatcher.dispatchEmergency(sc);
                                 break;
                             case 4:
