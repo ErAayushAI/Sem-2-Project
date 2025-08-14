@@ -5,6 +5,8 @@ import DataBase.*;
 //import DataBase.DataBaseManager;
 import DataStructure.AreaEmergencyDispatcher;
 import Model.EmergencyService;
+import Model.ParkingLot;
+import org.w3c.dom.xpath.XPathResult;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -517,7 +519,7 @@ public class Login {
                             e.getAllEmergencyService(); break;
                         case 2:e.getEmergencyServiceByType(sc);
                         case 3:
-                            a.dispatchEmergency(sc.next(),sc.nextInt()); break; //scanner class implement
+                            a.dispatchEmergency(sc); break;
                         case 4:
                             System.out.println("Exiting....");
                             customerDashboard();
@@ -534,7 +536,7 @@ public class Login {
                     ch=sc.nextInt();
                     switch(ch)
                     {
-                        case 1: t.addTicket(sc); break;//implement commit and rollback inside the method\
+                        case 1: t.addTicket(sc); break;
                         case 2: t.searchTickets(sc);break;
                         case 3:
                             System.out.println("Exiting....");
@@ -568,7 +570,19 @@ public class Login {
                     }
                     break;
                 case 5:
-                    //parking lot mai ek aur method jisme book parking lot aur occupancy change ek saath ho
+                    ParkingLot p = new ParkingLot();
+                    ParkingLotDAO po = new ParkingLotDAO();
+                    System.out.println("1. Get Available parking lots");
+                    System.out.println("2. Get Parking Lot By area Id");
+                    System.out.println("3. Book Parking lot");
+                    ch = sc.nextInt();
+                    switch(ch) {
+                        case 1: po.getAvailableParkingLots();break;
+                        case 2: po.getParkingLotByAreaId(sc);break;
+                        case 3: p.bookSlot(po);break;
+                        default:
+                            System.out.println("Enter valid input");
+                    }
                     break;
                 case 6:
                     FeedbackDAO f=new FeedbackDAO();

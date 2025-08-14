@@ -55,13 +55,13 @@ public class ParkingLotDAO {
      * @param scanner object for user input
      * @return Object of Parking lot
      */
-    public ParkingLot getParkingLotById(Scanner scanner) {
+    public ParkingLot getParkingLotByAreaId(Scanner scanner) {
         System.out.println("---------- PARKING LOT BY ID ----------");
         System.out.println();
-        String query = "SELECT * FROM ParkingLot WHERE Id = ?";
+        String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Lot Id: ");
+            System.out.print("Enter Area Id: ");
             stmt.setInt(1, scanner.nextInt());
 
             ResultSet rs = stmt.executeQuery();
@@ -158,5 +158,22 @@ public class ParkingLotDAO {
             e.printStackTrace();
         }
         return availableLots;
+    }
+
+    /**
+     * To Update Parking Occupancy.
+     *
+     * @param lotId        for parking lot to book parking
+     * @param newOccupancy change occupancy of parking lot
+     */
+    public void updateOccupancyById(int lotId, int newOccupancy) {
+        String query = "UPDATE ParkingLot SET CurrentOccupancy = ? WHERE Id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, newOccupancy);
+            stmt.setInt(2, lotId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
