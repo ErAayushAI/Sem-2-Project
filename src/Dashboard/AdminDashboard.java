@@ -22,16 +22,16 @@ public class AdminDashboard {
         while (running) {
             System.out.println("\n🔒 Admin Dashboard");
             System.out.println("1. View all customers");
-            System.out.println("2. Area");
-            System.out.println("3. Bus");
+            System.out.println("2. Manage Area");
+            System.out.println("3. Bus Services");
             System.out.println("4. Emergency Services");
-            System.out.println("5. Metro");
-            System.out.println("6. Parking Lot");
-            System.out.println("7. Route");
+            System.out.println("5. Metro Services");
+            System.out.println("6. Manage Parking Lot");
+            System.out.println("7. Manage Route");
             System.out.println("8. Add Schedule");
-            System.out.println("9. Station");
-            System.out.println("10. Street");
-            System.out.println("11. Tourist Place");
+            System.out.println("9. Manage Station");
+            System.out.println("10. Manage Street");
+            System.out.println("11. Manage Tourist Places");
             System.out.println("12. Logout");
             System.out.print("Select an option: ");
 
@@ -45,31 +45,49 @@ public class AdminDashboard {
 
                 case 2:
                     AreaDAO areaDAO = new AreaDAO();
+                    Area area = new Area();
+                    List<Area> areas;
                     boolean areaLoop = true;
+
                     while (areaLoop) {
                         System.out.println("\n📍 Area Management");
-                        System.out.println("1. Add Area");
-                        System.out.println("2. Update Area");
-                        System.out.println("3. Delete Area");
-                        System.out.println("4. Back to Dashboard");
+                        System.out.println("1. View All Areas");
+                        System.out.println("2. Add Area");
+                        System.out.println("3. Update Area");
+                        System.out.println("4. Delete Area");
+                        System.out.println("5. Get Area By ID");
+                        System.out.println("6. Get Area In Area");
+                        System.out.println("7. Back to Dashboard");
+
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
-                        sc.nextLine();
 
                         switch (ch) {
                             case 1:
+                                areas = areaDAO.getAllArea();
+                                Display.printAreas(areas);
+                                break;
+                            case 2:
                                 if (areaDAO.addArea(sc)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 2:
+                            case 3:
                                 if (areaDAO.updateArea(sc)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 3:
+                            case 4:
                                 if (areaDAO.deleteArea(sc)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 4:
+                            case 5:
+                                area = areaDAO.getAreaById(sc);
+                                Display.printArea(area);
+                                break;
+                            case 6:
+                                areas = areaDAO.getAreaInArea(sc);
+                                Display.printAreas(areas);
+                                break;
+                            case 7:
                                 areaLoop = false;
                                 break;
                             default:
@@ -80,31 +98,43 @@ public class AdminDashboard {
 
                 case 3:
                     BusDAO busDAO = new BusDAO();
+                    Bus bus = new Bus();
                     boolean busLoop = true;
+
                     while (busLoop) {
                         System.out.println("\n🚌 Bus Management");
-                        System.out.println("1. Add Bus");
-                        System.out.println("2. Update Bus Location");
-                        System.out.println("3. Update Bus Route");
-                        System.out.println("4. Back to Dashboard");
+                        System.out.println("1. View All Buses");
+                        System.out.println("2. Add Bus");
+                        System.out.println("3. Update Bus Location");
+                        System.out.println("4. Update Bus Route");
+                        System.out.println("5. Get Bus By ID");
+                        System.out.println("6. Back to Dashboard");
+
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
-                        sc.nextLine();
 
                         switch (ch) {
                             case 1:
+                                List<Bus> buses = busDAO.getAllBuses();
+                                Display.printBusList(buses);
+                                break;
+                            case 2:
                                 if (busDAO.addBus(sc)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 2:
+                            case 3:
                                 if (busDAO.updateBusLocation(sc)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 3:
+                            case 4:
                                 if (busDAO.updateBusRoute(sc)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 4:
+                            case 5:
+                                bus = busDAO.getBusByID(sc);
+                                Display.printBus(bus);
+                                break;
+                            case 6:
                                 busLoop = false;
                                 break;
                             default:
@@ -115,26 +145,33 @@ public class AdminDashboard {
 
                 case 4:
                     EmergencyServiceDAO esDAO = new EmergencyServiceDAO();
+                    EmergencyService es = new EmergencyService();
                     boolean esLoop = true;
+
                     while (esLoop) {
                         System.out.println("\n🚨 Emergency Services");
-                        System.out.println("1. Add Emergency Service");
-                        System.out.println("2. View All Emergency Services");
-                        System.out.println("3. Back to Dashboard");
+                        System.out.println("1. View All Emergency Services");
+                        System.out.println("2. Add Emergency Service");
+                        System.out.println("3. Get Emergency By ID");
+                        System.out.println("4. Back to Dashboard");
+
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
-                        sc.nextLine();
 
                         switch (ch) {
                             case 1:
-                                if (esDAO.addEmergencyService(sc)) System.out.println("✅ Added successfully");
-                                else System.out.println("❌ Failed");
-                                break;
-                            case 2:
                                 List<EmergencyService> services = esDAO.getAllEmergencyService();
                                 Display.printEmergencyServices(services);
                                 break;
+                            case 2:
+                                if (esDAO.addEmergencyService(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
+                                break;
                             case 3:
+                                es = esDAO.getEmergencyServiceByID(sc);
+                                Display.printEmergencyService(es);
+                                break;
+                            case 4:
                                 esLoop = false;
                                 break;
                             default:
@@ -145,6 +182,7 @@ public class AdminDashboard {
 
                 case 5:
                     MetroDAO metroDAO = new MetroDAO();
+                    Metro metro = new Metro();
                     boolean metroLoop = true;
 
                     while (metroLoop) {
@@ -153,24 +191,33 @@ public class AdminDashboard {
                         System.out.println("2. View All Metros");
                         System.out.println("3. Update Metro Location");
                         System.out.println("4. Update Metro Route");
-                        System.out.println("5. Exit to Dashboard");
+                        System.out.println("5. Get Metro By ID");
+                        System.out.println("6. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
-                                metroDAO.addMetro(sc);
+                                if (metroDAO.addMetro(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 2:
                                 List<Metro> metros = metroDAO.getAllMetros();
                                 Display.printMetroList(metros);
                                 break;
                             case 3:
-                                metroDAO.updateMetroLocation(sc);
+                                if (metroDAO.updateMetroLocation(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                metroDAO.updateMetroRoute(sc);
+                                if (metroDAO.updateMetroRoute(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 5:
+                                metro = metroDAO.getMetroByID(sc);
+                                Display.printMetro(metro);
+                                break;
+                            case 6:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 metroLoop = false;
                                 break;
@@ -191,6 +238,7 @@ public class AdminDashboard {
                         System.out.println("3. Update Parking Occupancy");
                         System.out.println("4. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -198,10 +246,12 @@ public class AdminDashboard {
                                 Display.printParkingLots(lots);
                                 break;
                             case 2:
-                                parkingDAO.addParkingLot(sc);
+                                if (parkingDAO.addParkingLot(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                parkingDAO.updateParkingOccupancy(sc);
+                                if (parkingDAO.updateParkingOccupancy(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 4:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -223,6 +273,7 @@ public class AdminDashboard {
                         System.out.println("2. Add Route");
                         System.out.println("3. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -230,7 +281,8 @@ public class AdminDashboard {
                                 Display.printRoutes(routes);
                                 break;
                             case 2:
-                                routeDAO.addRoute(sc);
+                                if (routeDAO.addRoute(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -249,14 +301,17 @@ public class AdminDashboard {
 
                 case 9:
                     StationDAO stationDAO = new StationDAO();
+                    Station station = new Station();
                     boolean stationLoop = true;
 
                     while (stationLoop) {
                         System.out.println("\n🚏 Station Management");
                         System.out.println("1. View All Stops");
                         System.out.println("2. Add Station");
-                        System.out.println("3. Exit to Dashboard");
+                        System.out.println("3. Get Station By Id");
+                        System.out.println("4. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -264,9 +319,14 @@ public class AdminDashboard {
                                 Display.printStations(stations);
                                 break;
                             case 2:
-                                stationDAO.addStation(sc);
+                                if (stationDAO.addStation(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                station = stationDAO.getStationById(sc);
+                                Display.printStation(station);
+                                break;
+                            case 4:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 stationLoop = false;
                                 break;
@@ -288,6 +348,7 @@ public class AdminDashboard {
                         System.out.println("4. Delete Street");
                         System.out.println("5. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -295,13 +356,16 @@ public class AdminDashboard {
                                 Display.printStreets(streets);
                                 break;
                             case 2:
-                                streetDAO.addStreet(sc);
+                                if (streetDAO.addStreet(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                streetDAO.updateStreet(sc);
+                                if (streetDAO.updateStreet(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                streetDAO.deleteStreet(sc);
+                                if (streetDAO.deleteStreet(sc)) System.out.println("✅ Deleted successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 5:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -323,6 +387,7 @@ public class AdminDashboard {
                         System.out.println("2. Add Tourist Place");
                         System.out.println("3. Exit to Dashboard");
 
+                        System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
@@ -330,7 +395,8 @@ public class AdminDashboard {
                                 Display.printTouristPlaces(places);
                                 break;
                             case 2:
-                                placeDAO.addPlace();
+                                if (placeDAO.addPlace()) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
