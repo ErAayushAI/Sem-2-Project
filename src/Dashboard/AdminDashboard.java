@@ -1,6 +1,7 @@
 package Dashboard;
 
 import DataBase.*;
+import DataStructure.FeedbackLinkedList;
 import Model.*;
 
 import java.sql.*;
@@ -32,7 +33,9 @@ public class AdminDashboard {
             System.out.println("9. Manage Station");
             System.out.println("10. Manage Street");
             System.out.println("11. Manage Tourist Places");
-            System.out.println("12. Logout");
+            System.out.println("12. Complaint");
+            System.out.println("13. Feedback");
+            System.out.println("14. Logout");
             System.out.print("Select an option: ");
 
             int choice = sc.nextInt();
@@ -408,6 +411,75 @@ public class AdminDashboard {
                     break;
 
                 case 12:
+                    ComplaintDAO complaintDAO = new ComplaintDAO();
+                    List<Complaint> complaints;
+                    boolean complaintLoop = true;
+
+                    while (complaintLoop) {
+                        System.out.println("\nComplaint Management");
+                        System.out.println("1. View All Complaint ");
+                        System.out.println("2. View Full Issue (If Not Displayed In Table Properly)");
+                        System.out.println("3. Resolve Next Complaint");
+                        System.out.println("4. Exit to Dashboard");
+
+                        System.out.print("Enter choice: ");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                complaints = complaintDAO.getAllComplaint();
+                                Display.printComplaintTable(complaints);
+                                break;
+                            case 2:
+                                complaints = complaintDAO.getAllComplaint();
+                                System.out.print("Enter Complaint Id: ");
+                                Display.viewFullIssue(complaints, sc.nextInt());
+                                break;
+                            case 3:
+                                complaintDAO.resolveNextComplaint();
+                                break;
+                            case 4:
+                                System.out.println("🔙 Returning to Admin Dashboard...");
+                                complaintLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid input. Please try again.");
+                        }
+                    }
+                    break;
+
+                case 13:
+                    FeedbackDAO fbDAO = new FeedbackDAO();
+                    boolean fbLoop = true;
+
+                    while (fbLoop) {
+                        System.out.println("\nFeedback Management");
+                        System.out.println("1. View Feedback");
+                        System.out.println("2. View Feedback By User ID");
+                        System.out.println("3. Exit to Dashboard");
+
+                        System.out.print("Enter choice: ");
+                        int ch = sc.nextInt();
+                        fbDAO.loadFeedbacksIntoLinkedList();
+                        FeedbackLinkedList fbList = new FeedbackLinkedList();
+                        switch (ch) {
+                            case 1:
+                                fbList.displayFeedbacks();
+                                break;
+                            case 2:
+                                System.out.print("Enter User Id: ");
+                                fbList.searchByUserId(sc.nextInt());
+                                break;
+                            case 3:
+                                System.out.println("🔙 Returning to Admin Dashboard...");
+                                fbLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid input. Please try again.");
+                        }
+                    }
+                    break;
+
+                case 14:
                     System.out.println("✅ Logged out successfully.");
                     running = false;
                     break;
