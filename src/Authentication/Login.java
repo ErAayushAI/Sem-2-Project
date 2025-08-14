@@ -362,7 +362,7 @@ public class Login {
                     {
                         case 1: p.getAllParkingLots();break;
                         case 2: p.addParkingLot(sc);break;
-                        case 3: p.updateParkingOccupancy(sc);break;
+                        case 3: p.updateParkingCapacity(sc);break;
                         case 4:
                             System.out.println("Exiting.....");
                             adminDashboard();
