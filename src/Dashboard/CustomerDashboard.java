@@ -34,124 +34,172 @@ public class CustomerDashboard {
 
             int choice = sc.nextInt();
             sc.nextLine(); // Consume newline
-            int ch;
+
             switch (choice) {
                 case 1:
                     RouteDAO r = new RouteDAO();
                     ScheduleDAO s = new ScheduleDAO();
+                    boolean rsLoop = true;
 
-                    System.out.println("\n🛣️ Routes & Schedules");
-                    System.out.println("1. View All Routes");
-                    System.out.println("2. View Route by ID");
-                    System.out.println("3. View Schedule by Route ID");
-                    System.out.println("4. Back");
+                    while(rsLoop) {
+                        System.out.println("\n🛣️ Routes & Schedules");
+                        System.out.println("1. View All Routes");
+                        System.out.println("2. View Route by ID");
+                        System.out.println("3. View Schedule by Route ID");
+                        System.out.println("4. Back");
 
-                    ch = sc.nextInt();
-                    switch (ch) {
-                        case 1:
-                            List<Route> routes = r.getAllRoutes();
-                            Display.printRoutes(routes);
-                            break;
-                        case 2: r.getRouteById(sc); break;
-                        case 3: s.getScheduleByRouteId(sc); break;
-                        case 4: return;
-                        default: System.out.println("⚠️ Invalid input.");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                List<Route> routes = r.getAllRoutes();
+                                Display.printRoutes(routes);
+                                break;
+                            case 2:
+                                r.getRouteById(sc);
+                                break;
+                            case 3:
+                                s.getScheduleByRouteId(sc);
+                                break;
+                            case 4:
+                                System.out.println("🔙 Returning to Customer Dashboard...");
+                                rsLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid input.");
+                        }
                     }
                     break;
 
                 case 2:
                     EmergencyServiceDAO e = new EmergencyServiceDAO();
                     AreaEmergencyDispatcher dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
+                    boolean esLoop = true;
 
-                    System.out.println("\n🚨 Emergency Services");
-                    System.out.println("1. View All Services");
-                    System.out.println("2. View Services by Type");
-                    System.out.println("3. Call Emergency Service");
-                    System.out.println("4. Back");
+                    while(esLoop) {
+                        System.out.println("\n🚨 Emergency Services");
+                        System.out.println("1. View All Services");
+                        System.out.println("2. View Services by Type");
+                        System.out.println("3. Call Emergency Service");
+                        System.out.println("4. Back");
 
-                    ch = sc.nextInt();
-                    switch (ch) {
-                        case 1:
-                            List<EmergencyService> services = e.getAllEmergencyService();
-                            Display.printEmergencyServices(services);
-                            break;
-                        case 2: e.getEmergencyServiceByType(sc); break;
-                        case 3: dispatcher.dispatchEmergency(sc); break;
-                        case 4: return;
-                        default: System.out.println("⚠️ Invalid input.");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                List<EmergencyService> services = e.getAllEmergencyService();
+                                Display.printEmergencyServices(services);
+                                break;
+                            case 2:
+                                e.getEmergencyServiceByType(sc);
+                                break;
+                            case 3:
+                                dispatcher.dispatchEmergency(sc);
+                                break;
+                            case 4:
+                                System.out.println("🔙 Returning to Customer Dashboard...");
+                                esLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid input.");
+                        }
                     }
                     break;
 
                 case 3:
                     TicketDAO t = new TicketDAO();
+                    boolean ticketLoop = true;
 
-                    System.out.println("\n🎟️ Ticket Booking");
-                    System.out.println("1. Book Ticket");
-                    System.out.println("2. Search Ticket");
-                    System.out.println("3. Back");
+                    while (ticketLoop) {
+                        System.out.println("\n🎟️ Ticket Booking");
+                        System.out.println("1. Book Ticket");
+                        System.out.println("2. Search Ticket");
+                        System.out.println("3. Back");
 
-                    ch = sc.nextInt();
-                    switch (ch) {
-                        case 1: t.addTicket(sc); break;
-                        case 2: t.searchTickets(sc); break;
-                        case 3: return;
-                        default: System.out.println("⚠️ Invalid input.");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                t.addTicket(sc);
+                                break;
+                            case 2:
+                                t.searchTickets(sc);
+                                break;
+                            case 3:
+                                System.out.println("🔙 Returning to Customer Dashboard...");
+                                ticketLoop = false;
+                            default:
+                                System.out.println("⚠️ Invalid input.");
+                        }
                     }
                     break;
 
                 case 4:
                     TouristPlaceDAO tp = new TouristPlaceDAO();
                     List<TouristPlace> places;
+                    boolean placeLoop = true;
 
-                    System.out.println("\n🏞️ Tourist Places");
-                    System.out.println("1. View All Places");
-                    System.out.println("2. View Top Rated Places");
-                    System.out.println("3. View Places by Category");
-                    System.out.println("4. Give Feedback");
-                    System.out.println("5. Back");
+                    while (placeLoop) {
+                        System.out.println("\n🏞️ Tourist Places");
+                        System.out.println("1. View All Places");
+                        System.out.println("2. View Top Rated Places");
+                        System.out.println("3. View Places by Category");
+                        System.out.println("4. Give Feedback");
+                        System.out.println("5. Back");
 
-                    ch = sc.nextInt();
-                    switch (ch) {
-                        case 1:
-                            places = tp.displayAllPlaces();
-                            Display.printTouristPlaces(places);
-                            break;
-                        case 2:
-                            places = tp.displayTopRatedPlaces(sc);
-                            Display.printTouristPlaces(places);
-                            break;
-                        case 3:
-                            places = tp.displayPlacesByCategory(sc);
-                            Display.printTouristPlaces(places);
-                            break;
-                        case 4:
-                            tp.applyFeedback(sc);
-                            break;
-                        case 5: return;
-                        default: System.out.println("⚠️ Invalid input.");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                places = tp.displayAllPlaces();
+                                Display.printTouristPlaces(places);
+                                break;
+                            case 2:
+                                places = tp.displayTopRatedPlaces(sc);
+                                Display.printTouristPlaces(places);
+                                break;
+                            case 3:
+                                places = tp.displayPlacesByCategory(sc);
+                                Display.printTouristPlaces(places);
+                                break;
+                            case 4:
+                                tp.applyFeedback(sc);
+                                break;
+                            case 5:
+                                System.out.println("🔙 Returning to Customer Dashboard...");
+                                placeLoop = false;
+                            default:
+                                System.out.println("⚠️ Invalid input.");
+                        }
                     }
                     break;
 
                 case 5:
                     ParkingLotDAO po = new ParkingLotDAO();
                     ParkingLot p = new ParkingLot();
+                    boolean parkingLoop = true;
 
-                    System.out.println("\n🅿️ Parking Lot");
-                    System.out.println("1. View Available Lots");
-                    System.out.println("2. View by Area ID");
-                    System.out.println("3. Book Slot");
-                    System.out.println("4. Back");
+                    while (parkingLoop) {
+                        System.out.println("\n🅿️ Parking Lot");
+                        System.out.println("1. View Available Lots");
+                        System.out.println("2. View by Area ID");
+                        System.out.println("3. Book Slot");
+                        System.out.println("4. Back");
 
-                    ch = sc.nextInt();
-                    switch (ch) {
-                        case 1:
-                            List<ParkingLot> lots = po.getAvailableParkingLots();
-                            Display.printParkingLots(lots);
-                            break;
-                        case 2: po.getParkingLotByAreaId(sc); break;
-                        case 3: p.bookSlot(po); break;
-                        case 4: return;
-                        default: System.out.println("⚠️ Invalid input.");
+                        int ch = sc.nextInt();
+                        switch (ch) {
+                            case 1:
+                                List<ParkingLot> lots = po.getAvailableParkingLots();
+                                Display.printParkingLots(lots);
+                                break;
+                            case 2:
+                                po.getParkingLotByAreaId(sc);
+                                break;
+                            case 3:
+                                p.bookSlot(po);
+                                break;
+                            case 4:
+                                System.out.println("🔙 Returning to Customer Dashboard...");
+                                parkingLoop = false;
+                            default:
+                                System.out.println("⚠️ Invalid input.");
+                        }
                     }
                     break;
 
