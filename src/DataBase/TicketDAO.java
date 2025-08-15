@@ -4,6 +4,7 @@ import Model.Ticket;
 
 import java.sql.*;
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicketDAO {
@@ -98,8 +99,19 @@ public class TicketDAO {
         System.out.println("---------- CONFIRM TICKET ----------");
         System.out.println();
         connection.commit();
-        System.out.print("Enter Ticket Id: ");
-        int ticketId = scanner.nextInt();
+
+        int ticketId = getLastInsertedTicketId();
+        if (ticketId == -1) {
+            System.out.println("Error: Could not fetch Ticket ID.");
+            return false;
+        }
+
+        // Generate captcha
+        if (!verifyCaptcha()) {
+            System.out.println("Captcha failed! Ticket not confirmed.");
+            return false;
+        }
+
         generateBill(ticketId);
         System.out.println("Ticket confirmed and saved: " + ticketId);
         return true;
@@ -114,11 +126,20 @@ public class TicketDAO {
     public boolean rollbackTicket(Scanner scanner) throws SQLException {
         System.out.println("---------- CANCEL TICKET ----------");
         System.out.println();
-        System.out.print("Enter Ticket Id: ");
-        int ticketId = scanner.nextInt();
+
+        int ticketId = getLastInsertedTicketId();
+        if (ticketId == -1) {
+            System.out.println("Error: Could not fetch Ticket ID.");
+            return false;
+        }
+
         connection.rollback();
-        System.out.println("Transaction rolled back, ticket cancelled: " + ticketId);
-        return false;
+        String query = "DELETE FROM ticket WHERE ticketId = " + ticketId;
+        try(Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(query);
+            System.out.println("Transaction rolled back, ticket cancelled: " + ticketId);
+            return false;
+        }
     }
 
     /**
@@ -184,5 +205,28 @@ public class TicketDAO {
         if (!found) {
             System.out.println("No tickets found for route '" + routeId + "' or user '" + userId + "'.");
         }
+    }
+
+    public int getLastInsertedTicketId() throws SQLException {
+        String sql = "SELECT Id FROM ticket ORDER BY Id DESC LIMIT 1";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("Id");
+            }
+        }
+        return -1;
+    }
+
+    public  boolean verifyCaptcha() {
+        int num1 = (int)(Math.random()*10);
+        int num2 = (int)(Math.random()*10);
+        int correctAnswer = num1 + num2;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Captcha: What is " + num1 + " + " + num2 + "? ");
+        int userAnswer = sc.nextInt();
+
+        return userAnswer == correctAnswer;
     }
 }

@@ -141,8 +141,8 @@ public class ParkingLot {
                 @Override
                 public void run() {
                     try {
-                        int delay = new Random().nextInt(20) + 1; // 1 to 20 seconds
-                        Thread.sleep(delay * 1000);
+                        int delay = new Random().nextInt(10) + 1; // 1 to 20 seconds
+                        Thread.sleep(delay * 10000);
                         currentOccupancy--;
                         dao.updateOccupancyById(id, currentOccupancy); // Update DB again
                         System.out.println("Slot released at " + name + " after " + delay + " sec");
