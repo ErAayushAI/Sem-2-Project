@@ -116,7 +116,7 @@ public class RouteDAO {
     public boolean updateRoute(Scanner scanner) {
         System.out.println("---------- UPDATE ROUTE ----------");
         System.out.println();
-        String query = "UPDATE Route SET length = ?, isBusStation = ?, isMetroStation = ? WHERE id = ?";
+        String query = "UPDATE Route SET length = ?, isBusRoute = ?, isMetroRoute = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter new Length: ");

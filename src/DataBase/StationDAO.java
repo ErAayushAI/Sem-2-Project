@@ -153,7 +153,7 @@ public class StationDAO {
     public boolean updateStation (Scanner scanner) {
         System.out.println("---------- UPDATE ROUTE ----------");
         System.out.println();
-        String query = "UPDATE Route SET name = ?, isBusStation = ?, isMetroStation = ? WHERE id = ?";
+        String query = "UPDATE Station SET Name = ?, isBusStation = ?, isMetroStation = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter new Name: ");
