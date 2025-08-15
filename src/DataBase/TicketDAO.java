@@ -4,6 +4,7 @@ import Model.Ticket;
 
 import java.sql.*;
 import java.io.*;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -38,24 +39,28 @@ public class TicketDAO {
             System.out.print("Enter User Id: ");
             stmt.setInt(1, scanner.nextInt());
 
-            System.out.println("Enter Route Id: ");
+            System.out.print("Enter Route Id: ");
             stmt.setInt(2, scanner.nextInt());
 
             System.out.print("Enter 'true' if it is Bus Transport: ");
-            stmt.setBoolean(3, scanner.nextBoolean());
+            boolean BusTransport = scanner.nextBoolean();
+            boolean metroTransport = false;
+            stmt.setBoolean(3, BusTransport);
+            if(BusTransport){
+                stmt.setBoolean(4, false);
+            } else {
+                System.out.print("Enter 'true' if it is Metro Transport: ");
+                metroTransport = scanner.nextBoolean();
+                stmt.setBoolean(4, metroTransport);
+            }
 
-            System.out.print("Enter 'true' if it is Metro Transport: ");
-            stmt.setBoolean(4, scanner.nextBoolean());
+            if(BusTransport == false && metroTransport == false){
+                System.out.println("You should choose any of the above transport to book tickets.");
+                return false;
+            }
 
-            System.out.println("Enter Time: ");
-            System.out.print("Enter Hour: ");
-            int hour = scanner.nextInt();
-            System.out.print("Enter Minute: ");
-            int minute = scanner.nextInt();
-            System.out.print("Enter Second: ");
-            int second = scanner.nextInt();
-            Time t = new Time(hour, minute, second);
-            stmt.setTime(5, t);
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
+            stmt.setTimestamp(5, timestamp);
 
             System.out.print("Enter Travel Distance: ");
             double distance = scanner.nextDouble();

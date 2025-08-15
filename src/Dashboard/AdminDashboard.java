@@ -491,7 +491,7 @@ public class AdminDashboard {
     }
 
     private void viewAllCustomers() throws SQLException {
-        String sql = "SELECT id, username, email, full_name, created_at FROM customers";
+        String sql = "SELECT id, username, email, fullName, createdAt FROM customer";
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -504,8 +504,8 @@ public class AdminDashboard {
                 int id = rs.getInt("id");
                 String username = rs.getString("username");
                 String email = rs.getString("email");
-                String fullName = rs.getString("full_name");
-                Timestamp createdAt = rs.getTimestamp("created_at");
+                String fullName = rs.getString("fullName");
+                Timestamp createdAt = rs.getTimestamp("createdAt");
 
                 System.out.printf("%-5d %-15s %-25s %-20s %-20s%n",
                         id,
