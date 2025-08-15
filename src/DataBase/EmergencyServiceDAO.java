@@ -151,6 +151,39 @@ public class EmergencyServiceDAO {
     }
 
     /**
+     * To update Service Vehicle and contact number.
+     *
+     * @param scanner Object for User inputs
+     * @return true if services is Updated
+     */
+    public boolean updateEmergencyService (Scanner scanner) {
+        System.out.println("---------- UPDATE EMERGENCY SERVICE ----------");
+        System.out.println();
+        String query = "UPDATE EmergencyService SET ContactNumber = ?, AvailableVehicles = ? WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            long number;
+            do {
+                System.out.print("Enter Contact Number: ");
+                number = scanner.nextLong();
+                stmt.setLong(1, number);
+            } while (isValidContactNumber(number));
+
+            System.out.print("Enter Vehicle Count: ");
+            stmt.setInt(2, scanner.nextInt());
+
+            System.out.print("Enter Service ID: ");
+            stmt.setInt(3, scanner.nextInt());
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Validate Contact Number of Service.
      *
      * @param number contact number

@@ -152,8 +152,9 @@ public class AdminDashboard {
                         System.out.println("\n🚨 Emergency Services");
                         System.out.println("1. View All Emergency Services");
                         System.out.println("2. Add Emergency Service");
-                        System.out.println("3. Get Emergency By ID");
-                        System.out.println("4. Back to Dashboard");
+                        System.out.println("3. Update Emergency Service");
+                        System.out.println("4. Get Emergency By ID");
+                        System.out.println("5. Back to Dashboard");
 
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
@@ -168,10 +169,14 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                if (esDAO.updateEmergencyService(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 4:
                                 es = esDAO.getEmergencyServiceByID(sc);
                                 Display.printEmergencyService(es);
                                 break;
-                            case 4:
+                            case 5:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 esLoop = false;
                                 break;
@@ -237,7 +242,8 @@ public class AdminDashboard {
                         System.out.println("1. View All Parking Lots");
                         System.out.println("2. Add Parking Lot");
                         System.out.println("3. Update Parking Capacity");
-                        System.out.println("4. Exit to Dashboard");
+                        System.out.println("4. Delete Parking Lot");
+                        System.out.println("5. Exit to Dashboard");
 
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
@@ -255,6 +261,10 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
+                                if (parkingDAO.deleteParkingLot(sc)) System.out.println("✅ Deleted successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 5:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 ParkingLoop = false;
                                 break;
@@ -272,7 +282,9 @@ public class AdminDashboard {
                         System.out.println("\n🛣️ Route Management");
                         System.out.println("1. View All Routes");
                         System.out.println("2. Add Route");
-                        System.out.println("3. Exit to Dashboard");
+                        System.out.println("3. Update Route");
+                        System.out.println("4. Delete Route");
+                        System.out.println("5. Exit to Dashboard");
 
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
@@ -286,6 +298,14 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                if (routeDAO.updateRoute(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 4:
+                                if (routeDAO.deleteRoute(sc)) System.out.println("✅ Deleted successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 5:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 routeLoop = false;
                                 break;
@@ -310,7 +330,8 @@ public class AdminDashboard {
                         System.out.println("1. View All Stops");
                         System.out.println("2. Add Station");
                         System.out.println("3. Get Station By Id");
-                        System.out.println("4. Exit to Dashboard");
+                        System.out.println("4. Update Station");
+                        System.out.println("5. Exit to Dashboard");
 
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
@@ -328,6 +349,10 @@ public class AdminDashboard {
                                 Display.printStation(station);
                                 break;
                             case 4:
+                                if (stationDAO.updateStation(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 5:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 stationLoop = false;
                                 break;

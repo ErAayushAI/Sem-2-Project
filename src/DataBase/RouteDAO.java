@@ -106,4 +106,70 @@ public class RouteDAO {
         }
         return routes;
     }
+
+    /**
+     * To update Route length and route for which service.
+     *
+     * @param scanner Object for user input
+     * @return true if Route is Updated
+     */
+    public boolean updateRoute(Scanner scanner) {
+        System.out.println("---------- UPDATE ROUTE ----------");
+        System.out.println();
+        String query = "UPDATE Route SET length = ?, isBusStation = ?, isMetroStation = ? WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            System.out.print("Enter new Length: ");
+            stmt.setInt(1, scanner.nextInt());
+
+            System.out.print("Enter 'true' if it is Bus Station: ");
+            boolean BusTransport = scanner.nextBoolean();
+            boolean metroTransport = false;
+            stmt.setBoolean(2, BusTransport);
+            if(BusTransport){
+                stmt.setBoolean(3, false);
+            } else {
+                System.out.print("Enter 'true' if it is Metro Transport: ");
+                metroTransport = scanner.nextBoolean();
+                stmt.setBoolean(3, metroTransport);
+            }
+
+            if(BusTransport == false && metroTransport == false){
+                System.out.println("You should choose any of the above transport to book tickets.");
+                return false;
+            }
+
+            System.out.print("Enter Route Id to Update: ");
+            stmt.setInt(4, scanner.nextInt());
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * To delete Route.
+     *
+     * @param scanner Object for User inputs
+     * @return true if route is deleted
+     */
+    public boolean deleteRoute (Scanner scanner){
+        System.out.println("---------- DELETE ROUTE ----------");
+        System.out.println();
+        String query = "DELETE FROM Route WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            System.out.print("Enter Route Id to Delete: ");
+            stmt.setInt(1, scanner.nextInt());
+
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

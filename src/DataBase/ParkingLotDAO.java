@@ -158,6 +158,29 @@ public class ParkingLotDAO {
     }
 
     /**
+     * To delete Parking Lot.
+     *
+     * @param scanner Object for user inputs
+     * @return true if Parking lot is deleted
+     */
+    public boolean deleteParkingLot (Scanner scanner) {
+        System.out.println("---------- DELETE ROUTE ----------");
+        System.out.println();
+        String query = "DELETE FROM ParkingLot WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            System.out.print("Enter Lot Id to Delete: ");
+            stmt.setInt(1, scanner.nextInt());
+
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * To Update Parking Occupancy.
      *
      * @param lotId        for parking lot to book parking
