@@ -12,7 +12,7 @@ public class AreaDAO {
 
     public AreaDAO() {
         try {
-           connection = DataBaseManager.getConnection();
+            connection = DataBaseManager.getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,7 +122,8 @@ public class AreaDAO {
         String query = "UPDATE Area SET name = ?, isEmergencyPoint = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Name: ");
+            scanner.nextLine();
+            System.out.print("Enter new Area Name: ");
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter 'true' if Area has Emergency Point: ");
