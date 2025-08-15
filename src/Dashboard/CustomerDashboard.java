@@ -22,15 +22,14 @@ public class CustomerDashboard {
 
         while (running) {
             System.out.println("\n🧑‍💼 Customer Dashboard");
-            System.out.println("1. Travelling Routes & Schedules");
-            System.out.println("2. Emergency Services");
-            System.out.println("3. Book Tickets");
-            System.out.println("4. Tourist Places");
-            System.out.println("5. Parking Lot");
-            System.out.println("6. Submit Feedback");
-            System.out.println("7. File a Complaint");
-            System.out.println("8. Logout");
+            System.out.println("-------------------------------------------------");
+            System.out.printf("%-30s %-30s%n", "1. Travelling Routes & Schedules", "5. Parking Lot");
+            System.out.printf("%-30s %-30s%n", "2. Emergency Services", "6. Submit Feedback");
+            System.out.printf("%-30s %-30s%n", "3. Book Tickets", "7. File a Complaint");
+            System.out.printf("%-30s %-30s%n", "4. Tourist Places", "8. Logout");
+            System.out.println("-------------------------------------------------");
             System.out.print("Select an option: ");
+
             int choice = sc.nextInt();
 
             switch (choice) {

@@ -14,12 +14,12 @@ public class Display {
 
         System.out.println("\n🌐 Area List");
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-12s %-12s %-18s%n", "ID", "Name", "Latitude", "Longitude", "Emergency Point");
+        System.out.printf("%-7s %-20s %-12s %-12s %-18s%n", "ID", "Name", "Latitude", "Longitude", "Emergency Point");
         System.out.println("--------------------------------------------------------------------------------");
 
         for (Area a : areas) {
             String emergencyStatus = a.isEmergencyPoint() ? "✅ Yes" : "❌ No";
-            System.out.printf("%-5d %-20s %-12.6f %-12.6f %-18s%n",
+            System.out.printf("%-7d %-20s %-12.6f %-12.6f %-18s%n",
                     a.getAreaId(),
                     a.getName(),
                     a.getLatitude(),
@@ -193,13 +193,13 @@ public class Display {
 
         System.out.println("\n🛤️ Street List");
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-12s %-12s %-10s %-10s%n", "ID", "Start Area", "End Area", "Distance(km)", "One Way");
+        System.out.printf("%-5s %-12s %-12s %-10s %-13s%n", "ID", "Start Area", "End Area", "Distance(km)", "One Way");
         System.out.println("--------------------------------------------------------------------------------");
 
         for (Street s : streets) {
             String oneWayStatus = s.isOneWay() ? "➡️ Yes" : "↔️ No";
 
-            System.out.printf("%-5d %-12d %-12d %-10.2f %-10s%n",
+            System.out.printf("%-5d %-12d %-12d %-13.2f %-10s%n",
                     s.getId(),
                     s.getStartAreaId(),
                     s.getEndAreaId(),

@@ -41,7 +41,7 @@ public class StreetDAO {
             System.out.print("Enter Distance: ");
             stmt.setDouble(4, scanner.nextDouble());
 
-            System.out.print("Enter 'true' if it is Oneway:");
+            System.out.print("Enter 'true' if it is Oneway: ");
             stmt.setBoolean(5, scanner.nextBoolean());
 
             int rowsInserted = stmt.executeUpdate();

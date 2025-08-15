@@ -27,18 +27,19 @@ public class ParkingLotDAO {
     public boolean addParkingLot(Scanner scanner) {
         System.out.println("---------- ADD PARKING LOT ----------");
         System.out.println();
-        String query = "INSERT INTO ParkingLot (Name, Capacity, CurrentOccupancy, AreaId) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO ParkingLot (Name, AreaId, Capacity, CurrentOccupancy) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             System.out.print("Enter Name: ");
+            scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            System.out.print("Enter Capacity: ");
+            System.out.print("Enter Area PinCode: ");
             stmt.setInt(2, scanner.nextInt());
 
-            System.out.print("Enter Current Occupancy: ");
+            System.out.print("Enter Capacity: ");
             stmt.setInt(3, scanner.nextInt());
 
-            System.out.print("Enter Area PinCode: ");
+            System.out.print("Enter Current Occupancy: ");
             stmt.setInt(4, scanner.nextInt());
 
             int rowsInserted = stmt.executeUpdate();
@@ -94,9 +95,9 @@ public class ParkingLotDAO {
                 ParkingLot lot = new ParkingLot();
                 lot.setId(rs.getInt(1));
                 lot.setName(rs.getString(2));
-                lot.setCapacity(rs.getInt(3));
-                lot.setCurrentOccupancy(rs.getInt(4));
-                lot.setAreaId(rs.getInt(5));
+                lot.setAreaId(rs.getInt(3));
+                lot.setCapacity(rs.getInt(4));
+                lot.setCurrentOccupancy(rs.getInt(5));
                 lots.add(lot);
             }
         } catch (SQLException e) {

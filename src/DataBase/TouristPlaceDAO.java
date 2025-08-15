@@ -32,7 +32,7 @@ public class TouristPlaceDAO {
     public boolean addPlace() {
         System.out.println("---------- ADD TOURIST PLACE ----------");
         System.out.println();
-        String query = "INSERT INTO TouristPlace (Name, Location, Category, Ratings) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO TouristPlace (Name, AreaId, Category, Ratings) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Name of Place: ");
@@ -42,6 +42,7 @@ public class TouristPlaceDAO {
             stmt.setInt(2, scanner.nextInt());
 
             System.out.print("Enter Category: ");
+            System.out.println("Like Historic, Religious, etc...");
             scanner.nextLine();
             stmt.setString(3, scanner.nextLine().trim());
 
@@ -155,8 +156,8 @@ public class TouristPlaceDAO {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));
-                place.setCategory(rs.getString(3));
-                place.setAreaId(rs.getInt(4));
+                place.setAreaId(rs.getInt(3));
+                place.setCategory(rs.getString(4));
                 place.setRatings(rs.getDouble(5));
                 places.add(place);
             }

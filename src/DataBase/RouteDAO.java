@@ -31,6 +31,7 @@ public class RouteDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Name: ");
+            scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter Length: ");

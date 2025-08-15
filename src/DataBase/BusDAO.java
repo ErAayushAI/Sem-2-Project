@@ -118,7 +118,7 @@ public class BusDAO {
         String query = "UPDATE Bus SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Area PinCode: ");
+            System.out.print("Enter new Area PinCode: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Bus Id to Update: ");
@@ -144,7 +144,7 @@ public class BusDAO {
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Route Id: ");
+            System.out.print("Enter new Route Id: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Bus Id to Update: ");

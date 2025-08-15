@@ -30,17 +30,29 @@ public class StationDAO {
         String query = "INSERT INTO Station (Name, AreaId, IsBusStation, IsMetroStation) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.println("Enter Name: ");
+            System.out.print("Enter Name: ");
+            scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter Area Id: ");
             stmt.setInt(2, scanner.nextInt());
 
             System.out.print("Enter 'true' if it is Bus Station: ");
-            stmt.setBoolean(3, scanner.nextBoolean());
+            boolean BusTransport = scanner.nextBoolean();
+            boolean metroTransport = false;
+            stmt.setBoolean(3, BusTransport);
+            if(BusTransport){
+                stmt.setBoolean(4, false);
+            } else {
+                System.out.print("Enter 'true' if it is Metro Transport: ");
+                metroTransport = scanner.nextBoolean();
+                stmt.setBoolean(4, metroTransport);
+            }
 
-            System.out.print("Enter 'true' if it is Metro Station: ");
-            stmt.setBoolean(4, scanner.nextBoolean());
+            if(BusTransport == false && metroTransport == false){
+                System.out.println("You should choose any of the above transport to book tickets.");
+                return false;
+            }
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;

@@ -31,6 +31,7 @@ public class MetroDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Train Name: ");
+            scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter Capacity: ");
@@ -118,7 +119,7 @@ public class MetroDAO {
         String query = "UPDATE Metro SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Area PinCode: ");
+            System.out.print("Enter new Area PinCode: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Metro Id to Update: ");
@@ -144,7 +145,7 @@ public class MetroDAO {
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Route Id: ");
+            System.out.print("Enter new Route Id: ");
             stmt.setInt(1, scanner.nextInt());
 
             System.out.print("Enter Metro Id to Update: ");
