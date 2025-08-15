@@ -476,6 +476,9 @@ public class AdminDashboard {
                     boolean fbLoop = true;
 
                     while (fbLoop) {
+                        fbDAO.loadFeedbacksIntoLinkedList();
+                        FeedbackLinkedList fbList = new FeedbackLinkedList();
+
                         System.out.println("\nFeedback Management");
                         System.out.println("1. View Feedback");
                         System.out.println("2. View Feedback By User ID");
@@ -483,8 +486,6 @@ public class AdminDashboard {
 
                         System.out.print("Enter choice: ");
                         int ch = sc.nextInt();
-                        fbDAO.loadFeedbacksIntoLinkedList();
-                        FeedbackLinkedList fbList = new FeedbackLinkedList();
                         switch (ch) {
                             case 1:
                                 fbList.displayFeedbacks();

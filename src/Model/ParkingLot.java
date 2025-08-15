@@ -3,7 +3,6 @@ package Model;
 import DataBase.ParkingLotDAO;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class ParkingLot {
     int id;

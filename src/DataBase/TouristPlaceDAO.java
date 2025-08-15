@@ -91,6 +91,7 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            scanner.nextLine();
             System.out.print("Enter Category: ");
             stmt.setString(1, scanner.nextLine().trim());
 
@@ -99,8 +100,8 @@ public class TouristPlaceDAO {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));
-                place.setCategory(rs.getString(3));
-                place.setAreaId(rs.getInt(4));
+                place.setAreaId(rs.getInt(3));
+                place.setCategory(rs.getString(4));
                 place.setRatings(rs.getDouble(5));
                 places.add(place);
             }
@@ -131,8 +132,8 @@ public class TouristPlaceDAO {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));
-                place.setCategory(rs.getString(3));
-                place.setAreaId(rs.getInt(4));
+                place.setAreaId(rs.getInt(3));
+                place.setCategory(rs.getString(4));
                 place.setRatings(rs.getDouble(5));
                 places.add(place);
             }

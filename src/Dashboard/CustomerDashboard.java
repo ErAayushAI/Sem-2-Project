@@ -195,7 +195,8 @@ public class CustomerDashboard {
                                 Display.printParkingLots(lots);
                                 break;
                             case 2:
-                                po.getParkingLotByAreaId(sc);
+                                p = po.getParkingLotByAreaId(sc);
+                                Display.printParkingLot(p);
                                 break;
                             case 3:
                                 p.bookSlot(po);
@@ -210,11 +211,13 @@ public class CustomerDashboard {
                     break;
 
                 case 6:
-                    new FeedbackDAO().submitFeedback(sc);
+                    if (new FeedbackDAO().submitFeedback(sc)) System.out.println("✅ Added successfully");
+                    else System.out.println("❌ Failed");
                     break;
 
                 case 7:
-                    new ComplaintDAO().fileComplaint(sc);
+                    if (new ComplaintDAO().fileComplaint(sc)) System.out.println("✅ Added successfully");
+                    else System.out.println("❌ Failed");
                     break;
 
                 case 8:

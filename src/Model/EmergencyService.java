@@ -169,7 +169,7 @@ public class EmergencyService {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(10000); // Wait 10 seconds
+                        Thread.sleep(20000); // Wait 20 seconds
                         availableVehicles++;
                         dao.updateVehicleCount(id, availableVehicles); // Update DB again
                         System.out.println("Vehicle returned to " + name + " (" + type + ")");

@@ -360,6 +360,33 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    public static void printParkingLot(ParkingLot lot) {
+        if (lot == null) {
+            System.out.println("⚠️ Parking lot not found.");
+            return;
+        }
+
+        System.out.println("\n🅿️ Parking Lot Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", lot.getId());
+        System.out.printf("Name: %s%n", lot.getName());
+        System.out.printf("Area ID: %d%n", lot.getAreaId());
+        System.out.printf("Capacity: %d vehicles%n", lot.getCapacity());
+        System.out.printf("Current Occupancy: %d vehicles%n", lot.getCurrentOccupancy());
+
+        int available = lot.getCapacity() - lot.getCurrentOccupancy();
+        System.out.printf("Available Slots: %d%n", available);
+        System.out.println("--------------------------------------------------");
+
+        if (available == 0) {
+            System.out.println("🚫 Lot is full. Please try another location.");
+        } else if (available < 5) {
+            System.out.println("⚠️ Limited slots available. Hurry!");
+        } else {
+            System.out.println("✅ Slots available.");
+        }
+    }
+
     public static void printComplaintTable(List<Complaint> complaints) {
         if (complaints == null || complaints.isEmpty()) {
             System.out.println("⚠️ No complaints to display.");

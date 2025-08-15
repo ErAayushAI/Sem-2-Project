@@ -139,7 +139,7 @@ public class TicketDAO {
         }
 
         connection.rollback();
-        String query = "DELETE FROM ticket WHERE ticketId = " + ticketId;
+        String query = "DELETE FROM ticket WHERE Id = " + ticketId;
         try(Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(query);
             System.out.println("Transaction rolled back, ticket cancelled: " + ticketId);

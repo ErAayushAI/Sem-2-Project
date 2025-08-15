@@ -146,9 +146,9 @@ public class ParkingLotDAO {
                 ParkingLot lot = new ParkingLot();
                 lot.setId(rs.getInt(1));
                 lot.setName(rs.getString(2));
-                lot.setCapacity(rs.getInt(3));
-                lot.setCurrentOccupancy(rs.getInt(4));
-                lot.setAreaId(rs.getInt(5));
+                lot.setAreaId(rs.getInt(3));
+                lot.setCapacity(rs.getInt(4));
+                lot.setCurrentOccupancy(rs.getInt(5));
                 availableLots.add(lot);
             }
         } catch (SQLException e) {
