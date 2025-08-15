@@ -330,6 +330,36 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    public static void printRoute(Route route) {
+        if (route == null) {
+            System.out.println("⚠️ Route not found.");
+            return;
+        }
+
+        System.out.println("\n🛣️ Route Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", route.getId());
+        System.out.printf("Name: %s%n", route.getName());
+        System.out.printf("Length: %.2f km%n", route.getLength());
+        System.out.printf("Bus Route: %s%n", route.isBusRoute() ? "✅ Yes" : "❌ No");
+        System.out.printf("Metro Route: %s%n", route.isMetroRoute() ? "✅ Yes" : "❌ No");
+        System.out.println("--------------------------------------------------");
+    }
+
+    public static void printSchedule(Schedule schedule) {
+        if (schedule == null) {
+            System.out.println("⚠️ No schedule found for this route.");
+            return;
+        }
+
+        System.out.println("\n🕒 Schedule Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("Schedule ID: %d%n", schedule.getId());
+        System.out.printf("Route ID: %d%n", schedule.getRouteID());
+        System.out.printf("Departure Time: %s%n", schedule.getDepartureTime());
+        System.out.println("--------------------------------------------------");
+    }
+
     public static void printComplaintTable(List<Complaint> complaints) {
         if (complaints == null || complaints.isEmpty()) {
             System.out.println("⚠️ No complaints to display.");

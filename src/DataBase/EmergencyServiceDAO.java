@@ -102,6 +102,7 @@ public class EmergencyServiceDAO {
         String query = "SELECT * FROM EmergencyService WHERE Type = ? LIMIT 1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
+            scanner.nextLine();
             System.out.print("Enter Type: ");
             System.out.println("Like Hospital, Police Station, Fire Station");
             stmt.setString(1, scanner.nextLine().trim().toUpperCase());

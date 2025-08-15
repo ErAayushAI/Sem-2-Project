@@ -74,6 +74,7 @@ public class RouteDAO {
                 route.setLength(rs.getDouble(3));
                 route.setBusRoute(rs.getBoolean(4));
                 route.setMetroRoute(rs.getBoolean(5));
+                return route;
             }
         } catch (SQLException e) {
             e.printStackTrace();

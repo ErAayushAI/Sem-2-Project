@@ -72,6 +72,7 @@ public class ScheduleDAO {
                 schedule.setId(rs.getInt(1));
                 schedule.setRouteID(rs.getInt(2));
                 schedule.setDepartureTime(rs.getTime(3));
+                return schedule;
             }
         } catch (SQLException e) {
             e.printStackTrace();

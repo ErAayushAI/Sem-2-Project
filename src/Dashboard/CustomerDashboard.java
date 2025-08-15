@@ -2,10 +2,7 @@ package Dashboard;
 
 import DataBase.*;
 import DataStructure.AreaEmergencyDispatcher;
-import Model.EmergencyService;
-import Model.ParkingLot;
-import Model.Route;
-import Model.TouristPlace;
+import Model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,8 +31,10 @@ public class CustomerDashboard {
 
             switch (choice) {
                 case 1:
-                    RouteDAO r = new RouteDAO();
-                    ScheduleDAO s = new ScheduleDAO();
+                    RouteDAO routeDAO = new RouteDAO();
+                    Route route;
+                    Schedule schedule;
+                    ScheduleDAO scheduleDAO = new ScheduleDAO();
                     boolean rsLoop = true;
 
                     while(rsLoop) {
@@ -49,14 +48,16 @@ public class CustomerDashboard {
                         int ch = sc.nextInt();
                         switch (ch) {
                             case 1:
-                                List<Route> routes = r.getAllRoutes();
+                                List<Route> routes = routeDAO.getAllRoutes();
                                 Display.printRoutes(routes);
                                 break;
                             case 2:
-                                r.getRouteById(sc);
+                                route = routeDAO.getRouteById(sc);
+                                Display.printRoute(route);
                                 break;
                             case 3:
-                                s.getScheduleByRouteId(sc);
+                                schedule = scheduleDAO.getScheduleByRouteId(sc);
+                                Display.printSchedule(schedule);
                                 break;
                             case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
@@ -70,6 +71,7 @@ public class CustomerDashboard {
 
                 case 2:
                     EmergencyServiceDAO e = new EmergencyServiceDAO();
+                    EmergencyService es;
                     AreaEmergencyDispatcher dispatcher;
                     boolean esLoop = true;
 
@@ -88,7 +90,8 @@ public class CustomerDashboard {
                                 Display.printEmergencyServices(services);
                                 break;
                             case 2:
-                                e.getEmergencyServiceByType(sc);
+                                es = e.getEmergencyServiceByType(sc);
+                                Display.printEmergencyService(es);
                                 break;
                             case 3:
                                 dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
