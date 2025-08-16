@@ -32,8 +32,8 @@ public class ScheduleDAO {
         String query = "INSERT INTO Schedule (RouteId, DepartureTime) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Route Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(1, che);
 
             System.out.println("Departure Time:");
             int hour = getValidInt(scanner, "Enter Hour: ");

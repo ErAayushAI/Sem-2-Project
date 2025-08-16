@@ -39,7 +39,7 @@ public class ComplaintDAO {
             stmt.setString(1, deptName);
             
             int userId = getValidInt(scanner, "Enter User Id: ");
-            stmt.setInt(1, userId);
+            stmt.setInt(2, userId);
 
             System.out.print("Enter Issue: ");
             scanner.nextLine();

@@ -38,11 +38,9 @@ public class TicketDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter User Id: ");
             che = getValidInt(scanner, "Enter User Id: ");
             stmt.setInt(1, che);
 
-            System.out.print("Enter Route Id: ");
             che = getValidInt(scanner, "Enter Route Id: ");
             stmt.setInt(2, che);
 

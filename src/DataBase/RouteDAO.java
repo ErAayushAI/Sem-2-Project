@@ -118,12 +118,13 @@ public class RouteDAO {
      * @return true if Route is Updated
      */
     public boolean updateRoute(Scanner scanner) {
+        int che;
         System.out.println("\n========== UPDATE ROUTE ==========\n");
 
         String query = "UPDATE Route SET length = ?, isBusRoute = ?, isMetroRoute = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter new Length: ");
+            che = getValidInt(scanner, "Enter new Length: ");
             stmt.setInt(1, che);
 
             boolean metroTransport = false;
@@ -142,7 +143,8 @@ public class RouteDAO {
             }
 
             System.out.print("Enter Route Id to Update: ");
-            stmt.setInt(4, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Route Id to Update: ");
+            stmt.setInt(4, che);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
