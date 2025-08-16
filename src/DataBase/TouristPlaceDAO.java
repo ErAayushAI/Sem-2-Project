@@ -68,15 +68,16 @@ public class TouristPlaceDAO {
     public void applyFeedback(Scanner scanner) {
         System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
         System.out.println();
-        TouristPlace place = new TouristPlace();
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
-        if(fb.submitFeedback(scanner)) {
+        if (fb.submitFeedback(scanner)) {
             String query = "UPDATE TouristPlace SET Ratings = ? WHERE PlaceId = ?";
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
-                stmt.setDouble(1, fb.getAverageRating(placeId));
+                double avgRatings = fb.getAverageRating(placeId);
+                stmt.setDouble(1, avgRatings);
                 stmt.setInt(2, placeId);
+                stmt.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                // silently ignore if avg is zero
             }
         }
     }

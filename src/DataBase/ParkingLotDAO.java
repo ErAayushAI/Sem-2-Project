@@ -214,4 +214,24 @@ public class ParkingLotDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * To get Occupancy of Parking lot
+     *
+     * @param lotId Parking lot id
+     * @return current occupancy
+     */
+    public int getCurrentOccupancyById(int lotId) {
+        String query = "SELECT CurrentOccupancy FROM ParkingLot WHERE Id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, lotId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // fallback
+    }
 }

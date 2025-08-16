@@ -106,9 +106,10 @@ public class FeedbackDAO {
      * To Assign Feedbacks into Linked List of Feedback.
      * To search, display feedbacks using DS.
      */
-    public void loadFeedbacksIntoLinkedList() {
+    public FeedbackLinkedList loadFeedbacksIntoLinkedList() {
         List<Feedback> feedbacks = new ArrayList<>();
         String query = "SELECT * FROM Feedback";
+
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -123,10 +124,12 @@ public class FeedbackDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         FeedbackLinkedList list = new FeedbackLinkedList();
         for (Feedback fb : feedbacks) {
             list.addFeedback(fb);
         }
-        list.displayFeedbacks();
+
+        return list; // ✅ Return the populated list instead of displaying
     }
 }

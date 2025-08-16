@@ -4,12 +4,9 @@ import Model.Ticket;
 
 import java.sql.*;
 import java.io.*;
-import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
-import static Authentication.Login.sc;
 import static Validation.AreaInputValidation.*;
 
 public class TicketDAO {
@@ -83,7 +80,7 @@ public class TicketDAO {
                         break;
                     } catch (InputMismatchException e) {
                         System.out.println("❌ Invalid input! Please enter a number.");
-                        sc.nextLine();
+                        scanner.nextLine();
                     }
                 }
 
@@ -201,10 +198,10 @@ public class TicketDAO {
         PreparedStatement stmt = connection.prepareStatement(sql);
 
         int routeId = getValidInt(scanner, "Enter Route Id: ");
-        stmt.setInt(1, che);
+        stmt.setInt(1, routeId);
 
         int userId = getValidInt(scanner, "Enter User Id: ");
-        stmt.setInt(2, che);
+        stmt.setInt(2, userId);
 
         ResultSet rs = stmt.executeQuery();
         ResultSetMetaData rsmd = rs.getMetaData();

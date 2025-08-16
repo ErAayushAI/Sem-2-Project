@@ -130,9 +130,11 @@ public class ParkingLot {
      * @param dao object to update database and occupancy
      */
     public void bookSlot(ParkingLotDAO dao) {
-        if (currentOccupancy < capacity) {
-            currentOccupancy++;
-            dao.updateOccupancyById(id, currentOccupancy); // Update DB
+        int latestOccupancy = dao.getCurrentOccupancyById(id);
+
+        if (latestOccupancy < capacity) {
+            currentOccupancy = latestOccupancy + 1;
+            dao.updateOccupancyById(id, currentOccupancy);
             System.out.println("Slot booked at " + name + " (Area " + areaId + ")");
 
             // Simulate release after random time
@@ -140,10 +142,11 @@ public class ParkingLot {
                 @Override
                 public void run() {
                     try {
-                        int delay = new Random().nextInt(10) + 1; // 1 to 20 seconds
+                        int delay = new Random().nextInt(5) + 1; // 10 to 50 seconds
                         Thread.sleep(delay * 10000);
-                        currentOccupancy--;
-                        dao.updateOccupancyById(id, currentOccupancy); // Update DB again
+
+                        int refreshedOccupancy = dao.getCurrentOccupancyById(id);
+                        dao.updateOccupancyById(id, Math.max(0, refreshedOccupancy - 1));
                         System.out.println("Slot released at " + name + " after " + delay + " sec");
                     } catch (InterruptedException e) {
                         System.out.println("Booking interrupted at " + name);

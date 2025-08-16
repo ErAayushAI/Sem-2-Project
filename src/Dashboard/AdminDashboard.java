@@ -610,8 +610,7 @@ public class AdminDashboard {
                     boolean fbLoop = true;
 
                     while (fbLoop) {
-                        fbDAO.loadFeedbacksIntoLinkedList();
-                        FeedbackLinkedList fbList = new FeedbackLinkedList();
+                        FeedbackLinkedList fbList  = fbDAO.loadFeedbacksIntoLinkedList();
 
                         System.out.println("\nFeedback Management");
                         System.out.println("1. View Feedback");
