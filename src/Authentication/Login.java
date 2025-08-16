@@ -6,7 +6,7 @@ import DataBase.*;
 import DataStructure.AreaEmergencyDispatcher;
 import Model.EmergencyService;
 import Model.ParkingLot;
-import org.w3c.dom.xpath.XPathResult;
+//import org.w3c.dom.xpath.XPathResult;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class Login {
     }
    static Scanner sc=new Scanner(System.in);
         public void loginMenu() throws SQLException {
+            int choice;
             System.out.println("Welcome to the Login System");
             System.out.println("1. Admin Login");
             System.out.println("2. Customer Login");
@@ -195,6 +196,7 @@ public class Login {
     }
 
         void adminDashboard() throws SQLException {
+            int choice;
             boolean b;int ch5;
             System.out.println("\nAdmin Dashboard");
             System.out.println("1. View all customers");
@@ -568,6 +570,7 @@ public class Login {
         }
 
         public void customerDashboard() throws SQLException {
+            int choice;
             int ch;
             System.out.println("\nCustomer Dashboard");
             System.out.println("1. Travelling routes and schedules");
@@ -635,7 +638,7 @@ public class Login {
                             System.out.print("Enter your choice (integer only): ");
                             ch = sc.nextInt();
                             break;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException er) {
                             System.out.println("❌ Invalid input! Please enter a number.");
                             sc.nextLine();
                         }
@@ -665,7 +668,7 @@ public class Login {
                             System.out.print("Enter your choice (integer only): ");
                             ch = sc.nextInt();
                             break;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException er) {
                             System.out.println("❌ Invalid input! Please enter a number.");
                             sc.nextLine();
                         }
@@ -695,7 +698,7 @@ public class Login {
                             System.out.print("Enter your choice (integer only): ");
                             ch = sc.nextInt();
                             break;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException er) {
                             System.out.println("❌ Invalid input! Please enter a number.");
                             sc.nextLine();
                         }
@@ -725,7 +728,7 @@ public class Login {
                             System.out.print("Enter your choice (integer only): ");
                             ch = sc.nextInt();
                             break;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException er) {
                             System.out.println("❌ Invalid input! Please enter a number.");
                             sc.nextLine();
                         }
