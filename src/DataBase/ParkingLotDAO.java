@@ -121,13 +121,26 @@ public class ParkingLotDAO {
         System.out.println("---------- UPDATE PARKING LOT ----------");
         System.out.println();
         String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
+        String sql = "SELECT CurrentOccupancy FROM ParkingLot WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-
-            che = getValidInt(scanner, "Enter new Capacity: ");
-            stmt.setInt(1, che);
+            PreparedStatement stmt1 = connection.prepareStatement(sql);
+            int occupancy = 0;
 
             che = getValidInt(scanner, "Enter Lot Id to Update: ");
+            stmt1.setInt(1, che);
             stmt.setInt(2, che);
+
+            ResultSet rs = stmt1.executeQuery();
+            while(rs.next()){
+                occupancy = rs.getInt(1);
+            }
+
+            che = getValidInt(scanner, "Enter new Capacity: ");
+            if(che > occupancy) {
+                stmt.setInt(1, che);
+            } else {
+                return false;
+            }
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
