@@ -3,6 +3,7 @@ package Authentication;
 import java.sql.*;
 import java.util.Scanner;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class LoginManager {
     private final Connection connection;
     private final Scanner scanner;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidInt;
 
 public class FeedbackDAO {
     private Connection connection;
@@ -17,7 +17,7 @@ public class FeedbackDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Feedback.");
         }
     }
 
@@ -49,7 +49,7 @@ public class FeedbackDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load feedback data: " + e.getMessage());
             return false;
         }
     }
@@ -76,7 +76,7 @@ public class FeedbackDAO {
                 feedbacks.add(fb);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load feedback data: " + e.getMessage());
         }
         return feedbacks;
     }
@@ -97,7 +97,7 @@ public class FeedbackDAO {
                 avg = rs.getDouble(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load feedback data: " + e.getMessage());
         }
         return avg;
     }
@@ -122,7 +122,7 @@ public class FeedbackDAO {
                 feedbacks.add(fb);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load feedback data: " + e.getMessage());
         }
 
         FeedbackLinkedList list = new FeedbackLinkedList();

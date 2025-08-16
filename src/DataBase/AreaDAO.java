@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.*;
+import static Validation.InputValidator.*;
 
 public class AreaDAO {
     private Connection connection;
@@ -16,7 +16,7 @@ public class AreaDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Area.");
         }
     }
 
@@ -50,7 +50,7 @@ public class AreaDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
             return false;
         }
     }
@@ -81,7 +81,7 @@ public class AreaDAO {
                 return area;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
         }
         return null;
     }
@@ -106,7 +106,7 @@ public class AreaDAO {
                 areas.add(area);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
         }
         return areas;
     }
@@ -137,7 +137,7 @@ public class AreaDAO {
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
             return false;
         }
     }
@@ -160,7 +160,7 @@ public class AreaDAO {
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
             return false;
         }
     }
@@ -197,7 +197,7 @@ public class AreaDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load area data: " + e.getMessage());
         }
         return areas;
     }

@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
-import static Validation.AreaInputValidation.getValidString;
+import static Validation.InputValidator.getValidInt;
+import static Validation.InputValidator.getValidString;
 
 public class ComplaintDAO {
-    private CustomQueue<Complaint> complaintQueue = new CustomQueue<>();
+    CustomQueue<Complaint> complaintQueue = new CustomQueue<>();
     private Connection connection;
 
     public ComplaintDAO() {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Complaint.");
         }
     }
 
@@ -54,7 +54,7 @@ public class ComplaintDAO {
 
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load complaint data: " + e.getMessage());
             return false;
         }
     }
@@ -79,7 +79,7 @@ public class ComplaintDAO {
                 complaints.add(complaint);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load complaint data: " + e.getMessage());
         }
         return complaints;
     }

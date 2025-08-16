@@ -27,7 +27,7 @@ public class FeedbackLinkedList {
             Feedback fb = current.data;
             System.out.println("ID: " + fb.getId() +
                     ", User: " + fb.getUserId() +
-                    ", Place: " + fb.getPlaceName() +
+                    ", Place: " + fb.getPlaceId() +
                     ", Rating: " + fb.getStarRating() +
                     ", Comments: " + fb.getComments());
             current = current.next;

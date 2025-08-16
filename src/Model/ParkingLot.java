@@ -112,6 +112,7 @@ public class ParkingLot {
      *
      * @param dao object to update database and occupancy
      */
+    @SuppressWarnings("Convert2Lambda")
     public void bookSlot(ParkingLotDAO dao) {
         int latestOccupancy = dao.getCurrentOccupancyById(id);
 

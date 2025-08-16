@@ -36,7 +36,7 @@ public class Feedback {
      *
      * @return place id
      */
-    public int getPlaceName() {
+    public int getPlaceId() {
         return placeId;
     }
 
@@ -47,6 +47,15 @@ public class Feedback {
      */
     public String getComments() {
         return comments;
+    }
+
+    /**
+     * getter for Rating of the place.
+     *
+     * @return ratings
+     */
+    public int getRating() {
+        return rating;
     }
 
     /**

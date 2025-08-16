@@ -127,6 +127,7 @@ public class EmergencyService {
     /**
      * This Method Allot the service and add again into available service after 10sec.
      */
+    @SuppressWarnings("Convert2Lambda")
     public void dispatchWithDelay(EmergencyServiceDAO dao) {
         if (availableVehicles > 0) {
             availableVehicles--;
