@@ -27,7 +27,6 @@ public class CustomerDashboard {
             System.out.printf("%-30s %-30s%n", "3. Book Tickets", "7. File a Complaint");
             System.out.printf("%-30s %-30s%n", "4. Tourist Places", "8. Logout");
             System.out.println("-------------------------------------------------");
-            System.out.print("Select an option: ");
 
             while (true) {
                 try {
@@ -55,7 +54,6 @@ public class CustomerDashboard {
                         System.out.println("3. View Schedule by Route ID");
                         System.out.println("4. Back");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -102,7 +100,6 @@ public class CustomerDashboard {
                         System.out.println("3. Call Emergency Service");
                         System.out.println("4. Back");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -146,7 +143,6 @@ public class CustomerDashboard {
                         System.out.println("2. Search Ticket");
                         System.out.println("3. Back");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -186,7 +182,6 @@ public class CustomerDashboard {
                         System.out.println("4. Give Feedback");
                         System.out.println("5. Back");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -234,7 +229,6 @@ public class CustomerDashboard {
                         System.out.println("3. Book Slot");
                         System.out.println("4. Back");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");

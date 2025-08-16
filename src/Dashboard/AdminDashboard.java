@@ -33,7 +33,6 @@ public class AdminDashboard {
             System.out.printf("%-25s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
             System.out.printf("%-25s %-25s%n", "7. Manage Service Route", "14. Logout");
             System.out.println("-------------------------------------------------");
-            System.out.print("Select an option: ");
 
 
             while (true) {
@@ -68,7 +67,6 @@ public class AdminDashboard {
                         System.out.println("6. Get Area In Area");
                         System.out.println("7. Back to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -129,7 +127,6 @@ public class AdminDashboard {
                         System.out.println("5. Get Bus By ID");
                         System.out.println("6. Back to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -185,7 +182,6 @@ public class AdminDashboard {
                         System.out.println("4. Get Emergency By ID");
                         System.out.println("5. Back to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -238,7 +234,6 @@ public class AdminDashboard {
                         System.out.println("5. Get Metro By ID");
                         System.out.println("6. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -292,7 +287,6 @@ public class AdminDashboard {
                         System.out.println("4. Delete Parking Lot");
                         System.out.println("5. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -342,7 +336,6 @@ public class AdminDashboard {
                         System.out.println("4. Delete Route");
                         System.out.println("5. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -431,7 +424,6 @@ public class AdminDashboard {
                         System.out.println("4. Update Station");
                         System.out.println("5. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -481,7 +473,6 @@ public class AdminDashboard {
                         System.out.println("4. Delete Street");
                         System.out.println("5. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -529,7 +520,6 @@ public class AdminDashboard {
                         System.out.println("2. Add Tourist Place");
                         System.out.println("3. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -571,7 +561,6 @@ public class AdminDashboard {
                         System.out.println("3. Resolve Next Complaint");
                         System.out.println("4. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
@@ -617,7 +606,6 @@ public class AdminDashboard {
                         System.out.println("2. View Feedback By User ID");
                         System.out.println("3. Exit to Dashboard");
 
-                        System.out.print("Enter choice: ");
                         while (true) {
                             try {
                                 System.out.print("Enter your choice (integer only): ");
