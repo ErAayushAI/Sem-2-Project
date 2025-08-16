@@ -233,6 +233,30 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    public static void printScheduleTable(List<Schedule> schedules) {
+        if (schedules == null || schedules.isEmpty()) {
+            System.out.println("⚠️ No schedules available.");
+            return;
+        }
+
+        String format = "| %-5s | %-10s | %-15s |%n";
+        String separator = String.format("+%s+", "-".repeat(37));
+
+        System.out.println("\n🕒 Schedule Table");
+        System.out.println(separator);
+        System.out.format(format, "ID", "Route ID", "Departure Time");
+        System.out.println(separator);
+
+        for (Schedule s : schedules) {
+            System.out.format(format,
+                    s.getId(),
+                    s.getRouteID(),
+                    s.getDepartureTime().toString());
+        }
+
+        System.out.println(separator);
+    }
+
     public static void printArea(Area area) {
         if (area == null) {
             System.out.println("⚠️ Area not found.");

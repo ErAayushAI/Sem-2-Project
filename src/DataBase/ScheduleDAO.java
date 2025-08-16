@@ -78,4 +78,27 @@ public class ScheduleDAO {
         }
         return null;
     }
+
+    /**
+     * To view all Schedule of services
+     *
+     * @return list of schedule
+     */
+    public List<Schedule> getAllSchedule() {
+        List<Schedule> schedules = new ArrayList<>();
+        String query = "SELECT * FROM Schedule";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt(1));
+                schedule.setRouteID(rs.getInt(2));
+                schedule.setDepartureTime(rs.getTime(3));
+                schedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedules;
+    }
 }

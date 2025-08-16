@@ -25,7 +25,7 @@ public class AdminDashboard {
         while (running) {
             System.out.println("\n🔒 Admin Dashboard");
             System.out.println("-------------------------------------------------");
-            System.out.printf("%-25s %-25s%n", "1. View all customers", "8. Add Schedule");
+            System.out.printf("%-25s %-25s%n", "1. View all customers", "8. Manage Schedule");
             System.out.printf("%-25s %-25s%n", "2. Manage Area", "9. Manage Station");
             System.out.printf("%-25s %-25s%n", "3. Bus Services", "10. Manage Street");
             System.out.printf("%-25s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
@@ -382,7 +382,40 @@ public class AdminDashboard {
 
                 case 8:
                     ScheduleDAO scheduleDAO = new ScheduleDAO();
-                    scheduleDAO.addSchedule(sc);
+                    boolean scheduleLoop = true;
+
+                    while (scheduleLoop) {
+                        System.out.println("\n🕒 Schedule Management");
+                        System.out.println("1. View All Schedule");
+                        System.out.println("2. Add New Schedule");
+                        System.out.println("3. Exit to Dashboard");
+
+                        System.out.print("Enter choice: ");
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException e) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
+                        switch (ch) {
+                            case 1:
+                                List<Schedule> schedules = scheduleDAO.getAllSchedule();
+                                Display.printScheduleTable(schedules);
+                                break;
+                            case 2:
+                                if (scheduleDAO.addSchedule(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 3:
+                                System.out.println("🔙 Returning to Admin Dashboard...");
+                                scheduleLoop = false;
+                                break;
+                        }
+                    }
                     break;
 
                 case 9:
