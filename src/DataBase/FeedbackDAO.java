@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class FeedbackDAO {
     private Connection connection;
 
@@ -31,18 +33,18 @@ public class FeedbackDAO {
         String query = "INSERT INTO feedback (UserId, PlaceId, Comments, Rating) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter User ID: ");
-            stmt.setInt(1, scanner.nextInt());
+            int uid = getValidInt(scanner, "Enter user id: ");
+            stmt.setInt(1, uid);
 
-            System.out.print("Enter Place Id: ");
-            stmt.setInt(2, scanner.nextInt());
+            int pid = getValidInt(scanner, "Enter Place Id: ");
+            stmt.setInt(2, pid);
 
             System.out.print("Enter Comments: ");
             scanner.nextLine();
             stmt.setString(3, scanner.nextLine().trim());
 
-            System.out.print("Enter Rating Between 1 and 5: ");
-            stmt.setInt(4, scanner.nextInt());
+            int rat = getValidInt(scanner, "Enter Rating Between 1 and 5: ");
+            stmt.setInt(4, rat);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;

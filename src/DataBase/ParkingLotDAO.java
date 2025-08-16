@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class ParkingLotDAO {
     private Connection connection;
 
@@ -25,6 +27,7 @@ public class ParkingLotDAO {
      * @return true if lot is added
      */
     public boolean addParkingLot(Scanner scanner) {
+        int che;
         System.out.println("---------- ADD PARKING LOT ----------");
         System.out.println();
         String query = "INSERT INTO ParkingLot (Name, AreaId, Capacity, CurrentOccupancy) VALUES (?, ?, ?, ?)";
@@ -33,14 +36,14 @@ public class ParkingLotDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            System.out.print("Enter Area PinCode: ");
-            stmt.setInt(2, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Area PinCode: ");
+            stmt.setInt(2, che);
 
-            System.out.print("Enter Capacity: ");
-            stmt.setInt(3, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Capacity: ");
+            stmt.setInt(3, che);
 
-            System.out.print("Enter Current Occupancy: ");
-            stmt.setInt(4, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Current Occupancy: ");
+            stmt.setInt(4, che);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -63,7 +66,8 @@ public class ParkingLotDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Area Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -113,16 +117,17 @@ public class ParkingLotDAO {
      * @return true if Parking Lot is Updated
      */
     public boolean updateParkingCapacity(Scanner scanner) {
+        int che;
         System.out.println("---------- UPDATE PARKING LOT ----------");
         System.out.println();
         String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Capacity: ");
-            stmt.setInt(1, scanner.nextInt());
+            che = getValidInt(scanner, "Enter new Capacity: ");
+            stmt.setInt(1, che);
 
-            System.out.print("Enter Lot Id to Update: ");
-            stmt.setInt(2, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Lot Id to Update: ");
+            stmt.setInt(2, che);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -169,8 +174,8 @@ public class ParkingLotDAO {
         String query = "DELETE FROM ParkingLot WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Lot Id to Delete: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Lot Id to delete: ");
+            stmt.setInt(1, che);
 
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;

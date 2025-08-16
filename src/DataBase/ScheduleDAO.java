@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class ScheduleDAO {
     private Connection connection;
 
@@ -34,12 +36,9 @@ public class ScheduleDAO {
             stmt.setInt(1, scanner.nextInt());
 
             System.out.println("Departure Time:");
-            System.out.print("Enter Hour: ");
-            int hour = scanner.nextInt();
-            System.out.print("Enter Minute: ");
-            int minute = scanner.nextInt();
-            System.out.print("Enter Second: ");
-            int second = scanner.nextInt();
+            int hour = getValidInt(scanner, "Enter Hour: ");
+            int minute = getValidInt(scanner, "Enter Minute: ");
+            int second = getValidInt(scanner, "Enter Second: ");
             Time t = new Time(hour, minute, second);
             stmt.setTime(2, t);
 
@@ -63,8 +62,8 @@ public class ScheduleDAO {
         String query = "SELECT * FROM Schedule WHERE RouteId = ? ";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Route Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

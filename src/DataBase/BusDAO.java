@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class BusDAO {
     private Connection connection;
 
@@ -118,11 +120,12 @@ public class BusDAO {
         String query = "UPDATE Bus SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Area PinCode: ");
-            stmt.setInt(1, scanner.nextInt());
+            int pinCode = getValidInt(scanner, "Enter new area PinCode: ");
+            stmt.setInt(1, pinCode);
 
-            System.out.print("Enter Bus Id to Update: ");
-            stmt.setInt(2, scanner.nextInt());
+            int id = getValidInt(scanner, "Enter bus id to update: ");
+            stmt.setInt(2, id);
+
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -144,11 +147,12 @@ public class BusDAO {
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter new Route Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int rid = getValidInt(scanner, "Enter new route id: ");
+            stmt.setInt(1, rid);
 
-            System.out.print("Enter Bus Id to Update: ");
-            stmt.setInt(2, scanner.nextInt());
+
+            int id = getValidInt(scanner, "Enter bus id to update: ");
+            stmt.setInt(2, id);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
