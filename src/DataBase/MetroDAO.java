@@ -28,8 +28,8 @@ public class MetroDAO {
      */
     public boolean addMetro(Scanner scanner) {
         int che;
-        System.out.println("---------- ADD METRO ----------");
-        System.out.println();
+        System.out.println("\n========== ADD METRO ==========\n");
+
         String query = "INSERT INTO Metro (TrainName, Capacity, CurrentRouteID, CurrentAreaID) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -62,8 +62,8 @@ public class MetroDAO {
      * @return Object of Metro
      */
     public Metro getMetroByID(Scanner scanner) {
-        System.out.println("---------- METRO BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== METRO BY ID ==========\n");
+
         String query = "SELECT * FROM Metro WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -119,8 +119,8 @@ public class MetroDAO {
      */
     public boolean updateMetroLocation(Scanner scanner) {
         int che;
-        System.out.println("---------- UPDATE METRO AREA ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE METRO AREA ==========\n");
+
         String query = "UPDATE Metro SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -146,8 +146,8 @@ public class MetroDAO {
      */
     public boolean updateMetroRoute(Scanner scanner) {
         int che;
-        System.out.println("---------- UPDATE METRO ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE METRO ROUTE ==========");
+
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 

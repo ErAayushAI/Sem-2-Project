@@ -31,8 +31,8 @@ public class TicketDAO {
         int che;
         Ticket ticket = new Ticket();
         TicketDAO ticketDAO = new TicketDAO();
-        System.out.println("---------- ADD TICKET ----------");
-        System.out.println();
+        System.out.println("\n========== ADD TICKET ==========\n");
+
         String query = "INSERT INTO ticket (UserID, RouteId, IsBusTransport, IsMetroTransport, Time, TotalBill, Distance) VALUES (?, ?, ?, ?, ?, ?, ?)";
         boolean status = false;
 
@@ -111,8 +111,8 @@ public class TicketDAO {
      * @throws IOException  for generate bill
      */
     public boolean commitTicket(Scanner scanner) throws SQLException, IOException {
-        System.out.println("---------- CONFIRM TICKET ----------");
-        System.out.println();
+        System.out.println("\n========== CONFIRM TICKET ==========\n");
+
         connection.commit();
 
         int ticketId = getLastInsertedTicketId();
@@ -139,8 +139,8 @@ public class TicketDAO {
      * @throws SQLException for connection
      */
     public boolean rollbackTicket(Scanner scanner) throws SQLException {
-        System.out.println("---------- CANCEL TICKET ----------");
-        System.out.println();
+        System.out.println("\n========== CANCEL TICKET ==========\n");
+
 
         int ticketId = getLastInsertedTicketId();
         if (ticketId == -1) {
@@ -192,8 +192,8 @@ public class TicketDAO {
      * @throws SQLException for connection
      */
     public void searchTickets(Scanner scanner) throws SQLException {
-        System.out.println("---------- SEARCH TICKET ----------");
-        System.out.println();
+        System.out.println("\n========== SEARCH TICKET ==========\n");
+
         String sql = "SELECT * FROM ticket WHERE RouteId = ? OR UserId = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -241,4 +241,5 @@ public class TicketDAO {
 
         return userAnswer == correctAnswer;
     }
+
 }

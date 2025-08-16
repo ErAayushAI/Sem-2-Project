@@ -33,8 +33,8 @@ public class TouristPlaceDAO {
      * @return true if the place is added
      */
     public boolean addPlace() {
-        System.out.println("---------- ADD TOURIST PLACE ----------");
-        System.out.println();
+        System.out.println("\n========== ADD TOURIST PLACE ==========\n");
+
         String query = "INSERT INTO TouristPlace (Name, AreaId, Category, Ratings) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -66,7 +66,8 @@ public class TouristPlaceDAO {
      * @param scanner object for user input
      */
     public void applyFeedback(Scanner scanner) {
-        System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
+        System.out.println("\n========== TOURIST PLACE FEEDBACK ==========\n");
+
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
 
         if (fb.submitFeedback(scanner)) {
@@ -91,8 +92,8 @@ public class TouristPlaceDAO {
      * @return list of places
      */
     public List<TouristPlace> displayPlacesByCategory(Scanner scanner) {
-        System.out.println("---------- TOURIST PLACE BY CATEGORY ----------");
-        System.out.println();
+        System.out.println("\n========== TOURIST PLACE BY CATEGORY ==========\n");
+
         String query = "SELECT * FROM TouristPlace WHERE Category = ?";
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -125,8 +126,8 @@ public class TouristPlaceDAO {
      * @return list of places
      */
     public List<TouristPlace> displayTopRatedPlaces(Scanner scanner) {
-        System.out.println("---------- TOP-RATED PLACES ----------");
-        System.out.println();
+        System.out.println("\n========== TOP-RATED PLACES ==========\n");
+
         String query = "SELECT * FROM TouristPlace WHERE Ratings >= ?";
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

@@ -25,8 +25,8 @@ public class EmergencyServiceDAO {
      * @return true if Service is added
      */
     public boolean addEmergencyService(Scanner scanner) {
-        System.out.println("---------- ADD EMERGENCY SERVICE ----------");
-        System.out.println();
+        System.out.println("\n========== ADD EMERGENCY SERVICE ==========\n");
+
         String query = "INSERT INTO EmergencyService (Name, Type, AreaId, ContactNumber, AvailableVehicles) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -65,8 +65,8 @@ public class EmergencyServiceDAO {
      * @return Object of EmergencyService
      */
     public EmergencyService getEmergencyServiceByID(Scanner scanner) {
-        System.out.println("---------- EMERGENCY SERVICE BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== EMERGENCY SERVICE BY ID ==========\n");
+
         String query = "SELECT * FROM EmergencyService WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -97,8 +97,8 @@ public class EmergencyServiceDAO {
      * @return Object of EmergencyService
      */
     public EmergencyService getEmergencyServiceByType(Scanner scanner) {
-        System.out.println("---------- EMERGENCY SERVICE BY TYPE ----------");
-        System.out.println();
+        System.out.println("\n========== EMERGENCY SERVICE BY TYPE ==========\n");
+
         String query = "SELECT * FROM EmergencyService WHERE Type = ? LIMIT 1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -157,8 +157,8 @@ public class EmergencyServiceDAO {
      * @return true if services is Updated
      */
     public boolean updateEmergencyService (Scanner scanner) {
-        System.out.println("---------- UPDATE EMERGENCY SERVICE ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE EMERGENCY SERVICE ==========\n");
+
         String query = "UPDATE EmergencyService SET ContactNumber = ?, AvailableVehicles = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 

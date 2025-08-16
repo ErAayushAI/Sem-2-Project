@@ -12,23 +12,6 @@ public class ParkingLot {
     int currentOccupancy;
 
     /**
-     * Constructor for ParkingLot class.
-     *
-     * @param id               for lot id
-     * @param name             for lot name
-     * @param areaId           for location of lot
-     * @param capacity         for number of spots
-     * @param currentOccupancy number spots currently taken
-     */
-    public ParkingLot(int id, String name, int areaId, int capacity, int currentOccupancy) {
-        this.id = id;
-        this.name = name;
-        this.areaId = areaId;
-        this.capacity = capacity;
-        this.currentOccupancy = currentOccupancy;
-    }
-
-    /**
      * Default Constructor.
      */
     public ParkingLot() {

@@ -8,23 +8,6 @@ public class Street {
     boolean isOneWay;
 
     /**
-     * Constructor for Street Class.
-     *
-     * @param id          for Street id
-     * @param startAreaId for Street Starts from this Area
-     * @param endAreaId   for Street Ends at this Area
-     * @param distance    for length of the Street
-     * @param isOneWay    for Street has One way or not
-     */
-    public Street(int id, int startAreaId, int endAreaId, double distance, boolean isOneWay) {
-        this.id = id;
-        this.startAreaId = startAreaId;
-        this.endAreaId = endAreaId;
-        this.distance = distance;
-        this.isOneWay = isOneWay;
-    }
-
-    /**
      * Default Constructor.
      */
     public Street() {

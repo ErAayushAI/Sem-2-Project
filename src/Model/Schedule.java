@@ -8,19 +8,6 @@ public class Schedule {
     Time departureTime;
 
     /**
-     * Constructor for Schedule Class.
-     *
-     * @param id            for schedule id
-     * @param routeID       for schedule of route
-     * @param departureTime for departure time of bus or metro
-     */
-    public Schedule(int id, int routeID, Time departureTime) {
-        this.id = id;
-        this.routeID = routeID;
-        this.departureTime = departureTime;
-    }
-
-    /**
      * Default Constructor.
      */
     public Schedule() {

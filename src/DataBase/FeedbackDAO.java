@@ -28,8 +28,8 @@ public class FeedbackDAO {
      * @return true if feedback is added
      */
     public boolean submitFeedback(Scanner scanner) {
-        System.out.println("---------- ADD FEEDBACK ----------");
-        System.out.println();
+        System.out.println("\n========== ADD FEEDBACK ==========\n");
+
         String query = "INSERT INTO feedback (UserId, PlaceId, Comments, Rating) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -60,8 +60,8 @@ public class FeedbackDAO {
      * @return list of feedbacks
      */
     public List<Feedback> reviewLatestFeedback() {
-        System.out.println("---------- REVIEW FEEDBACK ----------");
-        System.out.println();
+        System.out.println("\n========== REVIEW FEEDBACK ==========\n");
+
         List<Feedback> feedbacks = new ArrayList<>();
         String query = "SELECT * FROM Feedback LIMIT 10";
         try (Statement stmt = connection.createStatement()) {
@@ -130,6 +130,6 @@ public class FeedbackDAO {
             list.addFeedback(fb);
         }
 
-        return list; // ✅ Return the populated list instead of displaying
+        return list;
     }
 }

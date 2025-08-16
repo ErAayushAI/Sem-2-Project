@@ -8,23 +8,6 @@ public class Feedback {
     int rating;
 
     /**
-     * Constructor for Feedback Class.
-     *
-     * @param id        for Feedback id
-     * @param userId    for user who Rates
-     * @param placeId for which place user is rating
-     * @param comments  for comments user wants to add
-     * @param rating    for rating between 1 and 5 stars
-     */
-    public Feedback(int id, int userId, int placeId, String comments, int rating) {
-        this.id = id;
-        this.userId = userId;
-        this.placeId = placeId;
-        this.comments = comments;
-        this.rating = rating;
-    }
-
-    /**
      * Default Constructor.
      */
     public Feedback() {
@@ -64,15 +47,6 @@ public class Feedback {
      */
     public String getComments() {
         return comments;
-    }
-
-    /**
-     * getter for ratings
-     *
-     * @return ratings in between 1 and 5
-     */
-    public int getRating() {
-        return rating;
     }
 
     /**

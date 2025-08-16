@@ -27,8 +27,8 @@ public class BusDAO {
      * @return true if Bus is added
      */
     public boolean addBus(Scanner scanner) {
-        System.out.println("---------- ADD BUS ----------");
-        System.out.println();
+        System.out.println("\n========== ADD BUS ==========\n");
+
         String query = "INSERT INTO Bus (LicensePlate, Capacity, CurrentRouteID, CurrentAreaID) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -59,8 +59,8 @@ public class BusDAO {
      * @return Object of Bus
      */
     public Bus getBusByID(Scanner scanner) {
-        System.out.println("---------- BUS BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== BUS BY ID ==========\n");
+
         String query = "SELECT * FROM Bus WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -115,8 +115,8 @@ public class BusDAO {
      * @return true if Bus is Updated
      */
     public boolean updateBusLocation(Scanner scanner) {
-        System.out.println("---------- UPDATE BUS AREA ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE BUS AREA ==========\n");
+
         String query = "UPDATE Bus SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -142,8 +142,8 @@ public class BusDAO {
      * @return true if Bus is Updated
      */
     public boolean updateBusRoute(Scanner scanner) {
-        System.out.println("---------- UPDATE BUS ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE BUS ROUTE ==========\n");
+
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
