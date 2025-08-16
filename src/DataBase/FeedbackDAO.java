@@ -28,8 +28,8 @@ public class FeedbackDAO {
      * @return true if feedback is added
      */
     public boolean submitFeedback(Scanner scanner) {
-        System.out.println("---------- ADD FEEDBACK ----------");
-        System.out.println();
+        System.out.println("\n========== ADD FEEDBACK ==========\n");
+
         String query = "INSERT INTO feedback (UserId, PlaceId, Comments, Rating) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -60,8 +60,8 @@ public class FeedbackDAO {
      * @return list of feedbacks
      */
     public List<Feedback> reviewLatestFeedback() {
-        System.out.println("---------- REVIEW FEEDBACK ----------");
-        System.out.println();
+        System.out.println("\n========== REVIEW FEEDBACK ==========\n");
+
         List<Feedback> feedbacks = new ArrayList<>();
         String query = "SELECT * FROM Feedback LIMIT 10";
         try (Statement stmt = connection.createStatement()) {
@@ -106,9 +106,10 @@ public class FeedbackDAO {
      * To Assign Feedbacks into Linked List of Feedback.
      * To search, display feedbacks using DS.
      */
-    public void loadFeedbacksIntoLinkedList() {
+    public FeedbackLinkedList loadFeedbacksIntoLinkedList() {
         List<Feedback> feedbacks = new ArrayList<>();
         String query = "SELECT * FROM Feedback";
+
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -123,10 +124,12 @@ public class FeedbackDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         FeedbackLinkedList list = new FeedbackLinkedList();
         for (Feedback fb : feedbacks) {
             list.addFeedback(fb);
         }
-        list.displayFeedbacks();
+
+        return list;
     }
 }

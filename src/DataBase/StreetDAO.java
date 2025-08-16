@@ -28,8 +28,8 @@ public class StreetDAO {
      */
     public boolean addStreet(Scanner scanner) {
         int che;
-        System.out.println("---------- ADD STREET ----------");
-        System.out.println();
+        System.out.println("\n========== ADD STREET ==========\n");
+
         String query = "INSERT INTO Street (Id, StartAreaId, EndAreaId, Distance, IsOneWay) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -62,8 +62,8 @@ public class StreetDAO {
      * @return Object of Street
      */
     public Street getStreetById(Scanner scanner) {
-        System.out.println("---------- STREET BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== STREET BY ID ==========\n");
+
         String query = "SELECT * FROM Street WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -92,8 +92,8 @@ public class StreetDAO {
      * @return Object of street
      */
     public Street getStreetByAreaId(Scanner scanner) {
-        System.out.println("---------- STREET BY AREA ----------");
-        System.out.println();
+        System.out.println("\n========== STREET BY AREA ==========\n");
+
         String query = "SELECT * FROM Street WHERE areaId = ? LIMIT 1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -148,8 +148,8 @@ public class StreetDAO {
      */
     public boolean updateStreet(Scanner scanner) {
         int che;
-        System.out.println("---------- UPDATE STREET ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE STREET ==========\n");
+
         String query = "UPDATE Street SET StartAreaId = ?, EndAreaId = ?, IsOneWay = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -179,8 +179,8 @@ public class StreetDAO {
      * @return true if Street is deleted
      */
     public boolean deleteStreet(Scanner scanner) {
-        System.out.println("---------- DELETE STREET ----------");
-        System.out.println();
+        System.out.println("\n========== DELETE STREET ==========\n");
+
         String query = "DELETE FROM Street WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 

@@ -27,8 +27,8 @@ public class AreaDAO {
      * @return true if area is added
      */
     public boolean addArea(Scanner scanner) {
-        System.out.println("---------- ADD AREA ----------");
-        System.out.println();
+        System.out.println("\n========== ADD AREA ==========\n");
+
         String query = "INSERT INTO Area (Id, Name, Latitude, Longitude, IsEmergencyPoint) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -62,8 +62,8 @@ public class AreaDAO {
      * @return Object of Area
      */
     public Area getAreaById(Scanner scanner) {
-        System.out.println("---------- AREA BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== AREA BY ID ==========\n");
+
         String query = "SELECT * FROM Area WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -118,8 +118,8 @@ public class AreaDAO {
      * @return true if Area is updated
      */
     public boolean updateArea(Scanner scanner) {
-        System.out.println("---------- UPDATE AREA ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE AREA ==========\n");
+
         String query = "UPDATE Area SET name = ?, isEmergencyPoint = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -149,8 +149,8 @@ public class AreaDAO {
      * @return true if Area is Deleted
      */
     public boolean deleteArea(Scanner scanner) {
-        System.out.println("---------- DELETE AREA ----------");
-        System.out.println();
+        System.out.println("\n========== DELETE AREA ==========\n");
+
         String query = "DELETE FROM Area WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -172,8 +172,8 @@ public class AreaDAO {
      * @return list of Area inside the area
      */
     public List<Area> getAreaInArea(Scanner scanner) {
-        System.out.println("---------- UPDATE AREA BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE AREA BY ID ==========\n");
+
         List<Area> areas = new ArrayList<>();
         double minLat = getValidDouble(scanner, "Enter minimum Latitude: ");
 

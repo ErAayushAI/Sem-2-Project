@@ -8,23 +8,6 @@ public class Metro {
     Integer currentAreaID;
 
     /**
-     * Constructor for Metro Class.
-     *
-     * @param id             for Metro id
-     * @param trainName      for Metro train name
-     * @param capacity       for Metro capacity
-     * @param currentRouteID for current Route of Metro
-     * @param currentAreaID  for current Location of Metro
-     */
-    public Metro(int id, String trainName, int capacity, Integer currentRouteID, Integer currentAreaID) {
-        this.id = id;
-        this.trainName = trainName;
-        this.capacity = capacity;
-        this.currentRouteID = currentRouteID;
-        this.currentAreaID = currentAreaID;
-    }
-
-    /**
      * Default Constructor.
      */
     public Metro() {

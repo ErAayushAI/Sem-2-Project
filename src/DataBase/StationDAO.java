@@ -28,8 +28,8 @@ public class StationDAO {
      * @return true if Station is added
      */
     public boolean addStation(Scanner scanner) {
-        System.out.println("---------- ADD STATION ----------");
-        System.out.println();
+        System.out.println("\n========== ADD STATION ==========\n");
+
         String query = "INSERT INTO Station (Name, AreaId, IsBusStation, IsMetroStation) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -70,8 +70,8 @@ public class StationDAO {
      * @return Object of Station
      */
     public Station getStationById(Scanner scanner) {
-        System.out.println("---------- STATION BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== STATION BY ID ==========\n");
+
         String query = "SELECT * FROM Station WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -126,8 +126,8 @@ public class StationDAO {
      * @return List of Station
      */
     public List<Station> getStopsByAreaId(Scanner scanner) {
-        System.out.println("---------- STATION BY AREA ----------");
-        System.out.println();
+        System.out.println("\n========== STATION BY AREA ==========\n");
+
         List<Station> stations = new ArrayList<>();
         String query = "SELECT * FROM Station WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -153,8 +153,8 @@ public class StationDAO {
     }
 
     public boolean updateStation (Scanner scanner) {
-        System.out.println("---------- UPDATE ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE ROUTE ==========\n");
+
         String query = "UPDATE Station SET Name = ?, isBusStation = ?, isMetroStation = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 

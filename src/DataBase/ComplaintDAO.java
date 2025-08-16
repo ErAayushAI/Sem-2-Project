@@ -30,8 +30,8 @@ public class ComplaintDAO {
      * @return true if complaint is filed
      */
     public boolean fileComplaint(Scanner scanner) {
-        System.out.println("---------- ADD COMPLAINT ----------");
-        System.out.println();
+        System.out.println("\n========== ADD COMPLAINT ==========\n");
+
         String query = "INSERT INTO complaint (Department, UserId, Issue, Status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -88,8 +88,8 @@ public class ComplaintDAO {
      * To solve complaint.
      */
     public void resolveNextComplaint() {
-        System.out.println("---------- RESOLVE PENDING COMPLAINT ----------");
-        System.out.println();
+        System.out.println("\n========== RESOLVE PENDING COMPLAINT ==========\n");
+
         if (!complaintQueue.isEmpty()) {
             Complaint c = complaintQueue.dequeue();
             System.out.println("Resolving complaint:");

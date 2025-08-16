@@ -28,8 +28,8 @@ public class ParkingLotDAO {
      */
     public boolean addParkingLot(Scanner scanner) {
         int che;
-        System.out.println("---------- ADD PARKING LOT ----------");
-        System.out.println();
+        System.out.println("\n========== ADD PARKING LOT ==========\n");
+
         String query = "INSERT INTO ParkingLot (Name, AreaId, Capacity, CurrentOccupancy) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             System.out.print("Enter Name: ");
@@ -60,8 +60,8 @@ public class ParkingLotDAO {
      * @return Object of Parking lot
      */
     public ParkingLot getParkingLotByAreaId(Scanner scanner) {
-        System.out.println("---------- PARKING LOT BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== PARKING LOT BY ID ==========\n");
+
         String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -118,8 +118,8 @@ public class ParkingLotDAO {
      */
     public boolean updateParkingCapacity(Scanner scanner) {
         int che;
-        System.out.println("---------- UPDATE PARKING LOT ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE PARKING LOT ==========\n");
+
         String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
         String sql = "SELECT CurrentOccupancy FROM ParkingLot WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -182,8 +182,8 @@ public class ParkingLotDAO {
      * @return true if Parking lot is deleted
      */
     public boolean deleteParkingLot (Scanner scanner) {
-        System.out.println("---------- DELETE ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== DELETE ROUTE ==========\n");
+
         String query = "DELETE FROM ParkingLot WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -213,5 +213,25 @@ public class ParkingLotDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * To get Occupancy of Parking lot
+     *
+     * @param lotId Parking lot id
+     * @return current occupancy
+     */
+    public int getCurrentOccupancyById(int lotId) {
+        String query = "SELECT CurrentOccupancy FROM ParkingLot WHERE Id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, lotId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // fallback
     }
 }

@@ -11,25 +11,6 @@ public class EmergencyService {
     int availableVehicles;
 
     /**
-     * Constructor for EmergencyService Class.
-     *
-     * @param id                for service id
-     * @param name              for service name
-     * @param type              for service type (for example =  Hospital, Police, Fire)
-     * @param areaId            for location of service
-     * @param contactNumber     for service contact number
-     * @param availableVehicles for count vehicles that service have
-     */
-    public EmergencyService(int id, String name, String type, int areaId, long contactNumber, int availableVehicles) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.areaId = areaId;
-        this.contactNumber = contactNumber;
-        this.availableVehicles = availableVehicles;
-    }
-
-    /**
      * Default Constructor
      */
     public EmergencyService() {
@@ -141,19 +122,6 @@ public class EmergencyService {
      */
     public void setAvailableVehicles(int availableVehicles) {
         this.availableVehicles = availableVehicles;
-    }
-
-    /**
-     * To Find how many Vehicle are left.
-     *
-     * @return true if Vehicle is available
-     */
-    public boolean dispatchVehicle() {
-        if (availableVehicles > 0) {
-            availableVehicles--;
-            return true;
-        }
-        return false;
     }
 
     /**

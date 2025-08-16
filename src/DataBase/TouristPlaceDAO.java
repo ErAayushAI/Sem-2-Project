@@ -33,8 +33,8 @@ public class TouristPlaceDAO {
      * @return true if the place is added
      */
     public boolean addPlace() {
-        System.out.println("---------- ADD TOURIST PLACE ----------");
-        System.out.println();
+        System.out.println("\n========== ADD TOURIST PLACE ==========\n");
+
         String query = "INSERT INTO TouristPlace (Name, AreaId, Category, Ratings) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -66,17 +66,21 @@ public class TouristPlaceDAO {
      * @param scanner object for user input
      */
     public void applyFeedback(Scanner scanner) {
-        System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
-        System.out.println();
-        TouristPlace place = new TouristPlace();
+        System.out.println("\n========== TOURIST PLACE FEEDBACK ==========\n");
+
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
-        if(fb.submitFeedback(scanner)) {
-            String query = "UPDATE TouristPlace SET Ratings = ? WHERE PlaceId = ?";
+
+        if (fb.submitFeedback(scanner)) {
+            double avgRatings = fb.getAverageRating(placeId);
+            String query = "UPDATE TouristPlace SET Ratings = ? WHERE id = ?";
+
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
-                stmt.setDouble(1, fb.getAverageRating(placeId));
+                stmt.setDouble(1, avgRatings);
                 stmt.setInt(2, placeId);
+                int rows = stmt.executeUpdate();
+                System.out.println("✅ Updated new average rating: " + avgRatings);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("❌ Failed to update rating: " + e.getMessage());
             }
         }
     }
@@ -88,8 +92,8 @@ public class TouristPlaceDAO {
      * @return list of places
      */
     public List<TouristPlace> displayPlacesByCategory(Scanner scanner) {
-        System.out.println("---------- TOURIST PLACE BY CATEGORY ----------");
-        System.out.println();
+        System.out.println("\n========== TOURIST PLACE BY CATEGORY ==========\n");
+
         String query = "SELECT * FROM TouristPlace WHERE Category = ?";
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -122,8 +126,8 @@ public class TouristPlaceDAO {
      * @return list of places
      */
     public List<TouristPlace> displayTopRatedPlaces(Scanner scanner) {
-        System.out.println("---------- TOP-RATED PLACES ----------");
-        System.out.println();
+        System.out.println("\n========== TOP-RATED PLACES ==========\n");
+
         String query = "SELECT * FROM TouristPlace WHERE Ratings >= ?";
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

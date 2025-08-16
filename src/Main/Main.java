@@ -5,7 +5,7 @@ import DataBase.DataBaseManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         try {
             Connection connection = DataBaseManager.getConnection();

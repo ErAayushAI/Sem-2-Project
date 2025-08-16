@@ -249,7 +249,12 @@ public class CustomerDashboard {
                                 Display.printParkingLot(p);
                                 break;
                             case 3:
-                                p.bookSlot(po);
+                                ParkingLot selectedLot = po.getParkingLotByAreaId(sc);
+                                if (selectedLot != null) {
+                                    selectedLot.bookSlot(po);
+                                } else {
+                                    System.out.println("❌ No parking lot found for given Area ID.");
+                                }
                                 break;
                             case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");

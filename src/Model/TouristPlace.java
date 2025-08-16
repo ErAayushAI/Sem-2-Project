@@ -9,23 +9,6 @@ public class TouristPlace {
     double ratings;
 
     /**
-     * Constructor for Tourist Place class.
-     *
-     * @param id       for place id
-     * @param name     for place name
-     * @param category for which type of place it is
-     * @param areaId   for area in which place is exists
-     * @param ratings  for rating of that place
-     */
-    public TouristPlace(int id, String name, String category, int areaId, double ratings) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.areaId = areaId;
-        this.ratings = ratings;
-    }
-
-    /**
      * Default Constructor.
      */
     public TouristPlace() {

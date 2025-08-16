@@ -8,23 +8,6 @@ public class Station {
     boolean isMetroStation;
 
     /**
-     * Constructor for Station class.
-     *
-     * @param id             for station id
-     * @param name           for station name
-     * @param areaId         for location of station
-     * @param isBusStation   for bus station
-     * @param isMetroStation for metro station
-     */
-    public Station(int id, String name, int areaId, boolean isBusStation, boolean isMetroStation) {
-        this.id = id;
-        this.name = name;
-        AreaId = areaId;
-        this.isBusStation = isBusStation;
-        this.isMetroStation = isMetroStation;
-    }
-
-    /**
      * Default Constructor.
      */
     public Station() {

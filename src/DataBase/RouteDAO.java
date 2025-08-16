@@ -28,8 +28,8 @@ public class RouteDAO {
      */
     public boolean addRoute(Scanner scanner) {
         boolean che;
-        System.out.println("---------- ADD ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== ADD ROUTE ==========\n");
+
         String query = "INSERT INTO Route (Name, Length, IsBusRoute, IsMetroRoute) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -61,8 +61,8 @@ public class RouteDAO {
      * @return Object of Route
      */
     public Route getRouteById(Scanner scanner) {
-        System.out.println("---------- ROUTE BY ID ----------");
-        System.out.println();
+        System.out.println("\n========== ROUTE BY ID ==========\n");
+
         String query = "SELECT * FROM Route WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -118,8 +118,8 @@ public class RouteDAO {
      * @return true if Route is Updated
      */
     public boolean updateRoute(Scanner scanner) {
-        System.out.println("---------- UPDATE ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== UPDATE ROUTE ==========\n");
+
         String query = "UPDATE Route SET length = ?, isBusRoute = ?, isMetroRoute = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -159,8 +159,8 @@ public class RouteDAO {
      * @return true if route is deleted
      */
     public boolean deleteRoute (Scanner scanner){
-        System.out.println("---------- DELETE ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== DELETE ROUTE ==========\n");
+
         String query = "DELETE FROM Route WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 

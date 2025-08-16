@@ -27,8 +27,8 @@ public class ScheduleDAO {
      * @return true if schedule is added
      */
     public boolean addSchedule(Scanner scanner) {
-        System.out.println("---------- ADD SCHEDULE ----------");
-        System.out.println();
+        System.out.println("\n========== ADD SCHEDULE ==========\n");
+
         String query = "INSERT INTO Schedule (RouteId, DepartureTime) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -57,8 +57,8 @@ public class ScheduleDAO {
      * @return Object of Schedule
      */
     public Schedule getScheduleByRouteId(Scanner scanner) {
-        System.out.println("---------- SCHEDULE BY ROUTE ----------");
-        System.out.println();
+        System.out.println("\n========== SCHEDULE BY ROUTE ==========\n");
+
         String query = "SELECT * FROM Schedule WHERE RouteId = ? ";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
