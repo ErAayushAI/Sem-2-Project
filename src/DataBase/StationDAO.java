@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidBoolean;
+import static Validation.AreaInputValidation.getValidInt;
+
 public class StationDAO {
     private Connection connection;
 
@@ -34,18 +37,16 @@ public class StationDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            System.out.print("Enter Area Id: ");
-            stmt.setInt(2, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(2, che);
 
-            System.out.print("Enter 'true' if it is Bus Station: ");
-            boolean BusTransport = scanner.nextBoolean();
             boolean metroTransport = false;
+            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Station: ");
             stmt.setBoolean(3, BusTransport);
             if(BusTransport){
                 stmt.setBoolean(4, false);
             } else {
-                System.out.print("Enter 'true' if it is Metro Transport: ");
-                metroTransport = scanner.nextBoolean();
+                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Transport: ");
                 stmt.setBoolean(4, metroTransport);
             }
 
@@ -74,8 +75,8 @@ public class StationDAO {
         String query = "SELECT * FROM Station WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Id: ");
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -132,7 +133,8 @@ public class StationDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter Area Id: ");
-            stmt.setInt(1, scanner.nextInt());
+           int che = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -160,15 +162,13 @@ public class StationDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            System.out.print("Enter 'true' if it is Bus Station: ");
-            boolean BusTransport = scanner.nextBoolean();
             boolean metroTransport = false;
+            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Station: ");
             stmt.setBoolean(2, BusTransport);
             if(BusTransport){
                 stmt.setBoolean(3, false);
             } else {
-                System.out.print("Enter 'true' if it is Metro Transport: ");
-                metroTransport = scanner.nextBoolean();
+                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Transport: ");
                 stmt.setBoolean(3, metroTransport);
             }
 
@@ -177,8 +177,8 @@ public class StationDAO {
                 return false;
             }
 
-            System.out.print("Enter Station Id to Update: ");
-            stmt.setInt(4, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Station Id to Update: ");
+            stmt.setInt(4, che);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;

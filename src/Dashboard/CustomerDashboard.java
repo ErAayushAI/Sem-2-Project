@@ -5,6 +5,7 @@ import DataStructure.AreaEmergencyDispatcher;
 import Model.*;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class CustomerDashboard {
     }
     public void showMenu() throws SQLException {
         boolean running = true;
+        int choice;int ch;
 
         while (running) {
             System.out.println("\n🧑‍💼 Customer Dashboard");
@@ -27,7 +29,16 @@ public class CustomerDashboard {
             System.out.println("-------------------------------------------------");
             System.out.print("Select an option: ");
 
-            int choice = sc.nextInt();
+            while (true) {
+                try {
+                    System.out.print("Enter your choice (integer only): ");
+                    choice = sc.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Invalid input! Please enter a number.");
+                    sc.nextLine();
+                }
+            }
 
             switch (choice) {
                 case 1:
@@ -45,7 +56,16 @@ public class CustomerDashboard {
                         System.out.println("4. Back");
 
                         System.out.print("Enter choice: ");
-                        int ch = sc.nextInt();
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException e) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
                         switch (ch) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
@@ -83,7 +103,16 @@ public class CustomerDashboard {
                         System.out.println("4. Back");
 
                         System.out.print("Enter choice: ");
-                        int ch = sc.nextInt();
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException er) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
                         switch (ch) {
                             case 1:
                                 List<EmergencyService> services = e.getAllEmergencyService();
@@ -118,7 +147,16 @@ public class CustomerDashboard {
                         System.out.println("3. Back");
 
                         System.out.print("Enter choice: ");
-                        int ch = sc.nextInt();
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException er) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
                         switch (ch) {
                             case 1:
                                 t.addTicket(sc);
@@ -149,7 +187,16 @@ public class CustomerDashboard {
                         System.out.println("5. Back");
 
                         System.out.print("Enter choice: ");
-                        int ch = sc.nextInt();
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException er) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
                         switch (ch) {
                             case 1:
                                 places = tp.displayAllPlaces();
@@ -188,7 +235,16 @@ public class CustomerDashboard {
                         System.out.println("4. Back");
 
                         System.out.print("Enter choice: ");
-                        int ch = sc.nextInt();
+                        while (true) {
+                            try {
+                                System.out.print("Enter your choice (integer only): ");
+                                ch = sc.nextInt();
+                                break;
+                            } catch (InputMismatchException er) {
+                                System.out.println("❌ Invalid input! Please enter a number.");
+                                sc.nextLine();
+                            }
+                        }
                         switch (ch) {
                             case 1:
                                 List<ParkingLot> lots = po.getAvailableParkingLots();

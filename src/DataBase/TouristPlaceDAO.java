@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+import static Validation.AreaInputValidation.getValidString;
+
 public class TouristPlaceDAO {
 
     FeedbackDAO fb = new FeedbackDAO();
@@ -39,7 +42,8 @@ public class TouristPlaceDAO {
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter Area Id: ");
-            stmt.setInt(2, scanner.nextInt());
+           int che = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(2, che);
 
             System.out.print("Enter Category: ");
             System.out.println("Like Historic, Religious, etc...");
@@ -65,8 +69,7 @@ public class TouristPlaceDAO {
         System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
         System.out.println();
         TouristPlace place = new TouristPlace();
-        System.out.print("Enter Place Id to Submit Feedback: ");
-        int placeId = scanner.nextInt();
+        int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
         if(fb.submitFeedback(scanner)) {
             String query = "UPDATE TouristPlace SET Ratings = ? WHERE PlaceId = ?";
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -93,7 +96,8 @@ public class TouristPlaceDAO {
 
             scanner.nextLine();
             System.out.print("Enter Category: ");
-            stmt.setString(1, scanner.nextLine().trim());
+            String categ = getValidString(scanner, "Enter Category: ");
+            stmt.setString(1, categ);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -124,8 +128,8 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Ratings: ");
-            stmt.setInt(1, scanner.nextInt());
+            int che = getValidInt(scanner, "Enter Ratings: ");
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

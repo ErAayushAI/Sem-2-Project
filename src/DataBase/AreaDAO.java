@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.*;
+
 public class AreaDAO {
     private Connection connection;
 
@@ -30,21 +32,20 @@ public class AreaDAO {
         String query = "INSERT INTO Area (Id, Name, Latitude, Longitude, IsEmergencyPoint) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter PinCode: ");
-            stmt.setInt(1, scanner.nextInt());
+            int pinCode = getValidInt(scanner, "Enter PinCode: ");
+            stmt.setInt(1, pinCode);
 
-            System.out.print("Enter Name: ");
-            scanner.nextLine();
-            stmt.setString(2, scanner.nextLine().trim());
+            String name = getValidString(scanner, "Enter Name: ");
+            stmt.setString(2, name);
 
-            System.out.print("Enter Latitude: ");
-            stmt.setDouble(3, scanner.nextDouble());
+            double latitude = getValidDouble(scanner, "Enter Latitude: ");
+            stmt.setDouble(3, latitude);
 
-            System.out.print("Enter Longitude: ");
-            stmt.setDouble(4, scanner.nextDouble());
+            double longitude = getValidDouble(scanner, "Enter Longitude: ");
+            stmt.setDouble(4, longitude);
 
-            System.out.print("Enter 'true' if Area has Emergency Point: ");
-            stmt.setBoolean(5, scanner.nextBoolean());
+            boolean hasEmergency = getValidBoolean(scanner, "Enter 'true' if Area has Emergency Point: ");
+            stmt.setBoolean(5, hasEmergency);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -123,14 +124,16 @@ public class AreaDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             scanner.nextLine();
-            System.out.print("Enter new Area Name: ");
-            stmt.setString(1, scanner.nextLine().trim());
+            String name = getValidString(scanner, "Enter new Area Name: ");
+            stmt.setString(1, name);
 
-            System.out.print("Enter 'true' if Area has Emergency Point: ");
-            stmt.setBoolean(2, scanner.nextBoolean());
+            boolean hasEmergency = getValidBoolean(scanner, "Enter 'true' if Area has Emergency Point: ");
+            stmt.setBoolean(2, hasEmergency);
 
-            System.out.print("Enter Area PinCode to Update: ");
-            stmt.setInt(3, scanner.nextInt());
+
+            int pinCode = getValidInt(scanner, "Enter PinCode to update: ");
+            stmt.setInt(1, pinCode);
+
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
@@ -152,8 +155,8 @@ public class AreaDAO {
         String query = "DELETE FROM Area WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Area PinCode to Delete: ");
-            stmt.setInt(1, scanner.nextInt());
+            int pinCode = getValidInt(scanner, "Enter Area PinCode to delete: ");
+            stmt.setInt(1, pinCode);
 
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;

@@ -5,8 +5,12 @@ import Model.Ticket;
 import java.sql.*;
 import java.io.*;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+
+import static Authentication.Login.sc;
+import static Validation.AreaInputValidation.*;
 
 public class TicketDAO {
     private Connection connection;
@@ -27,6 +31,7 @@ public class TicketDAO {
      * @return true if new ticket is added
      */
     public boolean addTicket(Scanner scanner) {
+        int che;
         Ticket ticket = new Ticket();
         TicketDAO ticketDAO = new TicketDAO();
         System.out.println("---------- ADD TICKET ----------");
@@ -37,21 +42,21 @@ public class TicketDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             System.out.print("Enter User Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            che = getValidInt(scanner, "Enter User Id: ");
+            stmt.setInt(1, che);
 
             System.out.print("Enter Route Id: ");
-            stmt.setInt(2, scanner.nextInt());
+            che = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(2, che);
 
-            System.out.print("Enter 'true' if it is Bus Transport: ");
-            boolean BusTransport = scanner.nextBoolean();
             boolean metroTransport = false;
-            stmt.setBoolean(3, BusTransport);
+            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Transport: ");
+            stmt.setBoolean(2, BusTransport);
             if(BusTransport){
-                stmt.setBoolean(4, false);
+                stmt.setBoolean(3, false);
             } else {
-                System.out.print("Enter 'true' if it is Metro Transport: ");
-                metroTransport = scanner.nextBoolean();
-                stmt.setBoolean(4, metroTransport);
+                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Transport: ");
+                stmt.setBoolean(3, metroTransport);
             }
 
             if(BusTransport == false && metroTransport == false){
@@ -62,17 +67,25 @@ public class TicketDAO {
             java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
             stmt.setTimestamp(5, timestamp);
 
-            System.out.print("Enter Travel Distance: ");
-            double distance = scanner.nextDouble();
+            double distance = getValidDouble(scanner, "Enter Travel Distance: ");
             stmt.setDouble(7, distance);
             stmt.setDouble(6, ticket.calculateBill(distance));
 
+            int choice;
             System.out.println("Ticket pending confirmation: " + ticket.getId());
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("1. Confirm Ticket\n2. Cancel Ticket");
-                System.out.print("Enter Choice: ");
-                int choice = scanner.nextInt();
+                while (true) {
+                    try {
+                        System.out.print("Enter your choice (integer only): ");
+                        choice = scanner.nextInt();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("❌ Invalid input! Please enter a number.");
+                        sc.nextLine();
+                    }
+                }
 
                 switch (choice) {
                     case 1:
@@ -187,13 +200,11 @@ public class TicketDAO {
         String sql = "SELECT * FROM ticket WHERE RouteId = ? OR UserId = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
-        System.out.print("Enter Route Id: ");
-        int routeId = scanner.nextInt();
-        stmt.setInt(1, routeId);
+        int routeId = getValidInt(scanner, "Enter Route Id: ");
+        stmt.setInt(1, che);
 
-        System.out.print("Enter User Id: ");
-        int userId = scanner.nextInt();
-        stmt.setInt(2, userId);
+        int userId = getValidInt(scanner, "Enter User Id: ");
+        stmt.setInt(2, che);
 
         ResultSet rs = stmt.executeQuery();
         ResultSetMetaData rsmd = rs.getMetaData();
@@ -229,8 +240,7 @@ public class TicketDAO {
         int correctAnswer = num1 + num2;
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Captcha: What is " + num1 + " + " + num2 + "? ");
-        int userAnswer = sc.nextInt();
+        int userAnswer = getValidInt(sc, "Captcha: What is " + num1 + " + " + num2 + "? ");
 
         return userAnswer == correctAnswer;
     }

@@ -10,6 +10,7 @@ import org.w3c.dom.xpath.XPathResult;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -30,10 +31,17 @@ public class Login {
             System.out.println("2. Customer Login");
             System.out.println("3. Customer Registration");
             System.out.print("Select an option: ");
-
-            int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
-
+            while (true) {
+                try {
+                    System.out.print("Enter your choice (integer only): ");
+                    choice = sc.nextInt();   // may throw exception
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Invalid input! Please enter a number.");
+                    sc.nextLine();
+                }
+            }
+                sc.nextLine();//consume new line
             switch (choice) {
                 case 1:
                     adminLogin();
@@ -187,7 +195,7 @@ public class Login {
     }
 
         void adminDashboard() throws SQLException {
-            boolean b;
+            boolean b;int ch5;
             System.out.println("\nAdmin Dashboard");
             System.out.println("1. View all customers");
             System.out.println("2. Area");
@@ -203,7 +211,17 @@ public class Login {
             System.out.println("12. Logout");
             System.out.print("Select an option: ");
 
-            int choice = sc.nextInt();
+            while (true) {
+                try {
+                    System.out.print("Enter your choice (integer only): ");
+                    choice = sc.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Invalid input! Please enter a number.");
+                    sc.nextLine();
+                }
+            }
+
             sc.nextLine(); // Consume newline
 
             switch (choice) {
@@ -218,7 +236,16 @@ public class Login {
                     System.out.println("3. To delete Area");
                     System.out.println("4. To exit");
                     System.out.println("Enter choice: ");
-                    int ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5) {
                         case 1:
                             System.out.println("Enter area id: ");
@@ -261,7 +288,16 @@ public class Login {
                     System.out.println("2.Update bus Location");
                     System.out.println("3.Update bus Route");
                     System.out.println("4.Exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch (ch5)
                     {
                         case 1:
@@ -306,7 +342,16 @@ public class Login {
                     System.out.println("2.display all EmergencyServices");
                     System.out.println("3. To exit");
                     System.out.println("Enter choice: ");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5) {
                         case 1: //add
                              b = a4.addEmergencyService(sc);
@@ -335,7 +380,16 @@ public class Login {
                     System.out.println("3. update metro location");
                     System.out.println("4. update metro route");
                     System.out.println("5. to Exit");
-                    ch5= sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5)
                     {
                         case 1: m.addMetro(sc);break;
@@ -357,7 +411,16 @@ public class Login {
                     System.out.println("2. to add parking lot");
                     System.out.println("3. to update parking occupancy");
                     System.out.println("4. to exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5)
                     {
                         case 1: p.getAllParkingLots();break;
@@ -377,7 +440,16 @@ public class Login {
                     System.out.println("1. get all routes");
                     System.out.println("2. add a route");
                     System.out.println("2. to exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch (ch5)
                     {
                         case 1: r.getAllRoutes();break;
@@ -402,7 +474,16 @@ public class Login {
                     System.out.println("1. get all stops");
                     System.out.println("2. add station");
                     System.out.println("3. to exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5)
                     {
                         case 1: st.getAllStops();break;
@@ -423,7 +504,16 @@ public class Login {
                     System.out.println("3. update street");
                     System.out.println("4. delete street");
                     System.out.println("5. to exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5)
                     {
                         case 1:sr.getAllStreet();break;
@@ -444,7 +534,16 @@ public class Login {
                     System.out.println("1. get all tourist places");
                     System.out.println("2. add tourist places");
                     System.out.println("3. to exit");
-                    ch5=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch5 = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch5)
                     {
                         case 1: to.displayAllPlaces();break;
@@ -469,6 +568,7 @@ public class Login {
         }
 
         public void customerDashboard() throws SQLException {
+            int ch;
             System.out.println("\nCustomer Dashboard");
             System.out.println("1. Travelling routes and schedules");
             System.out.println("2. Emergency Service");
@@ -480,7 +580,16 @@ public class Login {
             System.out.println("8. Logout");
             System.out.print("Select an option: ");
 
-            int choice = sc.nextInt();
+            while (true) {
+                try {
+                    System.out.print("Enter your choice (integer only): ");
+                    choice = sc.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Invalid input! Please enter a number.");
+                    sc.nextLine();
+                }
+            }
             sc.nextLine(); // Consume newline
 
             switch (choice) {
@@ -491,7 +600,16 @@ public class Login {
                     System.out.println("2. get route by id");
                     System.out.println("3. get schedule by root id");
                     System.out.println("4. to exit");
-                    int ch=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch (ch)
                     {
                         case 1: r.getAllRoutes(); break;
@@ -512,7 +630,16 @@ public class Login {
                     System.out.println("2. get Emergency services by type");
                     System.out.println("3. call Emergency service");
                     System.out.println("4. to exit");
-                    ch=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch)
                     {
                         case 1:
@@ -533,7 +660,16 @@ public class Login {
                     System.out.println("1.book ticket");
                     System.out.println("2.search ticket");
                     System.out.println("3. to exit");
-                    ch=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch)
                     {
                         case 1: t.addTicket(sc); break;
@@ -554,7 +690,16 @@ public class Login {
                     System.out.println("3.Display places by category");
                     System.out.println("4.give feedback for places");
                     System.out.println("5. to exit");
-                    ch=sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch (ch)
                     {
                         case 1: tt.displayAllPlaces();break;
@@ -575,7 +720,16 @@ public class Login {
                     System.out.println("1. Get Available parking lots");
                     System.out.println("2. Get Parking Lot By area Id");
                     System.out.println("3. Book Parking lot");
-                    ch = sc.nextInt();
+                    while (true) {
+                        try {
+                            System.out.print("Enter your choice (integer only): ");
+                            ch = sc.nextInt();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("❌ Invalid input! Please enter a number.");
+                            sc.nextLine();
+                        }
+                    }
                     switch(ch) {
                         case 1: po.getAvailableParkingLots();break;
                         case 2: po.getParkingLotByAreaId(sc);break;
@@ -623,36 +777,4 @@ public class Login {
         }
     }
 }
-
-// for database
-//-- Create database
-//CREATE DATABASE IF NOT EXISTS login_system;
-//USE login_system;
-//
-//-- Create admin table
-//CREATE TABLE IF NOT EXISTS admins (
-//        id INT AUTO_INCREMENT PRIMARY KEY,
-//        username VARCHAR(50) NOT NULL UNIQUE,
-//password VARCHAR(50) NOT NULL, -- Storing plain text password (not recommended)
-//email VARCHAR(100) NOT NULL UNIQUE,
-//created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//);
-//
-//        -- Create customer table
-//CREATE TABLE IF NOT EXISTS customers (
-//        id INT AUTO_INCREMENT PRIMARY KEY,
-//        username VARCHAR(50) NOT NULL UNIQUE,
-//password VARCHAR(50) NOT NULL, -- Storing plain text password (not recommended)
-//email VARCHAR(100) NOT NULL UNIQUE,
-//full_name VARCHAR(100),
-//created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//);
-//
-//        -- Insert sample admin (password is 'admin123')
-//INSERT INTO admins (username, password, email)
-//VALUES ('admin', 'admin123', 'admin@example.com');
-//
-//-- Insert sample customer (password is 'customer123')
-//INSERT INTO customers (username, password, email, full_name)
-//VALUES ('customer1', 'customer123', 'customer@example.com', 'John Doe');
 
