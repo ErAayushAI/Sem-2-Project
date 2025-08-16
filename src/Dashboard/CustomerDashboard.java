@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class CustomerDashboard {
     private final Scanner sc;
 
@@ -22,10 +23,10 @@ public class CustomerDashboard {
         while (running) {
             System.out.println("\n🧑‍💼 Customer Dashboard");
             System.out.println("-------------------------------------------------");
-            System.out.printf("%-30s %-30s%n", "1. Travelling Routes & Schedules", "5. Parking Lot");
-            System.out.printf("%-30s %-30s%n", "2. Emergency Services", "6. Submit Feedback");
-            System.out.printf("%-30s %-30s%n", "3. Book Tickets", "7. File a Complaint");
-            System.out.printf("%-30s %-30s%n", "4. Tourist Places", "8. Logout");
+            System.out.printf("%-35s %-30s%n", "1. Travelling Routes & Schedules", "5. Parking Lot");
+            System.out.printf("%-35s %-30s%n", "2. Emergency Services", "6. Submit Feedback");
+            System.out.printf("%-35s %-30s%n", "3. Book Tickets & View Stations", "7. File a Complaint");
+            System.out.printf("%-35s %-30s%n", "4. Tourist Places", "8. Logout");
             System.out.println("-------------------------------------------------");
 
             while (true) {
@@ -121,7 +122,8 @@ public class CustomerDashboard {
                                 break;
                             case 3:
                                 dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
-                                dispatcher.dispatchEmergency(sc);
+                                if(dispatcher.dispatchEmergency(sc)) System.out.println("✅ Vehicle Allot Successfully.");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
@@ -134,14 +136,16 @@ public class CustomerDashboard {
                     break;
 
                 case 3:
-                    TicketDAO t = new TicketDAO();
+                    StationDAO stationDAO = new StationDAO();
+                    TicketDAO ticketDAO = new TicketDAO();
                     boolean ticketLoop = true;
 
                     while (ticketLoop) {
-                        System.out.println("\n🎟️ Ticket Booking");
-                        System.out.println("1. Book Ticket");
-                        System.out.println("2. Search Ticket");
-                        System.out.println("3. Back");
+                        System.out.println("\n🎟️ Ticket Booking & View Stations");
+                        System.out.println("1. View Stations By Area Id");
+                        System.out.println("2. Book Ticket");
+                        System.out.println("3. Search Ticket");
+                        System.out.println("4. Back");
 
                         while (true) {
                             try {
@@ -155,12 +159,17 @@ public class CustomerDashboard {
                         }
                         switch (ch) {
                             case 1:
-                                t.addTicket(sc);
+                                List<Station> station = stationDAO.getStopsByAreaId(sc);
+                                Display.printStations(station);
                                 break;
                             case 2:
-                                t.searchTickets(sc);
+                                if (ticketDAO.addTicket(sc)) System.out.println("✅ Added successfully");
+                                else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                ticketDAO.searchTickets(sc);
+                                break;
+                            case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
                                 ticketLoop = false;
                             default:
@@ -218,8 +227,8 @@ public class CustomerDashboard {
                     break;
 
                 case 5:
-                    ParkingLotDAO po = new ParkingLotDAO();
-                    ParkingLot p = new ParkingLot();
+                    ParkingLotDAO lotDAO = new ParkingLotDAO();
+                    ParkingLot lot;
                     boolean parkingLoop = true;
 
                     while (parkingLoop) {
@@ -241,17 +250,17 @@ public class CustomerDashboard {
                         }
                         switch (ch) {
                             case 1:
-                                List<ParkingLot> lots = po.getAvailableParkingLots();
+                                List<ParkingLot> lots = lotDAO.getAvailableParkingLots();
                                 Display.printParkingLots(lots);
                                 break;
                             case 2:
-                                p = po.getParkingLotByAreaId(sc);
-                                Display.printParkingLot(p);
+                                lot = lotDAO.getParkingLotByAreaId(sc);
+                                Display.printParkingLot(lot);
                                 break;
                             case 3:
-                                ParkingLot selectedLot = po.getParkingLotByAreaId(sc);
+                                ParkingLot selectedLot = lotDAO.getParkingLotByAreaId(sc);
                                 if (selectedLot != null) {
-                                    selectedLot.bookSlot(po);
+                                    selectedLot.bookSlot(lotDAO);
                                 } else {
                                     System.out.println("❌ No parking lot found for given Area ID.");
                                 }

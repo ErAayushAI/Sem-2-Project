@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidBoolean;
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidBoolean;
+import static Validation.InputValidator.getValidInt;
 
 public class StationDAO {
     private Connection connection;
@@ -17,7 +17,7 @@ public class StationDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Station.");
         }
     }
 
@@ -50,7 +50,7 @@ public class StationDAO {
                 stmt.setBoolean(4, metroTransport);
             }
 
-            if(BusTransport == false && metroTransport == false){
+            if(!BusTransport && !metroTransport){
                 System.out.println("You should choose any of the above transport to book tickets.");
                 return false;
             }
@@ -58,7 +58,7 @@ public class StationDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load station data: " + e.getMessage());
             return false;
         }
     }
@@ -89,7 +89,7 @@ public class StationDAO {
                 return station;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load station data: " + e.getMessage());
         }
         return null;
     }
@@ -114,7 +114,7 @@ public class StationDAO {
                 stations.add(station);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load station data: " + e.getMessage());
         }
         return stations;
     }
@@ -146,7 +146,7 @@ public class StationDAO {
                 stations.add(station);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load station data: " + e.getMessage());
         }
         return stations;
     }
@@ -171,7 +171,7 @@ public class StationDAO {
                 stmt.setBoolean(3, metroTransport);
             }
 
-            if(BusTransport == false && metroTransport == false){
+            if(!BusTransport && !metroTransport){
                 System.out.println("You should choose any of the above transport to book tickets.");
                 return false;
             }
@@ -182,7 +182,7 @@ public class StationDAO {
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load station data: " + e.getMessage());
             return false;
         }
     }

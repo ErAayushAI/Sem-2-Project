@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DataBaseManager {
-    private static String URL = "jdbc:mysql://localhost:3306/smartcityhub";
-    private static String USER = "root";
-    private static String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/smartcityhub";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
     public static Connection connection;
 
     //    Static Block for Driver Registered Only once.
@@ -24,12 +24,15 @@ public class DataBaseManager {
      * Return Connection to the database.
      *
      * @return Connection Object
-     * @throws SQLException If connection Fails
      */
-    public static Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to SmartCityHub Database.");
+    public static Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Connected to SmartCityHub Database.");
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Unable to connect to the database. Please check your configuration or try again later.");
         }
         return connection;
     }
@@ -40,15 +43,14 @@ public class DataBaseManager {
      * @param con object of connection
      * @throws SQLException if connection not found
      */
-    public void closeConnectin(Connection con) throws SQLException {
+    public static void closeConnection(Connection con) throws SQLException {
         if (con != null) {
             try {
                 con.close();
                 System.out.println("Connection closed.");
             } catch (SQLException e) {
-                System.err.println("Failed to close connection: " + e.getMessage());
+                System.out.println("❌ Failed to close the database connection.");
             }
         }
-
     }
 }

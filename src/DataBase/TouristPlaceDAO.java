@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
-import static Validation.AreaInputValidation.getValidString;
+import static Validation.InputValidator.getValidInt;
+import static Validation.InputValidator.getValidString;
 
 public class TouristPlaceDAO {
 
@@ -23,7 +23,7 @@ public class TouristPlaceDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Tourist Place.");
         }
     }
 
@@ -55,7 +55,7 @@ public class TouristPlaceDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load tourist place data: " + e.getMessage());
             return false;
         }
     }
@@ -77,7 +77,7 @@ public class TouristPlaceDAO {
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
                 stmt.setDouble(1, avgRatings);
                 stmt.setInt(2, placeId);
-                int rows = stmt.executeUpdate();
+                stmt.executeUpdate();
                 System.out.println("✅ Updated new average rating: " + avgRatings);
             } catch (SQLException e) {
                 System.err.println("❌ Failed to update rating: " + e.getMessage());
@@ -99,8 +99,8 @@ public class TouristPlaceDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             scanner.nextLine();
-            String categ = getValidString(scanner, "Enter Category: ");
-            stmt.setString(1, categ);
+            String category = getValidString(scanner, "Enter Category: ");
+            stmt.setString(1, category);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -113,7 +113,7 @@ public class TouristPlaceDAO {
                 places.add(place);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load tourist place data: " + e.getMessage());
         }
         return places;
     }
@@ -145,7 +145,7 @@ public class TouristPlaceDAO {
                 places.add(place);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load tourist place data: " + e.getMessage());
         }
         return places;
     }
@@ -170,7 +170,7 @@ public class TouristPlaceDAO {
                 places.add(place);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load tourist place data: " + e.getMessage());
         }
         return places;
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidInt;
 
 public class MetroDAO {
     private Connection connection;
@@ -16,7 +16,7 @@ public class MetroDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Metro.");
         }
     }
 
@@ -49,7 +49,7 @@ public class MetroDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load metro data: " + e.getMessage());
             return false;
         }
     }
@@ -80,7 +80,7 @@ public class MetroDAO {
                 return metro;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load metro data: " + e.getMessage());
         }
         return null;
     }
@@ -105,7 +105,7 @@ public class MetroDAO {
                 metros.add(metro);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load metro data: " + e.getMessage());
         }
         return metros;
     }
@@ -132,7 +132,7 @@ public class MetroDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load metro data: " + e.getMessage());
         }
         return false;
     }
@@ -159,7 +159,7 @@ public class MetroDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load metro data: " + e.getMessage());
         }
         return false;
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidInt;
 
 public class ParkingLotDAO {
     private Connection connection;
@@ -16,7 +16,7 @@ public class ParkingLotDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Parking Lot.");
         }
     }
 
@@ -48,7 +48,7 @@ public class ParkingLotDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
             return false;
         }
     }
@@ -80,7 +80,7 @@ public class ParkingLotDAO {
                 return lot;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
         return null;
     }
@@ -105,7 +105,7 @@ public class ParkingLotDAO {
                 lots.add(lot);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
         return lots;
     }
@@ -145,7 +145,7 @@ public class ParkingLotDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
         return false;
     }
@@ -170,7 +170,7 @@ public class ParkingLotDAO {
                 availableLots.add(lot);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
         return availableLots;
     }
@@ -193,7 +193,7 @@ public class ParkingLotDAO {
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
             return false;
         }
     }
@@ -211,7 +211,7 @@ public class ParkingLotDAO {
             stmt.setInt(2, lotId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
     }
 
@@ -230,8 +230,8 @@ public class ParkingLotDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
-        return 0; // fallback
+        return 0;
     }
 }

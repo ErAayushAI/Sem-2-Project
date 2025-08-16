@@ -384,6 +384,23 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    public static void printFeedbacks(List<Feedback> feedbackList) {
+        System.out.println("\n================= FEEDBACK TABLE =================");
+        System.out.printf("%-5s %-8s %-9s %-30s %-6s\n", "ID", "UserID", "PlaceID", "Comments", "Rating");
+        System.out.println("---------------------------------------------------------------");
+
+        for (Feedback fb : feedbackList) {
+            System.out.printf("%-5d %-8d %-9d %-30s %-6d\n",
+                    fb.getId(),
+                    fb.getUserId(),
+                    fb.getPlaceId(),
+                    fb.getComments(),
+                    fb.getRating());
+        }
+
+        System.out.println("===============================================================\n");
+    }
+
     public static void printParkingLot(ParkingLot lot) {
         if (lot == null) {
             System.out.println("⚠️ Parking lot not found.");

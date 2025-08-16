@@ -1,13 +1,14 @@
 package DataBase;
 
 import Model.EmergencyService;
+import Validation.InputValidator;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidInt;
 
 public class EmergencyServiceDAO {
     private Connection connection;
@@ -16,7 +17,7 @@ public class EmergencyServiceDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Emergency Service.");
         }
     }
 
@@ -48,7 +49,7 @@ public class EmergencyServiceDAO {
                 System.out.print("Enter Contact Number: ");
                 number = scanner.nextLong();
                 stmt.setLong(4, number);
-            } while (isValidContactNumber(number));
+            } while (InputValidator.isValidContactNumber(number));
 
             int count=getValidInt(scanner, "Enter Vehicle Count: ");
             stmt.setInt(5, count);
@@ -56,7 +57,7 @@ public class EmergencyServiceDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
             return false;
         }
     }
@@ -87,7 +88,7 @@ public class EmergencyServiceDAO {
                 return service;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
         }
         return null;
     }
@@ -121,7 +122,7 @@ public class EmergencyServiceDAO {
                 return service;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
         }
         return null;
     }
@@ -147,7 +148,7 @@ public class EmergencyServiceDAO {
                 services.add(service);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
         }
         return services;
     }
@@ -169,7 +170,7 @@ public class EmergencyServiceDAO {
                 System.out.print("Enter Contact Number: ");
                 number = scanner.nextLong();
                 stmt.setLong(1, number);
-            } while (isValidContactNumber(number));
+            } while (InputValidator.isValidContactNumber(number));
 
             int count=getValidInt(scanner, "Enter Vehicle Count: ");
             stmt.setInt(2, count);
@@ -180,31 +181,9 @@ public class EmergencyServiceDAO {
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
             return false;
         }
-    }
-
-    /**
-     * Validate Contact Number of Service.
-     *
-     * @param number contact number
-     * @return true if it's valid
-     */
-    public static boolean isValidContactNumber(long number) {
-        // Convert to String to check length and digits
-        String numStr = Long.toString(number);
-
-        // Check if the number has exactly 10 digits
-        if (numStr.length() != 10) {
-            return true;
-        }
-
-        if (numStr.equals("0000000000")) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -220,7 +199,7 @@ public class EmergencyServiceDAO {
             stmt.setInt(2, serviceId);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.getValidInt;
+import static Validation.InputValidator.getValidInt;
 
 public class ScheduleDAO {
     private Connection connection;
@@ -16,7 +16,7 @@ public class ScheduleDAO {
         try {
             connection = DataBaseManager.getConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Schedule.");
         }
     }
 
@@ -45,7 +45,7 @@ public class ScheduleDAO {
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load schedule data: " + e.getMessage());
             return false;
         }
     }
@@ -74,7 +74,7 @@ public class ScheduleDAO {
                 return schedule;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load schedule data: " + e.getMessage());
         }
         return null;
     }
@@ -97,7 +97,7 @@ public class ScheduleDAO {
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load schedule data: " + e.getMessage());
         }
         return schedules;
     }

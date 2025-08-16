@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Validation.AreaInputValidation.*;
+import static Validation.InputValidator.*;
 
 public class TicketDAO {
     private Connection connection;
@@ -17,7 +17,8 @@ public class TicketDAO {
             connection = DataBaseManager.getConnection();
             connection.setAutoCommit(false);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ No database connection provided to Ticket.");
+
         }
     }
 
@@ -54,7 +55,7 @@ public class TicketDAO {
                 stmt.setBoolean(3, metroTransport);
             }
 
-            if(BusTransport == false && metroTransport == false){
+            if(!BusTransport && !metroTransport){
                 System.out.println("You should choose any of the above transport to book tickets.");
                 return false;
             }
@@ -82,20 +83,27 @@ public class TicketDAO {
                     }
                 }
 
-                switch (choice) {
-                    case 1:
-                        status = ticketDAO.commitTicket(scanner);
-                        break;
-                    case 2:
-                        status = ticketDAO.rollbackTicket(scanner);
-                        break;
+                boolean ticketLoop = true;
+                while(ticketLoop) {
+                    switch (choice) {
+                        case 1:
+                            status = ticketDAO.commitTicket();
+                            ticketLoop = false;
+                            break;
+                        case 2:
+                            status = ticketDAO.rollbackTicket();
+                            ticketLoop = false;
+                            break;
+                        default:
+                            System.out.println("Invalid Choice>>");
+                    }
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to load ticket data: " + e.getMessage());
             return false;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("❌ Failed to find file location: " + e.getMessage());
             return false;
         }
         return status;
@@ -104,11 +112,10 @@ public class TicketDAO {
     /**
      * To confirm Ticket by User.
      *
-     * @param scanner object for user input
      * @throws SQLException for connection
      * @throws IOException  for generate bill
      */
-    public boolean commitTicket(Scanner scanner) throws SQLException, IOException {
+    public boolean commitTicket() throws SQLException, IOException {
         System.out.println("\n========== CONFIRM TICKET ==========\n");
 
         connection.commit();
@@ -133,10 +140,9 @@ public class TicketDAO {
     /**
      * To cancel Ticket by User.
      *
-     * @param scanner object for user input
      * @throws SQLException for connection
      */
-    public boolean rollbackTicket(Scanner scanner) throws SQLException {
+    public boolean rollbackTicket() throws SQLException {
         System.out.println("\n========== CANCEL TICKET ==========\n");
 
 
@@ -166,12 +172,12 @@ public class TicketDAO {
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ticket WHERE Id = ?");
         stmt.setInt(1, ticketId);
         ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = rs.getMetaData();
+        ResultSetMetaData ticketRSMD = rs.getMetaData();
 
         StringBuilder bill = new StringBuilder("=== TICKET BILL ===\n");
         while (rs.next()) {
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                bill.append(rsmd.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
+            for (int i = 1; i <= ticketRSMD.getColumnCount(); i++) {
+                bill.append(ticketRSMD.getColumnName(i)).append(": ").append(rs.getString(i)).append("\n");
             }
         }
 
@@ -202,14 +208,14 @@ public class TicketDAO {
         stmt.setInt(2, userId);
 
         ResultSet rs = stmt.executeQuery();
-        ResultSetMetaData rsmd = rs.getMetaData();
+        ResultSetMetaData ticketRSMD = rs.getMetaData();
 
         boolean found = false;
         while (rs.next()) {
             found = true;
             System.out.println("---- TICKET FOUND ----");
-            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                System.out.println(rsmd.getColumnName(i) + ": " + rs.getString(i));
+            for (int i = 1; i <= ticketRSMD.getColumnCount(); i++) {
+                System.out.println(ticketRSMD.getColumnName(i) + ": " + rs.getString(i));
             }
         }
 

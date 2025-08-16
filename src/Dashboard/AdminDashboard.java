@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class AdminDashboard {
     private final Scanner sc;
     private final Connection connection;
@@ -53,7 +54,7 @@ public class AdminDashboard {
 
                 case 2:
                     AreaDAO areaDAO = new AreaDAO();
-                    Area area = new Area();
+                    Area area;
                     List<Area> areas;
                     boolean areaLoop = true;
 
@@ -115,7 +116,7 @@ public class AdminDashboard {
 
                 case 3:
                     BusDAO busDAO = new BusDAO();
-                    Bus bus = new Bus();
+                    Bus bus;
                     boolean busLoop = true;
 
                     while (busLoop) {
@@ -222,7 +223,7 @@ public class AdminDashboard {
 
                 case 5:
                     MetroDAO metroDAO = new MetroDAO();
-                    Metro metro = new Metro();
+                    Metro metro;
                     boolean metroLoop = true;
 
                     while (metroLoop) {
@@ -463,6 +464,7 @@ public class AdminDashboard {
 
                 case 10:
                     StreetDAO streetDAO = new StreetDAO();
+                    Street street;
                     boolean streetLoop = true;
 
                     while (streetLoop) {
@@ -471,7 +473,9 @@ public class AdminDashboard {
                         System.out.println("2. Add Street");
                         System.out.println("3. Update Street");
                         System.out.println("4. Delete Street");
-                        System.out.println("5. Exit to Dashboard");
+                        System.out.println("5. Get Street By Id");
+                        System.out.println("6. Get Street By Area ID");
+                        System.out.println("7. Exit to Dashboard");
 
                         while (true) {
                             try {
@@ -501,6 +505,14 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 5:
+                                street = streetDAO.getStreetById(sc);
+                                Display.printStreet(street);
+                                break;
+                            case 6:
+                                street = streetDAO.getStreetByAreaId(sc);
+                                Display.printStreet(street);
+                                break;
+                            case 7:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 streetLoop = false;
                                 break;
@@ -604,7 +616,8 @@ public class AdminDashboard {
                         System.out.println("\nFeedback Management");
                         System.out.println("1. View Feedback");
                         System.out.println("2. View Feedback By User ID");
-                        System.out.println("3. Exit to Dashboard");
+                        System.out.println("3. Review Latest Feedbacks");
+                        System.out.println("4. Exit to Dashboard");
 
                         while (true) {
                             try {
@@ -625,6 +638,9 @@ public class AdminDashboard {
                                 fbList.searchByUserId(sc.nextInt());
                                 break;
                             case 3:
+                                List<Feedback> feedbacks = fbDAO.reviewLatestFeedback();
+                                Display.printFeedbacks(feedbacks);
+                            case 4:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 fbLoop = false;
                                 break;
