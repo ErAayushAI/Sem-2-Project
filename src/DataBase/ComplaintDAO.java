@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+import static Validation.AreaInputValidation.getValidString;
+
 public class ComplaintDAO {
     private CustomQueue<Complaint> complaintQueue = new CustomQueue<>();
     private Connection connection;
@@ -32,12 +35,10 @@ public class ComplaintDAO {
         String query = "INSERT INTO complaint (Department, UserId, Issue, Status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Department Name: ");
-            String deptName = scanner.next().trim();
+            String deptName = getValidString(scanner, "Enter Department Name: ");
             stmt.setString(1, deptName);
-
-            System.out.print("Enter User Id: ");
-            int userId = scanner.nextInt();
+            
+            int userId = getValidInt(scanner, "Enter User Id: ");
             stmt.setInt(2, userId);
 
             System.out.print("Enter Issue: ");

@@ -43,7 +43,6 @@ public class MetroDAO {
             che = getValidInt(scanner, "Enter Current Route: ");
             stmt.setInt(3, che);
 
-            System.out.print("Enter Current Area: ");
             che = getValidInt(scanner, "Enter Current Area: ");
             stmt.setInt(4, che);
 
@@ -68,7 +67,7 @@ public class MetroDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             int che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(2, che);
+            stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -154,7 +153,6 @@ public class MetroDAO {
             che = getValidInt(scanner, "Enter new Route Id: ");
             stmt.setInt(1, che);
 
-            System.out.print("Enter Metro Id to Update: ");
             che = getValidInt(scanner, "Enter Metro Id to Update: ");
             stmt.setInt(2, che);
 

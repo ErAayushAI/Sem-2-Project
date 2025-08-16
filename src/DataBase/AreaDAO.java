@@ -67,8 +67,8 @@ public class AreaDAO {
         String query = "SELECT * FROM Area WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Pincode: ");
-            stmt.setInt(1, scanner.nextInt());
+            int pinCode = getValidInt(scanner, "Enter PinCode: ");
+            stmt.setInt(1, pinCode);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -175,16 +175,12 @@ public class AreaDAO {
         System.out.println("\n========== UPDATE AREA BY ID ==========\n");
 
         List<Area> areas = new ArrayList<>();
-        System.out.print("Enter Minimum Latitude: ");
         double minLat = getValidDouble(scanner, "Enter minimum Latitude: ");
 
-        System.out.print("Enter Maximum Latitude: ");
         double maxLat = getValidDouble(scanner, "Enter maximum Latitude: ");
 
-        System.out.print("Enter Minimum Longitude: ");
         double minLon = getValidDouble(scanner, "Enter minimum Longitude: ");
 
-        System.out.print("Enter Maximum Longitude: ");
         double maxLon = getValidDouble(scanner, "Enter maximum Longitude: ");
 
         String query = "SELECT * FROM Area WHERE Latitude between " + minLat + " and " + maxLat + " AND Longitude between " + minLon + " and " + maxLon + " ORDER BY Id";

@@ -99,7 +99,6 @@ public class TouristPlaceDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             scanner.nextLine();
-            System.out.print("Enter Category: ");
             String categ = getValidString(scanner, "Enter Category: ");
             stmt.setString(1, categ);
 

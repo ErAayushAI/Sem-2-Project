@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class EmergencyServiceDAO {
     private Connection connection;
 
@@ -38,8 +40,8 @@ public class EmergencyServiceDAO {
             System.out.println("Like Hospital, Police Station, Fire Station");
             stmt.setString(2, scanner.nextLine().trim().toUpperCase());
 
-            System.out.print("Enter Area PinCode: ");
-            stmt.setInt(3, scanner.nextInt());
+            int pinCode=getValidInt(scanner, "Enter Area PinCode: ");
+            stmt.setInt(3, pinCode);
 
             long number;
             do {
@@ -48,8 +50,8 @@ public class EmergencyServiceDAO {
                 stmt.setLong(4, number);
             } while (isValidContactNumber(number));
 
-            System.out.print("Enter Vehicle Count: ");
-            stmt.setInt(5, scanner.nextInt());
+            int count=getValidInt(scanner, "Enter Vehicle Count: ");
+            stmt.setInt(5, count);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -70,8 +72,8 @@ public class EmergencyServiceDAO {
         String query = "SELECT * FROM EmergencyService WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int id=getValidInt(scanner, "Enter Id: ");
+            stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -169,11 +171,11 @@ public class EmergencyServiceDAO {
                 stmt.setLong(1, number);
             } while (isValidContactNumber(number));
 
-            System.out.print("Enter Vehicle Count: ");
-            stmt.setInt(2, scanner.nextInt());
+            int count=getValidInt(scanner, "Enter Vehicle Count: ");
+            stmt.setInt(2, count);
 
-            System.out.print("Enter Service ID: ");
-            stmt.setInt(3, scanner.nextInt());
+            int id = getValidInt(scanner, "Enter Service Id: ");
+            stmt.setInt(3, id);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
