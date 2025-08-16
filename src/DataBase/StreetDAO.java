@@ -184,7 +184,6 @@ public class StreetDAO {
         String query = "DELETE FROM Street WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Street Id to Delete: ");
             int che = getValidInt(scanner, "Enter Street Id to Delete: ");
             stmt.setInt(1, che);
 

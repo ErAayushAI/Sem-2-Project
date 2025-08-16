@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.AreaInputValidation.getValidInt;
+
 public class EmergencyServiceDAO {
     private Connection connection;
 
@@ -38,8 +40,8 @@ public class EmergencyServiceDAO {
             System.out.println("Like Hospital, Police Station, Fire Station");
             stmt.setString(2, scanner.nextLine().trim().toUpperCase());
 
-            System.out.print("Enter Area PinCode: ");
-            stmt.setInt(3, scanner.nextInt());
+            int pinCode=getValidInt(scanner, "Enter Area PinCode: ");
+            stmt.setInt(3, pinCode);
 
             long number;
             do {
