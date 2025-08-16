@@ -67,17 +67,19 @@ public class TouristPlaceDAO {
      */
     public void applyFeedback(Scanner scanner) {
         System.out.println("---------- TOURIST PLACE FEEDBACK ----------");
-        System.out.println();
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
+
         if (fb.submitFeedback(scanner)) {
-            String query = "UPDATE TouristPlace SET Ratings = ? WHERE PlaceId = ?";
+            double avgRatings = fb.getAverageRating(placeId);
+            String query = "UPDATE TouristPlace SET Ratings = ? WHERE id = ?";
+
             try (PreparedStatement stmt = connection.prepareStatement(query)) {
-                double avgRatings = fb.getAverageRating(placeId);
                 stmt.setDouble(1, avgRatings);
                 stmt.setInt(2, placeId);
-                stmt.executeUpdate();
+                int rows = stmt.executeUpdate();
+                System.out.println("✅ Updated new average rating: " + avgRatings);
             } catch (SQLException e) {
-                // silently ignore if avg is zero
+                System.err.println("❌ Failed to update rating: " + e.getMessage());
             }
         }
     }
