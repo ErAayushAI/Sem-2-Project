@@ -4,12 +4,9 @@ import Model.Ticket;
 
 import java.sql.*;
 import java.io.*;
-import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
-//import static Authentication.Login.sc;
 import static Validation.AreaInputValidation.*;
 
 public class TicketDAO {
