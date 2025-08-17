@@ -65,7 +65,6 @@ public class ParkingLotDAO {
         String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Area Id: ");
             int che = getValidInt(scanner, "Enter Area Id: ");
             stmt.setInt(1, che);
 
