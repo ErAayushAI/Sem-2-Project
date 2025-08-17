@@ -6,6 +6,7 @@ import Dashboard.CustomerDashboard;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -23,6 +24,7 @@ public class MainMenu {
     }
 
     public void start() throws SQLException {
+        int choice;
         LoginManager loginManager = new LoginManager(connection, scanner);
 
         while (true) {
@@ -33,7 +35,16 @@ public class MainMenu {
             System.out.println("0. Exit");
             System.out.print("Select an option: ");
 
-            int choice = scanner.nextInt();
+            while (true) {
+                try {
+                    System.out.print("Enter your choice (integer only): ");
+                    choice = scanner.nextInt();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Invalid input! Please enter a number.");
+                    scanner.nextLine();
+                }
+            }
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
