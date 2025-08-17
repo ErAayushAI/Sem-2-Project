@@ -41,7 +41,7 @@ public class EmergencyServiceDAO {
             System.out.println("Like Hospital, Police Station, Fire Station");
             stmt.setString(2, scanner.nextLine().trim().toUpperCase());
 
-            int pinCode=getValidInt(scanner, "Enter Area PinCode: ");
+            int pinCode = getValidInt(scanner, "Enter Area PinCode: ");
             stmt.setInt(3, pinCode);
 
             long number;
@@ -51,7 +51,7 @@ public class EmergencyServiceDAO {
                 stmt.setLong(4, number);
             } while (InputValidator.isValidContactNumber(number));
 
-            int count=getValidInt(scanner, "Enter Vehicle Count: ");
+            int count = getValidInt(scanner, "Enter Vehicle Count: ");
             stmt.setInt(5, count);
 
             int rowsInserted = stmt.executeUpdate();
@@ -73,7 +73,7 @@ public class EmergencyServiceDAO {
         String query = "SELECT * FROM EmergencyService WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int id=getValidInt(scanner, "Enter Id: ");
+            int id = getValidInt(scanner, "Enter Id: ");
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -159,7 +159,7 @@ public class EmergencyServiceDAO {
      * @param scanner Object for User inputs
      * @return true if services is Updated
      */
-    public boolean updateEmergencyService (Scanner scanner) {
+    public boolean updateEmergencyService(Scanner scanner) {
         System.out.println("\n========== UPDATE EMERGENCY SERVICE ==========\n");
 
         String query = "UPDATE EmergencyService SET ContactNumber = ?, AvailableVehicles = ? WHERE id = ?";
@@ -172,7 +172,7 @@ public class EmergencyServiceDAO {
                 stmt.setLong(1, number);
             } while (InputValidator.isValidContactNumber(number));
 
-            int count=getValidInt(scanner, "Enter Vehicle Count: ");
+            int count = getValidInt(scanner, "Enter Vehicle Count: ");
             stmt.setInt(2, count);
 
             int id = getValidInt(scanner, "Enter Service Id: ");

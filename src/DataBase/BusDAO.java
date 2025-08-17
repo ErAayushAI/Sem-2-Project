@@ -35,14 +35,14 @@ public class BusDAO {
             System.out.print("Enter Bus License Plate: ");
             stmt.setString(1, scanner.next().trim());
 
-            System.out.print("Enter Capacity: ");
-            stmt.setInt(2, scanner.nextInt());
+            int cap = getValidInt(scanner, "Enter Capacity: ");
+            stmt.setInt(2, cap);
 
-            System.out.print("Enter Current Route Id: ");
-            stmt.setInt(3, scanner.nextInt());
+            int cid = getValidInt(scanner, "Enter Current Route Id: ");
+            stmt.setInt(3, cid);
 
-            System.out.print("Enter Current Area PinCode: ");
-            stmt.setInt(4, scanner.nextInt());
+            int aid = getValidInt(scanner, "Enter Current Area PinCode: ");
+            stmt.setInt(4, aid);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -64,8 +64,8 @@ public class BusDAO {
         String query = "SELECT * FROM Bus WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Bus Id: ");
-            stmt.setInt(1, scanner.nextInt());
+            int bid = getValidInt(scanner, "Enter Bus Id: ");
+            stmt.setInt(1, bid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
