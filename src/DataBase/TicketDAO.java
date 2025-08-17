@@ -47,12 +47,12 @@ public class TicketDAO {
 
             boolean metroTransport = false;
             boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Transport: ");
-            stmt.setBoolean(2, BusTransport);
+            stmt.setBoolean(3, BusTransport);
             if(BusTransport){
-                stmt.setBoolean(3, false);
+                stmt.setBoolean(4, false);
             } else {
                 metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Transport: ");
-                stmt.setBoolean(3, metroTransport);
+                stmt.setBoolean(4, metroTransport);
             }
 
             if(!BusTransport && !metroTransport){
