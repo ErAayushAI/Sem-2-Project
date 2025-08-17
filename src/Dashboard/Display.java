@@ -6,6 +6,30 @@ import java.util.List;
 
 public class Display {
 
+    // Display Admin Dashboard Menu
+    public static void showAdminMenu() {
+        System.out.println("\n🔒 Admin Dashboard");
+        System.out.println("-------------------------------------------------");
+        System.out.printf("%-25s %-25s%n", "1. View all customers", "8. Manage Schedule");
+        System.out.printf("%-25s %-25s%n", "2. Manage Area", "9. Manage Station");
+        System.out.printf("%-25s %-25s%n", "3. Bus Services", "10. Manage Street");
+        System.out.printf("%-25s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
+        System.out.printf("%-25s %-25s%n", "5. Metro Services", "12. Complaint");
+        System.out.printf("%-25s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
+        System.out.printf("%-25s %-25s%n", "7. Manage Service Route", "0. Logout");
+        System.out.println("-------------------------------------------------");
+    }
+
+    public static void showCustomerMenu() {
+        System.out.println("\n🧑‍💼 Customer Dashboard");
+        System.out.println("-------------------------------------------------------------");
+        System.out.printf("%-35s %-30s%n", "1. Travelling Routes & Schedules", "5. Parking Lot");
+        System.out.printf("%-35s %-30s%n", "2. Emergency Services", "6. Submit Feedback");
+        System.out.printf("%-35s %-30s%n", "3. Book Tickets & View Stations", "7. File a Complaint");
+        System.out.printf("%-35s %-30s%n", "4. Tourist Places", "0. Logout");
+        System.out.println("-------------------------------------------------------------");
+    }
+
     public static void printAreas(List<Area> areas) {
         if (areas == null || areas.isEmpty()) {
             System.out.println("⚠️ No area data found.");

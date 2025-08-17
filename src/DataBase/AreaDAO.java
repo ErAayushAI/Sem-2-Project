@@ -172,7 +172,7 @@ public class AreaDAO {
      * @return list of Area inside the area
      */
     public List<Area> getAreaInArea(Scanner scanner) {
-        System.out.println("\n========== UPDATE AREA BY ID ==========\n");
+        System.out.println("\n========== GET AREA IN AREA ==========\n");
 
         List<Area> areas = new ArrayList<>();
         double minLat = getValidDouble(scanner, "Enter minimum Latitude: ");

@@ -97,4 +97,17 @@ public class InputValidator {
         // Check if the number has exactly 10 digits or All the numbers are not 0
         return numStr.length() != 10 || numStr.equals("0000000000");
     }
+
+    // Safely get integer input from user
+    public static int getChoice(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.print("Enter your choice (integer only): ");
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("❌ Invalid input! Please enter a number.");
+                scanner.nextLine();
+            }
+        }
+    }
 }

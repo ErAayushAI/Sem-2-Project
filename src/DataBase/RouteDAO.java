@@ -66,8 +66,7 @@ public class RouteDAO {
         String query = "SELECT * FROM Route WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            System.out.print("Enter Id: ");
-           int che = getValidInt(scanner, "Enter Id: ");
+            int che = getValidInt(scanner, "Enter Id: ");
             stmt.setInt(1, che);
 
             ResultSet rs = stmt.executeQuery();
@@ -142,7 +141,6 @@ public class RouteDAO {
                 return false;
             }
 
-            System.out.print("Enter Route Id to Update: ");
             che = getValidInt(scanner, "Enter Route Id to Update: ");
             stmt.setInt(4, che);
 
