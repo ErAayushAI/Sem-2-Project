@@ -434,7 +434,7 @@ public class Display {
             return;
         }
 
-        String format = "| %-4s | %-15s | %-7s | %-9s | %-45s |%n";
+        String format = "| %-4s | %-20s | %-7s | %-9s | %-45s |%n";
         String separator = String.format("+%s+", "-".repeat(86));
 
         System.out.println("\n📋 Complaint Summary Table");

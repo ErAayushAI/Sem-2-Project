@@ -172,6 +172,7 @@ public class CustomerDashboard {
                             case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
                                 ticketLoop = false;
+                                break;
                             default:
                                 System.out.println("⚠️ Invalid input.");
                         }
@@ -220,6 +221,7 @@ public class CustomerDashboard {
                             case 5:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
                                 placeLoop = false;
+                                break;
                             default:
                                 System.out.println("⚠️ Invalid input.");
                         }
@@ -268,6 +270,7 @@ public class CustomerDashboard {
                             case 4:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
                                 parkingLoop = false;
+                                break;
                             default:
                                 System.out.println("⚠️ Invalid input.");
                         }
