@@ -88,11 +88,11 @@ public class Display {
 
         System.out.println("\n🚨 Emergency Services List");
         System.out.println("--------------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-15s %-10s %-15s %-20s%n", "ID", "Name", "Type", "AreaID", "Contact", "Available Vehicles");
+        System.out.printf("%-5s %-30s %-15s %-10s %-15s %-20s%n", "ID", "Name", "Type", "AreaID", "Contact", "Available Vehicles");
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (EmergencyService es : services) {
-            System.out.printf("%-5d %-20s %-15s %-10d %-15d %-20d%n",
+            System.out.printf("%-5d %-30s %-15s %-10d %-15d %-20d%n",
                     es.getId(),
                     es.getName(),
                     es.getType(),
@@ -137,15 +137,15 @@ public class Display {
         }
 
         System.out.println("\n🅿️ Parking Lot List");
-        System.out.println("--------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-10s %-10s %-15s %-10s%n", "ID", "Name", "AreaID", "Capacity", "Occupied", "Status");
-        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.printf("%-5s %-30s %-10s %-10s %-15s %-10s%n", "ID", "Name", "AreaID", "Capacity", "Occupied", "Status");
+        System.out.println("------------------------------------------------------------------------------------------");
 
         for (ParkingLot p : parkingList) {
             int available = p.getCapacity() - p.getCurrentOccupancy();
             String status = (available > 0) ? "🟢 Available" : "🔴 Full";
 
-            System.out.printf("%-5d %-20s %-10d %-10d %-15d %-10s%n",
+            System.out.printf("%-5d %-30s %-10d %-10d %-15d %-10s%n",
                     p.getId(),
                     p.getName(),
                     p.getAreaId(),
@@ -154,7 +154,7 @@ public class Display {
                     status);
         }
 
-        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------");
     }
 
     public static void printRoutes(List<Route> routes) {
@@ -164,15 +164,15 @@ public class Display {
         }
 
         System.out.println("\n🛣️ Route List");
-        System.out.println("--------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-10s %-15s %-15s%n", "ID", "Name", "Length(km)", "Bus Route", "Metro Route");
-        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.printf("%-5s %-40s %-10s %-15s %-15s%n", "ID", "Name", "Length(km)", "Bus Route", "Metro Route");
+        System.out.println("----------------------------------------------------------------------------------------");
 
         for (Route r : routes) {
             String busStatus = r.isBusRoute() ? "✅ Yes" : "❌ No";
             String metroStatus = r.isMetroRoute() ? "✅ Yes" : "❌ No";
 
-            System.out.printf("%-5d %-20s %-10.2f %-15s %-15s%n",
+            System.out.printf("%-5d %-40s %-10.2f %-15s %-15s%n",
                     r.getId(),
                     r.getName(),
                     r.getLength(),
@@ -180,7 +180,7 @@ public class Display {
                     metroStatus);
         }
 
-        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------");
     }
 
     public static void printStations(List<Station> stations) {
@@ -242,11 +242,11 @@ public class Display {
 
         System.out.println("\n🗺️ Tourist Places");
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-15s %-10s %-10s%n", "ID", "Name", "Category", "Area ID", "Ratings");
+        System.out.printf("%-5s %-30s %-25s %-10s %-10s%n", "ID", "Name", "Category", "Area ID", "Ratings");
         System.out.println("--------------------------------------------------------------------------------");
 
         for (TouristPlace tp : places) {
-            System.out.printf("%-5d %-20s %-15s %-10d %-10.1f%n",
+            System.out.printf("%-5d %-30s %-25s %-10d %-10.1f%n",
                     tp.getId(),
                     tp.getName(),
                     tp.getCategory(),

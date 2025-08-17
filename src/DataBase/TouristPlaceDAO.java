@@ -160,7 +160,7 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));

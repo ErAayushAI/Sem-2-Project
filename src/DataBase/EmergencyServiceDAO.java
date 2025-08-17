@@ -99,10 +99,11 @@ public class EmergencyServiceDAO {
      * @param scanner object for user input
      * @return Object of EmergencyService
      */
-    public EmergencyService getEmergencyServiceByType(Scanner scanner) {
+    public List<EmergencyService> getEmergencyServiceByType(Scanner scanner) {
         System.out.println("\n========== EMERGENCY SERVICE BY TYPE ==========\n");
 
-        String query = "SELECT * FROM EmergencyService WHERE Type = ? LIMIT 1";
+        List<EmergencyService> services = new ArrayList<>();
+        String query = "SELECT * FROM EmergencyService WHERE Type = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             scanner.nextLine();
@@ -111,7 +112,7 @@ public class EmergencyServiceDAO {
             stmt.setString(1, scanner.nextLine().trim().toUpperCase());
 
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 EmergencyService service = new EmergencyService();
                 service.setId(rs.getInt(1));
                 service.setName(rs.getString(2));
@@ -119,12 +120,12 @@ public class EmergencyServiceDAO {
                 service.setAreaId(rs.getInt(4));
                 service.setContactNumber(rs.getLong(5));
                 service.setAvailableVehicles(rs.getInt(6));
-                return service;
+                services.add(service);
             }
         } catch (SQLException e) {
             System.out.println("❌ Failed to load emergency service data: " + e.getMessage());
         }
-        return null;
+        return services;
     }
 
     /**

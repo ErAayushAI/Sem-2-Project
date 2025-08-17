@@ -70,7 +70,7 @@ public class CustomerDashboard {
 
                 case 2:
                     EmergencyServiceDAO e = new EmergencyServiceDAO();
-                    EmergencyService es;
+                    List<EmergencyService> services;
                     AreaEmergencyDispatcher dispatcher;
                     boolean esLoop = true;
 
@@ -87,12 +87,12 @@ public class CustomerDashboard {
 
                         switch (ch) {
                             case 1:
-                                List<EmergencyService> services = e.getAllEmergencyService();
+                                services = e.getAllEmergencyService();
                                 Display.printEmergencyServices(services);
                                 break;
                             case 2:
-                                es = e.getEmergencyServiceByType(sc);
-                                Display.printEmergencyService(es);
+                                services = e.getEmergencyServiceByType(sc);
+                                Display.printEmergencyServices(services);
                                 break;
                             case 3:
                                 dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
@@ -241,7 +241,7 @@ public class CustomerDashboard {
                     else System.out.println("❌ Failed");
                     break;
 
-                case 8:
+                case 0:
                     System.out.println("✅ Logged out successfully.");
                     running = false;
                     break;
