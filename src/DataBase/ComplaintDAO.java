@@ -89,6 +89,12 @@ public class ComplaintDAO {
      */
     public void resolveNextComplaint() {
         System.out.println("\n========== RESOLVE PENDING COMPLAINT ==========\n");
+        ComplaintDAO complaintDAO = new ComplaintDAO();
+        List<Complaint> pendingComplaints = complaintDAO.getPendingComplaints();
+
+        for (Complaint c : pendingComplaints) {
+            complaintQueue.enqueue(c);
+        }
 
         if (!complaintQueue.isEmpty()) {
             Complaint c = complaintQueue.dequeue();
@@ -97,8 +103,34 @@ public class ComplaintDAO {
             System.out.println("User: " + c.getUserId());
             System.out.println("Issue: " + c.getIssue());
             c.setStatus(true);
+            String query = "UPDATE complaint SET status = true WHERE UserId = "+c.getUserId();
+            try(Statement stmt = connection.createStatement()) {
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                System.out.println("❌ Failed to load complaint data: " + e.getMessage());
+            }
         } else {
             System.out.println("No complaints to resolve.");
         }
+    }
+
+    public List<Complaint> getPendingComplaints () {
+        List<Complaint> complaints = new ArrayList<>();
+        String query = "SELECT * FROM complaint WHERE status = false";
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Complaint complaint = new Complaint();
+                complaint.setId(rs.getInt(1));
+                complaint.setDepartment(rs.getString(2));
+                complaint.setUserId(rs.getInt(3));
+                complaint.setIssue(rs.getString(4));
+                complaint.setStatus(rs.getBoolean(5));
+                complaints.add(complaint);
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to load complaint data: " + e.getMessage());
+        }
+        return complaints;
     }
 }
