@@ -174,4 +174,37 @@ public class TouristPlaceDAO {
         }
         return places;
     }
+
+    /**
+     * To find tourist places by Area ID.
+     *
+     * @return list of places in that area
+     */
+    public List<TouristPlace> getPlacesByAreaId(Scanner scanner) {
+        System.out.println("\n========== TOURIST PLACES BY AREA ==========\n");
+
+        String query = "SELECT * FROM TouristPlace WHERE AreaId = ?";
+        List<TouristPlace> places = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            int che = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, che);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                TouristPlace place = new TouristPlace();
+                place.setId(rs.getInt("id"));
+                place.setName(rs.getString("Name"));
+                place.setAreaId(rs.getInt("AreaId"));
+                place.setCategory(rs.getString("Category"));
+                place.setRatings(rs.getDouble("Ratings"));
+                places.add(place);
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to load places by area: " + e.getMessage());
+        }
+
+        return places;
+    }
 }

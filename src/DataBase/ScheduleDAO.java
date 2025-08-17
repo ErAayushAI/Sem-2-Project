@@ -101,4 +101,60 @@ public class ScheduleDAO {
         }
         return schedules;
     }
+
+    /**
+     * Update an existing Schedule.
+     *
+     * @param scanner object for user input
+     * @return true if update is successful
+     */
+    public boolean updateSchedule(Scanner scanner) {
+        System.out.println("\n========== UPDATE SCHEDULE ==========\n");
+
+        String query = "UPDATE Schedule SET RouteId = ?, DepartureTime = ? WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            int id = getValidInt(scanner, "Enter Schedule ID to update: ");
+            int routeId = getValidInt(scanner, "Enter new Route ID: ");
+
+            System.out.println("Enter new Departure Time:");
+            int hour = getValidInt(scanner, "Hour: ");
+            int minute = getValidInt(scanner, "Minute: ");
+            int second = getValidInt(scanner, "Second: ");
+            Time departureTime = new Time(hour, minute, second);
+
+            stmt.setInt(1, routeId);
+            stmt.setTime(2, departureTime);
+            stmt.setInt(3, id);
+
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to update schedule: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Delete a Schedule by ID.
+     *
+     * @param scanner object for user input
+     * @return true if deletion is successful
+     */
+    public boolean deleteSchedule(Scanner scanner) {
+        System.out.println("\n========== DELETE SCHEDULE ==========\n");
+
+        String query = "DELETE FROM Schedule WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            int id = getValidInt(scanner, "Enter Schedule ID to delete: ");
+            stmt.setInt(1, id);
+
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to delete schedule: " + e.getMessage());
+            return false;
+        }
+    }
 }

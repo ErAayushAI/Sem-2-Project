@@ -3,9 +3,9 @@ package Dashboard;
 import DataBase.*;
 import DataStructure.FeedbackLinkedList;
 import Model.*;
+import Validation.InputValidator;
 
 import java.sql.*;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,31 +21,13 @@ public class AdminDashboard {
 
     public void showMenu() throws SQLException {
         boolean running = true;
-        int choice;int ch;
+        int choice;
+        int ch;
 
         while (running) {
-            System.out.println("\n🔒 Admin Dashboard");
-            System.out.println("-------------------------------------------------");
-            System.out.printf("%-25s %-25s%n", "1. View all customers", "8. Manage Schedule");
-            System.out.printf("%-25s %-25s%n", "2. Manage Area", "9. Manage Station");
-            System.out.printf("%-25s %-25s%n", "3. Bus Services", "10. Manage Street");
-            System.out.printf("%-25s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
-            System.out.printf("%-25s %-25s%n", "5. Metro Services", "12. Complaint");
-            System.out.printf("%-25s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
-            System.out.printf("%-25s %-25s%n", "7. Manage Service Route", "14. Logout");
-            System.out.println("-------------------------------------------------");
 
-
-            while (true) {
-                try {
-                    System.out.print("Enter your choice (integer only): ");
-                    choice = sc.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.println("❌ Invalid input! Please enter a number.");
-                    sc.nextLine();
-                }
-            }
+            Display.showAdminMenu();
+            choice = InputValidator.getChoice(sc);
 
             switch (choice) {
                 case 1:
@@ -60,24 +42,14 @@ public class AdminDashboard {
 
                     while (areaLoop) {
                         System.out.println("\n📍 Area Management");
-                        System.out.println("1. View All Areas");
-                        System.out.println("2. Add Area");
-                        System.out.println("3. Update Area");
-                        System.out.println("4. Delete Area");
-                        System.out.println("5. Get Area By ID");
-                        System.out.println("6. Get Area In Area");
-                        System.out.println("7. Back to Dashboard");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Areas", "4. Delete Area");
+                        System.out.printf("%-30s %-30s%n", "2. Add Area", "5. Get Area By ID");
+                        System.out.printf("%-30s %-30s%n", "3. Update Area", "6. Get Area In Area");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
 
                         switch (ch) {
                             case 1:
@@ -104,7 +76,7 @@ public class AdminDashboard {
                                 areas = areaDAO.getAreaInArea(sc);
                                 Display.printAreas(areas);
                                 break;
-                            case 7:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 areaLoop = false;
                                 break;
@@ -120,24 +92,15 @@ public class AdminDashboard {
                     boolean busLoop = true;
 
                     while (busLoop) {
-                        System.out.println("\n🚌 Bus Management");
-                        System.out.println("1. View All Buses");
-                        System.out.println("2. Add Bus");
-                        System.out.println("3. Update Bus Location");
-                        System.out.println("4. Update Bus Route");
-                        System.out.println("5. Get Bus By ID");
-                        System.out.println("6. Back to Dashboard");
+                        System.out.println("\n🚍 Bus Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Buses", "4. Update Bus Route");
+                        System.out.printf("%-30s %-30s%n", "2. Add Bus", "5. Get Bus By ID");
+                        System.out.printf("%-30s %-30s%n", "3. Update Bus Location", "");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
 
                         switch (ch) {
                             case 1:
@@ -160,7 +123,7 @@ public class AdminDashboard {
                                 bus = busDAO.getBusByID(sc);
                                 Display.printBus(bus);
                                 break;
-                            case 6:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 busLoop = false;
                                 break;
@@ -176,23 +139,14 @@ public class AdminDashboard {
                     boolean esLoop = true;
 
                     while (esLoop) {
-                        System.out.println("\n🚨 Emergency Services");
-                        System.out.println("1. View All Emergency Services");
-                        System.out.println("2. Add Emergency Service");
-                        System.out.println("3. Update Emergency Service");
-                        System.out.println("4. Get Emergency By ID");
-                        System.out.println("5. Back to Dashboard");
+                        System.out.println("\n🚨 Emergency Service Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Services", "3. Update Service");
+                        System.out.printf("%-30s %-30s%n", "2. Add Service", "4. Get Service By ID");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
 
                         switch (ch) {
                             case 1:
@@ -211,7 +165,7 @@ public class AdminDashboard {
                                 es = esDAO.getEmergencyServiceByID(sc);
                                 Display.printEmergencyService(es);
                                 break;
-                            case 5:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 esLoop = false;
                                 break;
@@ -228,23 +182,15 @@ public class AdminDashboard {
 
                     while (metroLoop) {
                         System.out.println("\n🚇 Metro Management");
-                        System.out.println("1. View All Metros");
-                        System.out.println("2. Add Metro");
-                        System.out.println("3. Update Metro Location");
-                        System.out.println("4. Update Metro Route");
-                        System.out.println("5. Get Metro By ID");
-                        System.out.println("6. Exit to Dashboard");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Metros", "4. Update Metro Route");
+                        System.out.printf("%-30s %-30s%n", "2. Add Metro", "5. Get Metro By ID");
+                        System.out.printf("%-30s %-30s%n", "3. Update Metro Location", "");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<Metro> metros = metroDAO.getAllMetros();
@@ -266,7 +212,7 @@ public class AdminDashboard {
                                 metro = metroDAO.getMetroByID(sc);
                                 Display.printMetro(metro);
                                 break;
-                            case 6:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 metroLoop = false;
                                 break;
@@ -282,22 +228,14 @@ public class AdminDashboard {
 
                     while (ParkingLoop) {
                         System.out.println("\n🅿️ Parking Lot Management");
-                        System.out.println("1. View All Parking Lots");
-                        System.out.println("2. Add Parking Lot");
-                        System.out.println("3. Update Parking Capacity");
-                        System.out.println("4. Delete Parking Lot");
-                        System.out.println("5. Exit to Dashboard");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Lots", "3. Update Lot Capacity");
+                        System.out.printf("%-30s %-30s%n", "2. Add Lot", "4. Delete Lot");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<ParkingLot> lots = parkingDAO.getAllParkingLots();
@@ -315,7 +253,7 @@ public class AdminDashboard {
                                 if (parkingDAO.deleteParkingLot(sc)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 5:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 ParkingLoop = false;
                                 break;
@@ -331,22 +269,14 @@ public class AdminDashboard {
 
                     while (routeLoop) {
                         System.out.println("\n🛣️ Route Management");
-                        System.out.println("1. View All Routes");
-                        System.out.println("2. Add Route");
-                        System.out.println("3. Update Route");
-                        System.out.println("4. Delete Route");
-                        System.out.println("5. Exit to Dashboard");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Routes", "3. Update Route");
+                        System.out.printf("%-30s %-30s%n", "2. Add Route", "4. Delete Route");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
@@ -364,7 +294,7 @@ public class AdminDashboard {
                                 if (routeDAO.deleteRoute(sc)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 5:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 routeLoop = false;
                                 break;
@@ -379,22 +309,16 @@ public class AdminDashboard {
                     boolean scheduleLoop = true;
 
                     while (scheduleLoop) {
-                        System.out.println("\n🕒 Schedule Management");
-                        System.out.println("1. View All Schedule");
-                        System.out.println("2. Add New Schedule");
-                        System.out.println("3. Exit to Dashboard");
+                        System.out.println("\n📅 Schedule Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Schedules", "3. Update Schedule");
+                        System.out.printf("%-30s %-30s%n", "2. Add Schedule", "4. Delete Schedule");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        System.out.print("Enter choice: ");
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<Schedule> schedules = scheduleDAO.getAllSchedule();
@@ -405,6 +329,14 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                if (scheduleDAO.updateSchedule(sc)) System.out.println("✅ Updated successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 4:
+                                if (scheduleDAO.deleteSchedule(sc)) System.out.println("✅ Deleted successfully");
+                                else System.out.println("❌ Failed");
+                                break;
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 scheduleLoop = false;
                                 break;
@@ -418,23 +350,15 @@ public class AdminDashboard {
                     boolean stationLoop = true;
 
                     while (stationLoop) {
-                        System.out.println("\n🚏 Station Management");
-                        System.out.println("1. View All Stops");
-                        System.out.println("2. Add Station");
-                        System.out.println("3. Get Station By Id");
-                        System.out.println("4. Update Station");
-                        System.out.println("5. Exit to Dashboard");
+                        System.out.println("\n🚉 Station Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Stations", "3. Update Station");
+                        System.out.printf("%-30s %-30s%n", "2. Add Station", "4. Get Station By ID");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<Station> stations = stationDAO.getAllStops();
@@ -445,14 +369,14 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                station = stationDAO.getStationById(sc);
-                                Display.printStation(station);
-                                break;
-                            case 4:
                                 if (stationDAO.updateStation(sc)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
-                            case 5:
+                            case 4:
+                                station = stationDAO.getStationById(sc);
+                                Display.printStation(station);
+                                break;
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 stationLoop = false;
                                 break;
@@ -469,24 +393,15 @@ public class AdminDashboard {
 
                     while (streetLoop) {
                         System.out.println("\n🛣️ Street Management");
-                        System.out.println("1. View All Streets");
-                        System.out.println("2. Add Street");
-                        System.out.println("3. Update Street");
-                        System.out.println("4. Delete Street");
-                        System.out.println("5. Get Street By Id");
-                        System.out.println("6. Get Street By Area ID");
-                        System.out.println("7. Exit to Dashboard");
+                        System.out.println("-------------------------------------------------");
+                        System.out.printf("%-30s %-30s%n", "1. View All Streets", "4. Delete Street");
+                        System.out.printf("%-30s %-30s%n", "2. Add Street", "5. Get Street By ID");
+                        System.out.printf("%-30s %-30s%n", "3. Update Street", "6. Get Streets By Area");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 List<Street> streets = streetDAO.getAllStreet();
@@ -512,7 +427,7 @@ public class AdminDashboard {
                                 street = streetDAO.getStreetByAreaId(sc);
                                 Display.printStreet(street);
                                 break;
-                            case 7:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 streetLoop = false;
                                 break;
@@ -524,27 +439,23 @@ public class AdminDashboard {
 
                 case 11:
                     TouristPlaceDAO placeDAO = new TouristPlaceDAO();
+                    List<TouristPlace> places;
                     boolean placeLoop = true;
 
                     while (placeLoop) {
-                        System.out.println("\n🏞️ Tourist Place Management");
-                        System.out.println("1. View All Tourist Places");
-                        System.out.println("2. Add Tourist Place");
-                        System.out.println("3. Exit to Dashboard");
+                        System.out.println("\n🗺️ Tourist Place Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.println("1. View All Places");
+                        System.out.println("2. Add Place");
+                        System.out.println("3. Get Places By Area");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
-                                List<TouristPlace> places = placeDAO.displayAllPlaces();
+                                places = placeDAO.displayAllPlaces();
                                 Display.printTouristPlaces(places);
                                 break;
                             case 2:
@@ -552,6 +463,9 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
+                                places = placeDAO.getPlacesByAreaId(sc);
+                                Display.printTouristPlaces(places);
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 placeLoop = false;
                                 break;
@@ -567,22 +481,16 @@ public class AdminDashboard {
                     boolean complaintLoop = true;
 
                     while (complaintLoop) {
-                        System.out.println("\nComplaint Management");
+                        System.out.println("\n📝 Complaint Management");
+                        System.out.println("-------------------------------------------------");
                         System.out.println("1. View All Complaint ");
                         System.out.println("2. View Full Issue (If Not Displayed In Table Properly)");
                         System.out.println("3. Resolve Next Complaint");
-                        System.out.println("4. Exit to Dashboard");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 complaints = complaintDAO.getAllComplaint();
@@ -596,7 +504,7 @@ public class AdminDashboard {
                             case 3:
                                 complaintDAO.resolveNextComplaint();
                                 break;
-                            case 4:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 complaintLoop = false;
                                 break;
@@ -613,22 +521,16 @@ public class AdminDashboard {
                     while (fbLoop) {
                         FeedbackLinkedList fbList  = fbDAO.loadFeedbacksIntoLinkedList();
 
-                        System.out.println("\nFeedback Management");
+                        System.out.println("\n💬 Feedback Management");
+                        System.out.println("-------------------------------------------------");
                         System.out.println("1. View Feedback");
                         System.out.println("2. View Feedback By User ID");
                         System.out.println("3. Review Latest Feedbacks");
-                        System.out.println("4. Exit to Dashboard");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
 
-                        while (true) {
-                            try {
-                                System.out.print("Enter your choice (integer only): ");
-                                ch = sc.nextInt();
-                                break;
-                            } catch (InputMismatchException e) {
-                                System.out.println("❌ Invalid input! Please enter a number.");
-                                sc.nextLine();
-                            }
-                        }
+                        ch = InputValidator.getChoice(sc);
+
                         switch (ch) {
                             case 1:
                                 fbList.displayFeedbacks();
@@ -640,7 +542,7 @@ public class AdminDashboard {
                             case 3:
                                 List<Feedback> feedbacks = fbDAO.reviewLatestFeedback();
                                 Display.printFeedbacks(feedbacks);
-                            case 4:
+                            case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 fbLoop = false;
                                 break;
@@ -650,7 +552,7 @@ public class AdminDashboard {
                     }
                     break;
 
-                case 14:
+                case 0:
                     System.out.println("✅ Logged out successfully.");
                     running = false;
                     break;
