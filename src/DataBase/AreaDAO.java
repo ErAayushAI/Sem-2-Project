@@ -129,10 +129,8 @@ public class AreaDAO {
             boolean hasEmergency = getValidBoolean(scanner, "Enter 'true' if Area has Emergency Point: ");
             stmt.setBoolean(2, hasEmergency);
 
-
             int pinCode = getValidInt(scanner, "Enter PinCode to update: ");
             stmt.setInt(3, pinCode);
-
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;

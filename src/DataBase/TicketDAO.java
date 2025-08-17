@@ -1,6 +1,7 @@
 package DataBase;
 
 import Model.Ticket;
+import Validation.InputValidator;
 
 import java.sql.*;
 import java.io.*;
@@ -63,7 +64,7 @@ public class TicketDAO {
             java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
             stmt.setTimestamp(5, timestamp);
 
-            double distance = getValidDouble(scanner, "Enter Travel Distance: ");
+            double distance = getValidDouble(scanner, "Enter Travel Distance(km): ");
             stmt.setDouble(7, distance);
             stmt.setDouble(6, ticket.calculateBill(distance));
 
@@ -72,16 +73,7 @@ public class TicketDAO {
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("1. Confirm Ticket\n2. Cancel Ticket");
-                while (true) {
-                    try {
-                        System.out.print("Enter your choice (integer only): ");
-                        choice = scanner.nextInt();
-                        break;
-                    } catch (InputMismatchException e) {
-                        System.out.println("❌ Invalid input! Please enter a number.");
-                        scanner.nextLine();
-                    }
-                }
+                choice = InputValidator.getChoice(scanner);
 
                 boolean ticketLoop = true;
                 while(ticketLoop) {

@@ -1,10 +1,13 @@
 package Dashboard;
 
+import DataBase.DataBaseManager;
 import Model.*;
 
+import java.sql.*;
 import java.util.List;
 
 public class Display {
+    private static final Connection connection = DataBaseManager.getConnection();
 
     // Display Admin Dashboard Menu
     public static void showAdminMenu() {
@@ -279,6 +282,35 @@ public class Display {
         }
 
         System.out.println(separator);
+    }
+
+    public static void viewAllCustomers() throws SQLException {
+        String sql = "SELECT id, username, email, fullName, createdAt FROM customer";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            System.out.println("\n👥 List of All Customers");
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.printf("%-5s %-15s %-25s %-20s %-20s%n", "ID", "Username", "Email", "Full Name", "Joined Date");
+            System.out.println("--------------------------------------------------------------------------------");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String fullName = rs.getString("fullName");
+                Timestamp createdAt = rs.getTimestamp("createdAt");
+
+                System.out.printf("%-5d %-15s %-25s %-20s %-20s%n",
+                        id,
+                        username,
+                        email,
+                        fullName,
+                        createdAt.toLocalDateTime().toLocalDate());
+            }
+
+            System.out.println("--------------------------------------------------------------------------------");
+        }
     }
 
     public static void printArea(Area area) {

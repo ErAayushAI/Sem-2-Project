@@ -126,7 +126,6 @@ public class BusDAO {
             int id = getValidInt(scanner, "Enter bus id to update: ");
             stmt.setInt(2, id);
 
-
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
@@ -149,7 +148,6 @@ public class BusDAO {
 
             int rid = getValidInt(scanner, "Enter new route id: ");
             stmt.setInt(1, rid);
-
 
             int id = getValidInt(scanner, "Enter bus id to update: ");
             stmt.setInt(2, id);
