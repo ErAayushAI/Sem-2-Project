@@ -12,11 +12,9 @@ import java.util.Scanner;
 @SuppressWarnings("ClassCanBeRecord")
 public class AdminDashboard {
     private final Scanner sc;
-    private final Connection connection;
 
-    public AdminDashboard(Scanner sc, Connection connection) {
+    public AdminDashboard(Scanner sc) {
         this.sc = sc;
-        this.connection = connection;
     }
 
     public void showMenu() throws SQLException {
@@ -31,7 +29,7 @@ public class AdminDashboard {
 
             switch (choice) {
                 case 1:
-                    viewAllCustomers();
+                    Display.viewAllCustomers();
                     break;
 
                 case 2:
@@ -560,35 +558,6 @@ public class AdminDashboard {
                 default:
                     System.out.println("⚠️ Invalid option!");
             }
-        }
-    }
-
-    private void viewAllCustomers() throws SQLException {
-        String sql = "SELECT id, username, email, fullName, createdAt FROM customer";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            System.out.println("\n👥 List of All Customers");
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.printf("%-5s %-15s %-25s %-20s %-20s%n", "ID", "Username", "Email", "Full Name", "Joined Date");
-            System.out.println("--------------------------------------------------------------------------------");
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String username = rs.getString("username");
-                String email = rs.getString("email");
-                String fullName = rs.getString("fullName");
-                Timestamp createdAt = rs.getTimestamp("createdAt");
-
-                System.out.printf("%-5d %-15s %-25s %-20s %-20s%n",
-                        id,
-                        username,
-                        email,
-                        fullName,
-                        createdAt.toLocalDateTime().toLocalDate());
-            }
-
-            System.out.println("--------------------------------------------------------------------------------");
         }
     }
 }

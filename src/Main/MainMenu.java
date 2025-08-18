@@ -3,10 +3,10 @@ package Main;
 import Authentication.LoginManager;
 import Dashboard.AdminDashboard;
 import Dashboard.CustomerDashboard;
+import Validation.InputValidator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -33,24 +33,15 @@ public class MainMenu {
             System.out.println("2. Customer Login");
             System.out.println("3. Customer Registration");
             System.out.println("0. Exit");
-            System.out.print("Select an option: ");
 
-            while (true) {
-                try {
-                    System.out.print("Enter your choice (integer only): ");
-                    choice = scanner.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.println("❌ Invalid input! Please enter a number.");
-                    scanner.nextLine();
-                }
-            }
+            choice = InputValidator.getChoice(scanner);
+
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
                     if (loginManager.adminLogin()) {
-                        new AdminDashboard(scanner, connection).showMenu();
+                        new AdminDashboard(scanner).showMenu();
                     }
                     break;
                 case 2:
