@@ -34,6 +34,35 @@ public class Display {
         System.out.println("-------------------------------------------------------------");
     }
 
+    //Display deleted customer List
+    public static void printDeletedCustomerList(List<CustomerLog> logs) {
+        if (logs == null || logs.isEmpty()) {
+            System.out.println("⚠️ No deleted customer records found.");
+            return;
+        }
+
+        System.out.println("\n🗑️ Deleted Customer List");
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.printf("%-5s %-20s %-20s %-25s %-20s%n", "ID", "Username", "Email", "Deleted At", "Full Name");
+        System.out.println("--------------------------------------------------------------------------------------------------");
+
+        for (CustomerLog log : logs) {
+            String username = (log.getUsername() != null) ? log.getUsername() : "—";
+            String email = (log.getEmail() != null) ? log.getEmail() : "—";
+            String fullName = (log.getFullName() != null) ? log.getFullName() : "—";
+            String deletedAt = (log.getDeletedAt() != null) ? log.getDeletedAt().toString() : "—";
+
+            System.out.printf("%-5d %-20s %-20s %-25s %-20s%n",
+                    log.getCustomerId(),
+                    username,
+                    email,
+                    deletedAt,
+                    fullName);
+        }
+
+        System.out.println("--------------------------------------------------------------------------------------------------");
+    }
+
     //Display List of Areas
     public static void printAreas(List<Area> areas) {
         if (areas == null || areas.isEmpty()) {

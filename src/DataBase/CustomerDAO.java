@@ -1,8 +1,10 @@
 package DataBase;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
+import Model.CustomerLog;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CustomerDAO {
@@ -39,5 +41,30 @@ public class CustomerDAO {
                 throw e;
             }
         }
+    }
+
+    public List<CustomerLog> getDeletedCustomers() {
+        List<CustomerLog> logs = new ArrayList<>();
+        String sql = "{CALL get_deleted_customers()}";
+
+        try (CallableStatement stmt = connection.prepareCall(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("customerId");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String fullName = rs.getString("fullName");
+                Timestamp deletedAt = rs.getTimestamp("deletedAt");
+
+                CustomerLog log = new CustomerLog(id, username, password, email, fullName, deletedAt);
+                logs.add(log);
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Error while calling get_deleted_customers: " + e.getMessage());
+        }
+
+        return logs;
     }
 }

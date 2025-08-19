@@ -5,7 +5,7 @@ import DataStructure.FeedbackLinkedList;
 import Model.*;
 import Validation.InputValidator;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,12 +30,13 @@ public class AdminDashboard {
             switch (Choice) {
                 case 1:
                     boolean customerLoop = true;
-
+                    CustomerDAO customerDAO = new CustomerDAO();
                     while (customerLoop) {
                         System.out.println("\n‍💼 Customer Management");
                         System.out.println("-------------------------------------------------");
                         System.out.println("1. View All Customer");
                         System.out.println("2. Delete Customer");
+                        System.out.println("3. View Deleted Customer");
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
@@ -46,7 +47,11 @@ public class AdminDashboard {
                                 Display.viewAllCustomers();
                                 break;
                             case 2:
-                                new CustomerDAO().deleteCustomerById(scanner);
+                                customerDAO.deleteCustomerById(scanner);
+                                break;
+                            case 3:
+                                List<CustomerLog> customerLogs = customerDAO.getDeletedCustomers();
+                                Display.printDeletedCustomerList(customerLogs);
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -270,7 +275,8 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (parkingDAO.updateParkingCapacity(scanner)) System.out.println("✅ Added successfully");
+                                if (parkingDAO.updateParkingCapacity(scanner))
+                                    System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
@@ -543,7 +549,7 @@ public class AdminDashboard {
                     boolean fbLoop = true;
 
                     while (fbLoop) {
-                        FeedbackLinkedList fbList  = fbDAO.loadFeedbacksIntoLinkedList();
+                        FeedbackLinkedList fbList = fbDAO.loadFeedbacksIntoLinkedList();
 
                         System.out.println("\n💬 Feedback Management");
                         System.out.println("-------------------------------------------------");
