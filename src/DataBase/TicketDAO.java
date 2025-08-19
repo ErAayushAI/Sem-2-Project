@@ -5,7 +5,6 @@ import Validation.InputValidator;
 
 import java.sql.*;
 import java.io.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static Validation.InputValidator.*;
