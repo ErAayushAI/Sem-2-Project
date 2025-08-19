@@ -13,13 +13,13 @@ public class Display {
     public static void showAdminMenu() {
         System.out.println("\n🔒 Admin Dashboard");
         System.out.println("-------------------------------------------------");
-        System.out.printf("%-25s %-25s%n", "1. View all customers", "8. Manage Schedule");
-        System.out.printf("%-25s %-25s%n", "2. Manage Area", "9. Manage Station");
-        System.out.printf("%-25s %-25s%n", "3. Bus Services", "10. Manage Street");
-        System.out.printf("%-25s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
-        System.out.printf("%-25s %-25s%n", "5. Metro Services", "12. Complaint");
-        System.out.printf("%-25s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
-        System.out.printf("%-25s %-25s%n", "7. Manage Service Route", "0. Logout");
+        System.out.printf("%-30s %-25s%n", "1. View & Delete customers", "8. Manage Schedule");
+        System.out.printf("%-30s %-25s%n", "2. Manage Area", "9. Manage Station");
+        System.out.printf("%-30s %-25s%n", "3. Bus Services", "10. Manage Street");
+        System.out.printf("%-30s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
+        System.out.printf("%-30s %-25s%n", "5. Metro Services", "12. Complaint");
+        System.out.printf("%-30s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
+        System.out.printf("%-30s %-25s%n", "7. Manage Service Route", "0. Logout");
         System.out.println("-------------------------------------------------");
     }
 

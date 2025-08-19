@@ -29,7 +29,33 @@ public class AdminDashboard {
 
             switch (Choice) {
                 case 1:
-                    Display.viewAllCustomers();
+                    boolean customerLoop = true;
+
+                    while (customerLoop) {
+                        System.out.println("\n‍💼 Customer Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.println("1. View All Customer");
+                        System.out.println("2. Delete Customer");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
+
+                        choice = InputValidator.getChoice(scanner);
+
+                        switch (choice) {
+                            case 1:
+                                Display.viewAllCustomers();
+                                break;
+                            case 2:
+                                new CustomerDAO().deleteCustomerById(scanner);
+                                break;
+                            case 0:
+                                System.out.println("🔙 Returning to Admin Dashboard...");
+                                customerLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid option!");
+                        }
+                    }
                     break;
 
                 case 2:
