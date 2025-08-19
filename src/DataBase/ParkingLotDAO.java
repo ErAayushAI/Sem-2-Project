@@ -27,7 +27,6 @@ public class ParkingLotDAO {
      * @return true if lot is added
      */
     public boolean addParkingLot(Scanner scanner) {
-        int che;
         System.out.println("\n========== ADD PARKING LOT ==========\n");
 
         String query = "INSERT INTO ParkingLot (Name, AreaId, Capacity, CurrentOccupancy) VALUES (?, ?, ?, ?)";
@@ -36,14 +35,14 @@ public class ParkingLotDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            che = getValidInt(scanner, "Enter Area PinCode: ");
-            stmt.setInt(2, che);
+            int aid = getValidInt(scanner, "Enter Area PinCode: ");
+            stmt.setInt(2, aid);
 
-            che = getValidInt(scanner, "Enter Capacity: ");
-            stmt.setInt(3, che);
+            int capacity = getValidInt(scanner, "Enter Capacity: ");
+            stmt.setInt(3, capacity);
 
-            che = getValidInt(scanner, "Enter Current Occupancy: ");
-            stmt.setInt(4, che);
+            int occupancy = getValidInt(scanner, "Enter Current Occupancy: ");
+            stmt.setInt(4, occupancy);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -62,11 +61,11 @@ public class ParkingLotDAO {
     public ParkingLot getParkingLotByAreaId(Scanner scanner) {
         System.out.println("\n========== PARKING LOT BY ID ==========\n");
 
-        String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
+        String query = "SELECT * FROM ParkingLot WHERE AreaId = ? LIMIT 1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(1, che);
+            int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, aid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -82,6 +81,32 @@ public class ParkingLotDAO {
             System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
         }
         return null;
+    }
+
+    public List<ParkingLot> getParkingLotByAreaIdList(Scanner scanner) {
+        System.out.println("\n========== PARKING LOT BY ID ==========\n");
+
+        String query = "SELECT * FROM ParkingLot WHERE AreaId = ?";
+        List<ParkingLot> lots  = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, aid);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                ParkingLot lot = new ParkingLot();
+                lot.setId(rs.getInt(1));
+                lot.setName(rs.getString(2));
+                lot.setCapacity(rs.getInt(3));
+                lot.setCurrentOccupancy(rs.getInt(4));
+                lot.setAreaId(rs.getInt(5));
+                lots.add(lot);
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
+        }
+        return lots;
     }
 
     /**
@@ -116,7 +141,6 @@ public class ParkingLotDAO {
      * @return true if Parking Lot is Updated
      */
     public boolean updateParkingCapacity(Scanner scanner) {
-        int che;
         System.out.println("\n========== UPDATE PARKING LOT ==========\n");
 
         String query = "UPDATE ParkingLot SET Capacity = ? WHERE Id = ?";
@@ -125,18 +149,18 @@ public class ParkingLotDAO {
             PreparedStatement stmt1 = connection.prepareStatement(sql);
             int occupancy = 0;
 
-            che = getValidInt(scanner, "Enter Lot Id to Update: ");
-            stmt1.setInt(1, che);
-            stmt.setInt(2, che);
+            int pid = getValidInt(scanner, "Enter Lot Id to Update: ");
+            stmt1.setInt(1, pid);
+            stmt.setInt(2, pid);
 
             ResultSet rs = stmt1.executeQuery();
             while(rs.next()){
                 occupancy = rs.getInt(1);
             }
 
-            che = getValidInt(scanner, "Enter new Capacity: ");
-            if(che > occupancy) {
-                stmt.setInt(1, che);
+            int capacity = getValidInt(scanner, "Enter new Capacity: ");
+            if(capacity > occupancy) {
+                stmt.setInt(1, capacity);
             } else {
                 return false;
             }
@@ -186,8 +210,8 @@ public class ParkingLotDAO {
         String query = "DELETE FROM ParkingLot WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Lot Id to delete: ");
-            stmt.setInt(1, che);
+            int pid = getValidInt(scanner, "Enter Lot Id to delete: ");
+            stmt.setInt(1, pid);
 
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;

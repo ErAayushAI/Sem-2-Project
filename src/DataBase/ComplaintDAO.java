@@ -49,8 +49,8 @@ public class ComplaintDAO {
             stmt.setBoolean(4, false);
             int rowsInserted = stmt.executeUpdate();
 
-            Complaint c = new Complaint(deptName, userId, issue);
-            complaintQueue.enqueue(c);
+            Complaint complaint = new Complaint(deptName, userId, issue);
+            complaintQueue.enqueue(complaint);
 
             return rowsInserted > 0;
         } catch (SQLException e) {
@@ -92,18 +92,18 @@ public class ComplaintDAO {
         ComplaintDAO complaintDAO = new ComplaintDAO();
         List<Complaint> pendingComplaints = complaintDAO.getPendingComplaints();
 
-        for (Complaint c : pendingComplaints) {
-            complaintQueue.enqueue(c);
+        for (Complaint complaint : pendingComplaints) {
+            complaintQueue.enqueue(complaint);
         }
 
         if (!complaintQueue.isEmpty()) {
-            Complaint c = complaintQueue.dequeue();
+            Complaint complaint = complaintQueue.dequeue();
             System.out.println("Resolving complaint:");
-            System.out.println("Department: " + c.getDepartment());
-            System.out.println("User: " + c.getUserId());
-            System.out.println("Issue: " + c.getIssue());
-            c.setStatus(true);
-            String query = "UPDATE complaint SET status = true WHERE UserId = "+c.getUserId();
+            System.out.println("Department: " + complaint.getDepartment());
+            System.out.println("User: " + complaint.getUserId());
+            System.out.println("Issue: " + complaint.getIssue());
+            complaint.setStatus(true);
+            String query = "UPDATE complaint SET status = true WHERE UserId = "+complaint.getUserId();
             try(Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate(query);
             } catch (SQLException e) {

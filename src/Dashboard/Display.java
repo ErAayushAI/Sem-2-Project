@@ -23,6 +23,7 @@ public class Display {
         System.out.println("-------------------------------------------------");
     }
 
+    //Display Customer Dashboard Menu
     public static void showCustomerMenu() {
         System.out.println("\n🧑‍💼 Customer Dashboard");
         System.out.println("-------------------------------------------------------------");
@@ -33,6 +34,7 @@ public class Display {
         System.out.println("-------------------------------------------------------------");
     }
 
+    //Display List of Areas
     public static void printAreas(List<Area> areas) {
         if (areas == null || areas.isEmpty()) {
             System.out.println("⚠️ No area data found.");
@@ -57,6 +59,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List of Buses
     public static void printBusList(List<Bus> buses) {
         if (buses == null || buses.isEmpty()) {
             System.out.println("⚠️ No bus data found.");
@@ -83,6 +86,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List Emergency Services
     public static void printEmergencyServices(List<EmergencyService> services) {
         if (services == null || services.isEmpty()) {
             System.out.println("⚠️ No emergency services found.");
@@ -107,6 +111,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------------");
     }
 
+    //Display List of Metro
     public static void printMetroList(List<Metro> metros) {
         if (metros == null || metros.isEmpty()) {
             System.out.println("⚠️ No metro data found.");
@@ -133,6 +138,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List of ParkingLots
     public static void printParkingLots(List<ParkingLot> parkingList) {
         if (parkingList == null || parkingList.isEmpty()) {
             System.out.println("⚠️ No parking lot data found.");
@@ -160,6 +166,7 @@ public class Display {
         System.out.println("------------------------------------------------------------------------------------------");
     }
 
+    //Display List of Routes
     public static void printRoutes(List<Route> routes) {
         if (routes == null || routes.isEmpty()) {
             System.out.println("⚠️ No route data found.");
@@ -186,6 +193,7 @@ public class Display {
         System.out.println("----------------------------------------------------------------------------------------");
     }
 
+    //Display List of Stations
     public static void printStations(List<Station> stations) {
         if (stations == null || stations.isEmpty()) {
             System.out.println("⚠️ No station data available.");
@@ -212,6 +220,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List of Streets
     public static void printStreets(List<Street> streets) {
         if (streets == null || streets.isEmpty()) {
             System.out.println("⚠️ No street data available.");
@@ -237,6 +246,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List of TouristPlaces
     public static void printTouristPlaces(List<TouristPlace> places) {
         if (places == null || places.isEmpty()) {
             System.out.println("⚠️ No tourist place data available.");
@@ -260,6 +270,7 @@ public class Display {
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    //Display List of Schedules
     public static void printScheduleTable(List<Schedule> schedules) {
         if (schedules == null || schedules.isEmpty()) {
             System.out.println("⚠️ No schedules available.");
@@ -284,6 +295,7 @@ public class Display {
         System.out.println(separator);
     }
 
+    //Display List of Customers
     public static void viewAllCustomers() throws SQLException {
         String sql = "SELECT id, username, email, fullName, createdAt FROM customer";
         try (Statement stmt = connection.createStatement();
@@ -313,6 +325,29 @@ public class Display {
         }
     }
 
+    //Display List of Categories
+    public static void printCategories(List<String> categories) {
+        if (categories == null || categories.isEmpty()) {
+            System.out.println("⚠️ No categories found.");
+            return;
+        }
+
+        String line = "+---------------------------+";
+        String format = "| %-25s |\n";
+
+        System.out.println("\n---------- AVAILABLE CATEGORIES ----------\n");
+        System.out.println(line);
+        System.out.printf(format, "Category");
+        System.out.println(line);
+
+        for (String category : categories) {
+            System.out.printf(format, category);
+        }
+
+        System.out.println(line);
+    }
+
+    //Display Area
     public static void printArea(Area area) {
         if (area == null) {
             System.out.println("⚠️ Area not found.");
@@ -329,6 +364,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Street
     public static void printStreet(Street street) {
         if (street == null) {
             System.out.println("⚠️ Street not found.");
@@ -345,6 +381,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Station
     public static void printStation(Station station) {
         if (station == null) {
             System.out.println("⚠️ Station not found.");
@@ -361,6 +398,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Metro
     public static void printMetro(Metro metro) {
         if (metro == null) {
             System.out.println("⚠️ Metro not found.");
@@ -377,6 +415,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Emergency Service
     public static void printEmergencyService(EmergencyService es) {
         if (es == null) {
             System.out.println("⚠️ Emergency service not found.");
@@ -394,6 +433,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Bus
     public static void printBus(Bus bus) {
         if (bus == null) {
             System.out.println("⚠️ Bus not found.");
@@ -410,6 +450,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Route
     public static void printRoute(Route route) {
         if (route == null) {
             System.out.println("⚠️ Route not found.");
@@ -426,6 +467,7 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Schedule
     public static void printSchedule(Schedule schedule) {
         if (schedule == null) {
             System.out.println("⚠️ No schedule found for this route.");
@@ -440,8 +482,9 @@ public class Display {
         System.out.println("--------------------------------------------------");
     }
 
+    //Display Feedbacks
     public static void printFeedbacks(List<Feedback> feedbackList) {
-        System.out.println("\n================= FEEDBACK TABLE =================");
+        System.out.println("\n----------------- FEEDBACK TABLE -----------------");
         System.out.printf("%-5s %-8s %-9s %-30s %-6s\n", "ID", "UserID", "PlaceID", "Comments", "Rating");
         System.out.println("---------------------------------------------------------------");
 
@@ -454,36 +497,10 @@ public class Display {
                     fb.getRating());
         }
 
-        System.out.println("===============================================================\n");
+        System.out.println("---------------------------------------------------------------\n");
     }
 
-    public static void printParkingLot(ParkingLot lot) {
-        if (lot == null) {
-            System.out.println("⚠️ Parking lot not found.");
-            return;
-        }
-
-        System.out.println("\n🅿️ Parking Lot Details");
-        System.out.println("--------------------------------------------------");
-        System.out.printf("ID: %d%n", lot.getId());
-        System.out.printf("Name: %s%n", lot.getName());
-        System.out.printf("Area ID: %d%n", lot.getAreaId());
-        System.out.printf("Capacity: %d vehicles%n", lot.getCapacity());
-        System.out.printf("Current Occupancy: %d vehicles%n", lot.getCurrentOccupancy());
-
-        int available = lot.getCapacity() - lot.getCurrentOccupancy();
-        System.out.printf("Available Slots: %d%n", available);
-        System.out.println("--------------------------------------------------");
-
-        if (available == 0) {
-            System.out.println("🚫 Lot is full. Please try another location.");
-        } else if (available < 5) {
-            System.out.println("⚠️ Limited slots available. Hurry!");
-        } else {
-            System.out.println("✅ Slots available.");
-        }
-    }
-
+    //Display List of Complaints
     public static void printComplaintTable(List<Complaint> complaints) {
         if (complaints == null || complaints.isEmpty()) {
             System.out.println("⚠️ No complaints to display.");
@@ -521,6 +538,7 @@ public class Display {
         return issue.length() <= maxLength ? issue : issue.substring(0, maxLength - 3) + "...";
     }
 
+    //Display for view Full Issue
     public static void viewFullIssue(List<Complaint> complaints, int id) {
         for (Complaint c : complaints) {
             if (c.getId() == id) {

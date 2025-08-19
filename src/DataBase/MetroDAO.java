@@ -27,7 +27,6 @@ public class MetroDAO {
      * @return true if Metro is added
      */
     public boolean addMetro(Scanner scanner) {
-        int che;
         System.out.println("\n========== ADD METRO ==========\n");
 
         String query = "INSERT INTO Metro (TrainName, Capacity, CurrentRouteID, CurrentAreaID) VALUES (?, ?, ?, ?)";
@@ -37,14 +36,14 @@ public class MetroDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            che = getValidInt(scanner, "Enter Capacity: ");
-            stmt.setInt(2, che);
+            int capacity = getValidInt(scanner, "Enter Capacity: ");
+            stmt.setInt(2, capacity);
 
-            che = getValidInt(scanner, "Enter Current Route: ");
-            stmt.setInt(3, che);
+            int rid = getValidInt(scanner, "Enter Current Route Id: ");
+            stmt.setInt(3, rid);
 
-            che = getValidInt(scanner, "Enter Current Area: ");
-            stmt.setInt(4, che);
+            int aid = getValidInt(scanner, "Enter Current Area Id: ");
+            stmt.setInt(4, aid);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -66,8 +65,8 @@ public class MetroDAO {
         String query = "SELECT * FROM Metro WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(1, che);
+            int mid = getValidInt(scanner, "Enter Metro Id: ");
+            stmt.setInt(1, mid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -117,17 +116,16 @@ public class MetroDAO {
      * @return true if Metro is Updated
      */
     public boolean updateMetroLocation(Scanner scanner) {
-        int che;
         System.out.println("\n========== UPDATE METRO AREA ==========\n");
 
         String query = "UPDATE Metro SET CurrentAreaID = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter new Area PinCode: ");
-            stmt.setInt(1, che);
+            int aid = getValidInt(scanner, "Enter new Area PinCode: ");
+            stmt.setInt(1, aid);
 
-            che = getValidInt(scanner, "Enter Metro Id to Update: ");
-            stmt.setInt(2, che);
+            int mid = getValidInt(scanner, "Enter Metro Id to Update: ");
+            stmt.setInt(2, mid);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -144,17 +142,16 @@ public class MetroDAO {
      * @return true if Metro is Updated
      */
     public boolean updateMetroRoute(Scanner scanner) {
-        int che;
         System.out.println("\n========== UPDATE METRO ROUTE ==========");
 
         String query = "UPDATE Bus SET CurrentRouteId = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter new Route Id: ");
-            stmt.setInt(1, che);
+            int rid = getValidInt(scanner, "Enter new Route Id: ");
+            stmt.setInt(1, rid);
 
-            che = getValidInt(scanner, "Enter Metro Id to Update: ");
-            stmt.setInt(2, che);
+            int mid = getValidInt(scanner, "Enter Metro Id to Update: ");
+            stmt.setInt(2, mid);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;

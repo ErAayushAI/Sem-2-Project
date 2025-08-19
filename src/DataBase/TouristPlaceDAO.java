@@ -42,8 +42,8 @@ public class TouristPlaceDAO {
             stmt.setString(1, scanner.nextLine().trim());
 
             System.out.print("Enter Area Id: ");
-           int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(2, che);
+           int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(2, aid);
 
             System.out.print("Enter Category: ");
             System.out.println("Like Historic, Religious, etc...");
@@ -103,7 +103,7 @@ public class TouristPlaceDAO {
             stmt.setString(1, category);
 
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));
@@ -131,8 +131,8 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Ratings: ");
-            stmt.setInt(1, che);
+            int ratings = getValidInt(scanner, "Enter Ratings: ");
+            stmt.setInt(1, ratings);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -188,8 +188,8 @@ public class TouristPlaceDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(1, che);
+            int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, aid);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -206,5 +206,30 @@ public class TouristPlaceDAO {
         }
 
         return places;
+    }
+
+    /**
+     * Display all unique categories available in TouristPlace table.
+     *
+     * @return list of category names
+     */
+    public List<String> getAllCategories() {
+        System.out.println("\n========== AVAILABLE TOURIST CATEGORIES ==========\n");
+
+        String query = "SELECT DISTINCT Category FROM TouristPlace";
+        List<String> categories = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String category = rs.getString("Category");
+                categories.add(category);
+                System.out.println("• " + category);
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Failed to load categories: " + e.getMessage());
+        }
+
+        return categories;
     }
 }

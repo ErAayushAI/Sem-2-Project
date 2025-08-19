@@ -35,8 +35,8 @@ public class BusDAO {
             System.out.print("Enter Bus License Plate: ");
             stmt.setString(1, scanner.next().trim());
 
-            int cap = getValidInt(scanner, "Enter Capacity: ");
-            stmt.setInt(2, cap);
+            int capacity = getValidInt(scanner, "Enter Capacity: ");
+            stmt.setInt(2, capacity);
 
             int cid = getValidInt(scanner, "Enter Current Route Id: ");
             stmt.setInt(3, cid);

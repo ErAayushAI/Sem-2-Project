@@ -27,23 +27,22 @@ public class StreetDAO {
      * @return true if Street is added
      */
     public boolean addStreet(Scanner scanner) {
-        int che;
         System.out.println("\n========== ADD STREET ==========\n");
 
         String query = "INSERT INTO Street (Id, StartAreaId, EndAreaId, Distance, IsOneWay) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(1, che);
+            int sid = getValidInt(scanner, "Enter Street Id: ");
+            stmt.setInt(1, sid);
 
-            che = getValidInt(scanner, "Enter Start area Id: ");
-            stmt.setInt(2, che);
+            int aid = getValidInt(scanner, "Enter Start area Id: ");
+            stmt.setInt(2, aid);
 
-            che = getValidInt(scanner, "Enter End Area Id: ");
-            stmt.setInt(3, che);
+            aid = getValidInt(scanner, "Enter End Area Id: ");
+            stmt.setInt(3, aid);
 
-            che = getValidInt(scanner, "Enter Distance: ");
-            stmt.setInt(4, che);
+            int length = getValidInt(scanner, "Enter Distance: ");
+            stmt.setInt(4, length);
 
             boolean chek = getValidBoolean(scanner, "Enter 'true' if it is Oneway: ");
             stmt.setBoolean(5, chek);
@@ -67,8 +66,8 @@ public class StreetDAO {
         String query = "SELECT * FROM Street WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(1, che);
+            int sid = getValidInt(scanner, "Enter Street Id: ");
+            stmt.setInt(1, sid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -97,8 +96,8 @@ public class StreetDAO {
         String query = "SELECT * FROM Street WHERE areaId = ? LIMIT 1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(1, che);
+            int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, aid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -147,23 +146,22 @@ public class StreetDAO {
      * @return true if Street is Updated
      */
     public boolean updateStreet(Scanner scanner) {
-        int che;
         System.out.println("\n========== UPDATE STREET ==========\n");
 
         String query = "UPDATE Street SET StartAreaId = ?, EndAreaId = ?, IsOneWay = ? WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter new Start Area Id: ");
-            stmt.setInt(1, che);
+            int aid = getValidInt(scanner, "Enter new Start Area Id: ");
+            stmt.setInt(1, aid);
 
-            che = getValidInt(scanner, "Enter new End Area Id: ");
-            stmt.setInt(2, che);
+            aid = getValidInt(scanner, "Enter new End Area Id: ");
+            stmt.setInt(2, aid);
 
-            boolean chek = getValidBoolean(scanner, "Enter 'true' if it is Oneway: ");
-            stmt.setBoolean(3, chek);
+            boolean check = getValidBoolean(scanner, "Enter 'true' if it is Oneway: ");
+            stmt.setBoolean(3, check);
 
-            che = getValidInt(scanner, "Enter Street Id to Update: ");
-            stmt.setInt(4, che);
+            int sid = getValidInt(scanner, "Enter Street Id to Update: ");
+            stmt.setInt(4, sid);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
@@ -184,8 +182,8 @@ public class StreetDAO {
         String query = "DELETE FROM Street WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Street Id to Delete: ");
-            stmt.setInt(1, che);
+            int sid = getValidInt(scanner, "Enter Street Id to Delete: ");
+            stmt.setInt(1, sid);
 
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;
