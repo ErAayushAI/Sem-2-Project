@@ -5,7 +5,6 @@ import Validation.InputValidator;
 
 import java.sql.*;
 import java.io.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static Validation.InputValidator.*;
@@ -30,7 +29,6 @@ public class TicketDAO {
      * @return true if new ticket is added
      */
     public boolean addTicket(Scanner scanner) {
-        int che;
         Ticket ticket = new Ticket();
         TicketDAO ticketDAO = new TicketDAO();
         System.out.println("\n========== ADD TICKET ==========\n");
@@ -40,11 +38,11 @@ public class TicketDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter User Id: ");
-            stmt.setInt(1, che);
+            int uid = getValidInt(scanner, "Enter User Id: ");
+            stmt.setInt(1, uid);
 
-            che = getValidInt(scanner, "Enter Route Id: ");
-            stmt.setInt(2, che);
+            int rid = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(2, rid);
 
             boolean metroTransport = false;
             boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Transport: ");

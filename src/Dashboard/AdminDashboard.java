@@ -5,31 +5,62 @@ import DataStructure.FeedbackLinkedList;
 import Model.*;
 import Validation.InputValidator;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class AdminDashboard {
-    private final Scanner sc;
+    private final Scanner scanner;
 
-    public AdminDashboard(Scanner sc) {
-        this.sc = sc;
+    public AdminDashboard(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public void showMenu() throws SQLException {
         boolean running = true;
+        int Choice;
         int choice;
-        int ch;
 
         while (running) {
 
             Display.showAdminMenu();
-            choice = InputValidator.getChoice(sc);
+            Choice = InputValidator.getChoice(scanner);
 
-            switch (choice) {
+            switch (Choice) {
                 case 1:
-                    Display.viewAllCustomers();
+                    boolean customerLoop = true;
+                    CustomerDAO customerDAO = new CustomerDAO();
+                    while (customerLoop) {
+                        System.out.println("\n‍💼 Customer Management");
+                        System.out.println("-------------------------------------------------");
+                        System.out.println("1. View All Customer");
+                        System.out.println("2. Delete Customer");
+                        System.out.println("3. View Deleted Customer");
+                        System.out.println("0. Return to Dashboard");
+                        System.out.println("-------------------------------------------------");
+
+                        choice = InputValidator.getChoice(scanner);
+
+                        switch (choice) {
+                            case 1:
+                                Display.viewAllCustomers();
+                                break;
+                            case 2:
+                                customerDAO.deleteCustomerById(scanner);
+                                break;
+                            case 3:
+                                List<CustomerLog> customerLogs = customerDAO.getDeletedCustomers();
+                                Display.printDeletedCustomerList(customerLogs);
+                                break;
+                            case 0:
+                                System.out.println("🔙 Returning to Admin Dashboard...");
+                                customerLoop = false;
+                                break;
+                            default:
+                                System.out.println("⚠️ Invalid option!");
+                        }
+                    }
                     break;
 
                 case 2:
@@ -47,31 +78,31 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 areas = areaDAO.getAllArea();
                                 Display.printAreas(areas);
                                 break;
                             case 2:
-                                if (areaDAO.addArea(sc)) System.out.println("✅ Added successfully");
+                                if (areaDAO.addArea(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (areaDAO.updateArea(sc)) System.out.println("✅ Updated successfully");
+                                if (areaDAO.updateArea(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (areaDAO.deleteArea(sc)) System.out.println("✅ Deleted successfully");
+                                if (areaDAO.deleteArea(scanner)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 5:
-                                area = areaDAO.getAreaById(sc);
+                                area = areaDAO.getAreaById(scanner);
                                 Display.printArea(area);
                                 break;
                             case 6:
-                                areas = areaDAO.getAreaInArea(sc);
+                                areas = areaDAO.getAreaInArea(scanner);
                                 Display.printAreas(areas);
                                 break;
                             case 0:
@@ -98,27 +129,27 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Bus> buses = busDAO.getAllBuses();
                                 Display.printBusList(buses);
                                 break;
                             case 2:
-                                if (busDAO.addBus(sc)) System.out.println("✅ Added successfully");
+                                if (busDAO.addBus(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (busDAO.updateBusLocation(sc)) System.out.println("✅ Updated successfully");
+                                if (busDAO.updateBusLocation(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (busDAO.updateBusRoute(sc)) System.out.println("✅ Updated successfully");
+                                if (busDAO.updateBusRoute(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 5:
-                                bus = busDAO.getBusByID(sc);
+                                bus = busDAO.getBusByID(scanner);
                                 Display.printBus(bus);
                                 break;
                             case 0:
@@ -144,23 +175,23 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<EmergencyService> services = esDAO.getAllEmergencyService();
                                 Display.printEmergencyServices(services);
                                 break;
                             case 2:
-                                if (esDAO.addEmergencyService(sc)) System.out.println("✅ Added successfully");
+                                if (esDAO.addEmergencyService(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (esDAO.updateEmergencyService(sc)) System.out.println("✅ Updated successfully");
+                                if (esDAO.updateEmergencyService(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                es = esDAO.getEmergencyServiceByID(sc);
+                                es = esDAO.getEmergencyServiceByID(scanner);
                                 Display.printEmergencyService(es);
                                 break;
                             case 0:
@@ -187,27 +218,27 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Metro> metros = metroDAO.getAllMetros();
                                 Display.printMetroList(metros);
                                 break;
                             case 2:
-                                if (metroDAO.addMetro(sc)) System.out.println("✅ Added successfully");
+                                if (metroDAO.addMetro(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (metroDAO.updateMetroLocation(sc)) System.out.println("✅ Updated successfully");
+                                if (metroDAO.updateMetroLocation(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (metroDAO.updateMetroRoute(sc)) System.out.println("✅ Updated successfully");
+                                if (metroDAO.updateMetroRoute(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 5:
-                                metro = metroDAO.getMetroByID(sc);
+                                metro = metroDAO.getMetroByID(scanner);
                                 Display.printMetro(metro);
                                 break;
                             case 0:
@@ -232,23 +263,24 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<ParkingLot> lots = parkingDAO.getAllParkingLots();
                                 Display.printParkingLots(lots);
                                 break;
                             case 2:
-                                if (parkingDAO.addParkingLot(sc)) System.out.println("✅ Added successfully");
+                                if (parkingDAO.addParkingLot(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (parkingDAO.updateParkingCapacity(sc)) System.out.println("✅ Added successfully");
+                                if (parkingDAO.updateParkingCapacity(scanner))
+                                    System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (parkingDAO.deleteParkingLot(sc)) System.out.println("✅ Deleted successfully");
+                                if (parkingDAO.deleteParkingLot(scanner)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 0:
@@ -273,23 +305,23 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
                                 Display.printRoutes(routes);
                                 break;
                             case 2:
-                                if (routeDAO.addRoute(sc)) System.out.println("✅ Added successfully");
+                                if (routeDAO.addRoute(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (routeDAO.updateRoute(sc)) System.out.println("✅ Updated successfully");
+                                if (routeDAO.updateRoute(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (routeDAO.deleteRoute(sc)) System.out.println("✅ Deleted successfully");
+                                if (routeDAO.deleteRoute(scanner)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 0:
@@ -315,23 +347,23 @@ public class AdminDashboard {
                         System.out.println("-------------------------------------------------");
 
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Schedule> schedules = scheduleDAO.getAllSchedule();
                                 Display.printScheduleTable(schedules);
                                 break;
                             case 2:
-                                if (scheduleDAO.addSchedule(sc)) System.out.println("✅ Added successfully");
+                                if (scheduleDAO.addSchedule(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (scheduleDAO.updateSchedule(sc)) System.out.println("✅ Updated successfully");
+                                if (scheduleDAO.updateSchedule(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (scheduleDAO.deleteSchedule(sc)) System.out.println("✅ Deleted successfully");
+                                if (scheduleDAO.deleteSchedule(scanner)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 0:
@@ -355,23 +387,23 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Station> stations = stationDAO.getAllStops();
                                 Display.printStations(stations);
                                 break;
                             case 2:
-                                if (stationDAO.addStation(sc)) System.out.println("✅ Added successfully");
+                                if (stationDAO.addStation(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (stationDAO.updateStation(sc)) System.out.println("✅ Updated successfully");
+                                if (stationDAO.updateStation(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                station = stationDAO.getStationById(sc);
+                                station = stationDAO.getStationById(scanner);
                                 Display.printStation(station);
                                 break;
                             case 0:
@@ -398,31 +430,31 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Street> streets = streetDAO.getAllStreet();
                                 Display.printStreets(streets);
                                 break;
                             case 2:
-                                if (streetDAO.addStreet(sc)) System.out.println("✅ Added successfully");
+                                if (streetDAO.addStreet(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                if (streetDAO.updateStreet(sc)) System.out.println("✅ Updated successfully");
+                                if (streetDAO.updateStreet(scanner)) System.out.println("✅ Updated successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 4:
-                                if (streetDAO.deleteStreet(sc)) System.out.println("✅ Deleted successfully");
+                                if (streetDAO.deleteStreet(scanner)) System.out.println("✅ Deleted successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 5:
-                                street = streetDAO.getStreetById(sc);
+                                street = streetDAO.getStreetById(scanner);
                                 Display.printStreet(street);
                                 break;
                             case 6:
-                                street = streetDAO.getStreetByAreaId(sc);
+                                street = streetDAO.getStreetByAreaId(scanner);
                                 Display.printStreet(street);
                                 break;
                             case 0:
@@ -449,9 +481,9 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 places = placeDAO.displayAllPlaces();
                                 Display.printTouristPlaces(places);
@@ -461,7 +493,7 @@ public class AdminDashboard {
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                places = placeDAO.getPlacesByAreaId(sc);
+                                places = placeDAO.getPlacesByAreaId(scanner);
                                 Display.printTouristPlaces(places);
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -487,9 +519,9 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 complaints = complaintDAO.getAllComplaint();
                                 Display.printComplaintTable(complaints);
@@ -497,7 +529,7 @@ public class AdminDashboard {
                             case 2:
                                 complaints = complaintDAO.getAllComplaint();
                                 System.out.print("Enter Complaint Id: ");
-                                Display.viewFullIssue(complaints, sc.nextInt());
+                                Display.viewFullIssue(complaints, scanner.nextInt());
                                 break;
                             case 3:
                                 complaintDAO.resolveNextComplaint();
@@ -517,7 +549,7 @@ public class AdminDashboard {
                     boolean fbLoop = true;
 
                     while (fbLoop) {
-                        FeedbackLinkedList fbList  = fbDAO.loadFeedbacksIntoLinkedList();
+                        FeedbackLinkedList fbList = fbDAO.loadFeedbacksIntoLinkedList();
 
                         System.out.println("\n💬 Feedback Management");
                         System.out.println("-------------------------------------------------");
@@ -527,15 +559,15 @@ public class AdminDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 fbList.displayFeedbacks();
                                 break;
                             case 2:
                                 System.out.print("Enter User Id: ");
-                                fbList.searchByUserId(sc.nextInt());
+                                fbList.searchByUserId(scanner.nextInt());
                                 break;
                             case 3:
                                 List<Feedback> feedbacks = fbDAO.reviewLatestFeedback();

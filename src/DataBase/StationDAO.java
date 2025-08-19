@@ -37,8 +37,8 @@ public class StationDAO {
             scanner.nextLine();
             stmt.setString(1, scanner.nextLine().trim());
 
-            int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(2, che);
+            int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(2, aid);
 
             boolean metroTransport = false;
             boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Station: ");
@@ -75,8 +75,8 @@ public class StationDAO {
         String query = "SELECT * FROM Station WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(1, che);
+            int sid = getValidInt(scanner, "Enter Station Id: ");
+            stmt.setInt(1, sid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -132,8 +132,8 @@ public class StationDAO {
         String query = "SELECT * FROM Station WHERE AreaId = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-           int che = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(1, che);
+           int aid = getValidInt(scanner, "Enter Area Id: ");
+            stmt.setInt(1, aid);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -176,8 +176,8 @@ public class StationDAO {
                 return false;
             }
 
-            int che = getValidInt(scanner, "Enter Station Id to Update: ");
-            stmt.setInt(4, che);
+            int sid = getValidInt(scanner, "Enter Station Id to Update: ");
+            stmt.setInt(4, sid);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;

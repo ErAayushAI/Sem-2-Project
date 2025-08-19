@@ -32,8 +32,8 @@ public class ScheduleDAO {
         String query = "INSERT INTO Schedule (RouteId, DepartureTime) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Route Id: ");
-            stmt.setInt(1, che);
+            int rid = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(1, rid);
 
             System.out.println("Departure Time:");
             int hour = getValidInt(scanner, "Enter Hour: ");
@@ -62,8 +62,8 @@ public class ScheduleDAO {
         String query = "SELECT * FROM Schedule WHERE RouteId = ? ";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Route Id: ");
-            stmt.setInt(1, che);
+            int rid = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(1, rid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

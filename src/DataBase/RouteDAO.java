@@ -27,7 +27,6 @@ public class RouteDAO {
      * @return true if Route is added
      */
     public boolean addRoute(Scanner scanner) {
-        boolean che;
         System.out.println("\n========== ADD ROUTE ==========\n");
 
         String query = "INSERT INTO Route (Name, Length, IsBusRoute, IsMetroRoute) VALUES (?, ?, ?, ?)";
@@ -40,11 +39,11 @@ public class RouteDAO {
             double length = getValidDouble(scanner, "Enter Length: ");
             stmt.setDouble(2, length);
 
-            che = getValidBoolean(scanner, "Enter 'true' if it is Bus Route: ");
-            stmt.setBoolean(3, che);
+            boolean busRoute = getValidBoolean(scanner, "Enter 'true' if it is Bus Route: ");
+            stmt.setBoolean(3, busRoute);
 
-            che = getValidBoolean(scanner, "Enter 'true' if it is Metro Route: ");
-            stmt.setBoolean(4, che);
+            boolean metroRoute = getValidBoolean(scanner, "Enter 'true' if it is Metro Route: ");
+            stmt.setBoolean(4, metroRoute);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -66,8 +65,8 @@ public class RouteDAO {
         String query = "SELECT * FROM Route WHERE Id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Id: ");
-            stmt.setInt(1, che);
+            int rid = getValidInt(scanner, "Enter Route Id: ");
+            stmt.setInt(1, rid);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -117,14 +116,13 @@ public class RouteDAO {
      * @return true if Route is Updated
      */
     public boolean updateRoute(Scanner scanner) {
-        int che;
         System.out.println("\n========== UPDATE ROUTE ==========\n");
 
         String query = "UPDATE Route SET length = ?, isBusRoute = ?, isMetroRoute = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            che = getValidInt(scanner, "Enter new Length: ");
-            stmt.setInt(1, che);
+            int length = getValidInt(scanner, "Enter new Length: ");
+            stmt.setInt(1, length);
 
             boolean metroTransport = false;
             boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Station: ");
@@ -141,8 +139,8 @@ public class RouteDAO {
                 return false;
             }
 
-            che = getValidInt(scanner, "Enter Route Id to Update: ");
-            stmt.setInt(4, che);
+            int rid = getValidInt(scanner, "Enter Route Id to Update: ");
+            stmt.setInt(4, rid);
 
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
@@ -164,8 +162,8 @@ public class RouteDAO {
         String query = "DELETE FROM Route WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int che = getValidInt(scanner, "Enter Route Id to Delete: ");
-            stmt.setInt(1, che);
+            int rid = getValidInt(scanner, "Enter Route Id to Delete: ");
+            stmt.setInt(1, rid);
 
             int rowsDeleted = stmt.executeUpdate();
             return rowsDeleted > 0;

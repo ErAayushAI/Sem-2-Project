@@ -12,21 +12,22 @@ import java.util.Scanner;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class CustomerDashboard {
-    private final Scanner sc;
+    private final Scanner scanner;
 
-    public CustomerDashboard(Scanner sc) {
-        this.sc = sc;
+    public CustomerDashboard(Scanner scanner) {
+        this.scanner = scanner;
     }
     public void showMenu() throws SQLException {
         boolean running = true;
-        int choice;int ch;
+        int Choice;
+        int choice;
 
         while (running) {
 
             Display.showCustomerMenu();
-            choice = InputValidator.getChoice(sc);
+            Choice = InputValidator.getChoice(scanner);
 
-            switch (choice) {
+            switch (Choice) {
                 case 1:
                     RouteDAO routeDAO = new RouteDAO();
                     Route route;
@@ -43,19 +44,19 @@ public class CustomerDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
                                 Display.printRoutes(routes);
                                 break;
                             case 2:
-                                route = routeDAO.getRouteById(sc);
+                                route = routeDAO.getRouteById(scanner);
                                 Display.printRoute(route);
                                 break;
                             case 3:
-                                schedule = scheduleDAO.getScheduleByRouteId(sc);
+                                schedule = scheduleDAO.getScheduleByRouteId(scanner);
                                 Display.printSchedule(schedule);
                                 break;
                             case 0:
@@ -83,20 +84,20 @@ public class CustomerDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
                                 services = e.getAllEmergencyService();
                                 Display.printEmergencyServices(services);
                                 break;
                             case 2:
-                                services = e.getEmergencyServiceByType(sc);
+                                services = e.getEmergencyServiceByType(scanner);
                                 Display.printEmergencyServices(services);
                                 break;
                             case 3:
                                 dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
-                                if(dispatcher.dispatchEmergency(sc)) System.out.println("✅ Vehicle Allot Successfully.");
+                                if(dispatcher.dispatchEmergency(scanner)) System.out.println("✅ Vehicle Allot Successfully.");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 0:
@@ -123,19 +124,19 @@ public class CustomerDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
-                                List<Station> station = stationDAO.getStopsByAreaId(sc);
+                                List<Station> station = stationDAO.getStopsByAreaId(scanner);
                                 Display.printStations(station);
                                 break;
                             case 2:
-                                if (ticketDAO.addTicket(sc)) System.out.println("✅ Added successfully");
+                                if (ticketDAO.addTicket(scanner)) System.out.println("✅ Added successfully");
                                 else System.out.println("❌ Failed");
                                 break;
                             case 3:
-                                ticketDAO.searchTickets(sc);
+                                ticketDAO.searchTickets(scanner);
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
@@ -148,7 +149,7 @@ public class CustomerDashboard {
                     break;
 
                 case 4:
-                    TouristPlaceDAO tp = new TouristPlaceDAO();
+                    TouristPlaceDAO tpDAO = new TouristPlaceDAO();
                     List<TouristPlace> places;
                     boolean placeLoop = true;
 
@@ -160,23 +161,25 @@ public class CustomerDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
-                                places = tp.displayAllPlaces();
+                                places = tpDAO.displayAllPlaces();
                                 Display.printTouristPlaces(places);
                                 break;
                             case 2:
-                                places = tp.displayTopRatedPlaces(sc);
+                                places = tpDAO.displayTopRatedPlaces(scanner);
                                 Display.printTouristPlaces(places);
                                 break;
                             case 3:
-                                places = tp.displayPlacesByCategory(sc);
+                                List<String> categories = tpDAO.getAllCategories();
+                                Display.printCategories(categories);
+                                places = tpDAO.displayPlacesByCategory(scanner);
                                 Display.printTouristPlaces(places);
                                 break;
                             case 4:
-                                tp.applyFeedback(sc);
+                                tpDAO.applyFeedback(scanner);
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
@@ -190,7 +193,7 @@ public class CustomerDashboard {
 
                 case 5:
                     ParkingLotDAO lotDAO = new ParkingLotDAO();
-                    ParkingLot lot;
+                    List<ParkingLot> lots;
                     boolean parkingLoop = true;
 
                     while (parkingLoop) {
@@ -202,19 +205,19 @@ public class CustomerDashboard {
                         System.out.println("0. Return to Dashboard");
                         System.out.println("-------------------------------------------------");
 
-                        ch = InputValidator.getChoice(sc);
+                        choice = InputValidator.getChoice(scanner);
 
-                        switch (ch) {
+                        switch (choice) {
                             case 1:
-                                List<ParkingLot> lots = lotDAO.getAvailableParkingLots();
+                                lots = lotDAO.getAvailableParkingLots();
                                 Display.printParkingLots(lots);
                                 break;
                             case 2:
-                                lot = lotDAO.getParkingLotByAreaId(sc);
-                                Display.printParkingLot(lot);
+                                lots = lotDAO.getParkingLotByAreaIdList(scanner);
+                                Display.printParkingLots(lots);
                                 break;
                             case 3:
-                                ParkingLot selectedLot = lotDAO.getParkingLotByAreaId(sc);
+                                ParkingLot selectedLot = lotDAO.getParkingLotByAreaId(scanner);
                                 if (selectedLot != null) {
                                     selectedLot.bookSlot(lotDAO);
                                 } else {
@@ -232,12 +235,12 @@ public class CustomerDashboard {
                     break;
 
                 case 6:
-                    if (new FeedbackDAO().submitFeedback(sc)) System.out.println("✅ Added successfully");
+                    if (new FeedbackDAO().submitFeedback(scanner)) System.out.println("✅ Added successfully");
                     else System.out.println("❌ Failed");
                     break;
 
                 case 7:
-                    if (new ComplaintDAO().fileComplaint(sc)) System.out.println("✅ Added successfully");
+                    if (new ComplaintDAO().fileComplaint(scanner)) System.out.println("✅ Added successfully");
                     else System.out.println("❌ Failed");
                     break;
 
