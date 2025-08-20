@@ -3,7 +3,6 @@ package DataBase;
 import Model.CustomerLog;
 import Validation.InputValidator;
 
-import javax.xml.validation.Validator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
