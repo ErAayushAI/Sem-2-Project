@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.InputValidator.getValidInt;
-import static Validation.InputValidator.getValidString;
+import static Validation.InputValidator.*;
 
 public class TouristPlaceDAO {
 
@@ -70,7 +69,7 @@ public class TouristPlaceDAO {
 
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
 
-        if (fb.submitFeedback(scanner)) {
+        if (fb.submitFeedback(scanner, placeId)) {
             double avgRatings = fb.getAverageRating(placeId);
             String query = "UPDATE TouristPlace SET Ratings = ? WHERE id = ?";
 
@@ -98,7 +97,6 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            scanner.nextLine();
             String category = getValidString(scanner, "Enter Category: ");
             stmt.setString(1, category);
 
@@ -131,8 +129,8 @@ public class TouristPlaceDAO {
         List<TouristPlace> places = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int ratings = getValidInt(scanner, "Enter Ratings: ");
-            stmt.setInt(1, ratings);
+            double ratings = getValidDouble(scanner, "Enter Ratings: ");
+            stmt.setDouble(1, ratings);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

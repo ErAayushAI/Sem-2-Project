@@ -109,11 +109,11 @@ public class ParkingLot {
 
     /**
      * To book a new slot.
-     *
-     * @param dao object to update database and occupancy
      */
     @SuppressWarnings("Convert2Lambda")
-    public void bookSlot(ParkingLotDAO dao) {
+    public void bookSlot() {
+        ParkingLotDAO dao = new ParkingLotDAO();
+
         int latestOccupancy = dao.getCurrentOccupancyById(id);
 
         if (latestOccupancy < capacity) {

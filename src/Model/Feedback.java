@@ -5,7 +5,7 @@ public class Feedback {
     int userId;
     int placeId;
     String comments;
-    int rating;
+    double rating;
 
     /**
      * Default Constructor.
@@ -54,7 +54,7 @@ public class Feedback {
      *
      * @return ratings
      */
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -99,7 +99,7 @@ public class Feedback {
      *
      * @param rating rating between 1 and 5
      */
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -109,6 +109,15 @@ public class Feedback {
      * @return stars
      */
     public String getStarRating() {
-        return "★".repeat(rating) + "☆".repeat(5 - rating);
+        int fullStars = (int) rating;
+        boolean hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+        int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        StringBuilder stars = new StringBuilder();
+        stars.append("★".repeat(Math.max(0, fullStars)));
+        if (hasHalfStar) stars.append("⯨");
+        stars.append("☆".repeat(Math.max(0, emptyStars)));
+
+        return stars.toString();
     }
 }

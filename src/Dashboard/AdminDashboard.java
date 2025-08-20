@@ -549,8 +549,6 @@ public class AdminDashboard {
                     boolean fbLoop = true;
 
                     while (fbLoop) {
-                        FeedbackLinkedList fbList = fbDAO.loadFeedbacksIntoLinkedList();
-
                         System.out.println("\n💬 Feedback Management");
                         System.out.println("-------------------------------------------------");
                         System.out.println("1. View Feedback");
@@ -560,7 +558,7 @@ public class AdminDashboard {
                         System.out.println("-------------------------------------------------");
 
                         choice = InputValidator.getChoice(scanner);
-
+                        FeedbackLinkedList fbList = fbDAO.loadFeedbacksIntoLinkedList();
                         switch (choice) {
                             case 1:
                                 fbList.displayFeedbacks();
@@ -572,6 +570,7 @@ public class AdminDashboard {
                             case 3:
                                 List<Feedback> feedbacks = fbDAO.reviewLatestFeedback();
                                 Display.printFeedbacks(feedbacks);
+                                break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 fbLoop = false;
