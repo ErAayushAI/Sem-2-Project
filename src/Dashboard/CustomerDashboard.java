@@ -219,7 +219,7 @@ public class CustomerDashboard {
                             case 3:
                                 ParkingLot selectedLot = lotDAO.getParkingLotByAreaId(scanner);
                                 if (selectedLot != null) {
-                                    selectedLot.bookSlot(lotDAO);
+                                    selectedLot.bookSlot();
                                 } else {
                                     System.out.println("❌ No parking lot found for given Area ID.");
                                 }
@@ -235,7 +235,8 @@ public class CustomerDashboard {
                     break;
 
                 case 6:
-                    if (new FeedbackDAO().submitFeedback(scanner)) System.out.println("✅ Added successfully");
+                    int pid = InputValidator.getValidInt(scanner, "Enter Place Id: ");
+                    if (new FeedbackDAO().submitFeedback(scanner, pid)) System.out.println("✅ Added successfully");
                     else System.out.println("❌ Failed");
                     break;
 
@@ -246,6 +247,7 @@ public class CustomerDashboard {
 
                 case 0:
                     System.out.println("✅ Logged out successfully.");
+                    Session.clear();
                     running = false;
                     break;
 

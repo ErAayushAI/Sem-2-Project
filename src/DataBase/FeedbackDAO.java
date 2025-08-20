@@ -2,13 +2,14 @@ package DataBase;
 
 import DataStructure.FeedbackLinkedList;
 import Model.Feedback;
+import Model.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.InputValidator.getValidInt;
+import static Validation.InputValidator.getValidDouble;
 
 public class FeedbackDAO {
     private Connection connection;
@@ -25,26 +26,26 @@ public class FeedbackDAO {
      * To Submit Feedback on database.
      *
      * @param scanner object for user input
+     * @param pid     for place id
      * @return true if feedback is added
      */
-    public boolean submitFeedback(Scanner scanner) {
+    public boolean submitFeedback(Scanner scanner, int pid) {
         System.out.println("\n========== ADD FEEDBACK ==========\n");
 
         String query = "INSERT INTO feedback (UserId, PlaceId, Comments, Rating) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int uid = getValidInt(scanner, "Enter user id: ");
+            int uid = Session.getCustomerId();
             stmt.setInt(1, uid);
 
-            int pid = getValidInt(scanner, "Enter Place Id: ");
             stmt.setInt(2, pid);
 
             System.out.print("Enter Comments: ");
             scanner.nextLine();
             stmt.setString(3, scanner.nextLine().trim());
 
-            int rat = getValidInt(scanner, "Enter Rating Between 1 and 5: ");
-            stmt.setInt(4, rat);
+            double rat = getValidDouble(scanner, "Enter Rating Between 1 and 5: ");
+            stmt.setDouble(4, rat);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -72,7 +73,7 @@ public class FeedbackDAO {
                 fb.setUserId(rs.getInt(2));
                 fb.setPlaceId(rs.getInt(3));
                 fb.setComments(rs.getString(4));
-                fb.setRating(rs.getInt(5));
+                fb.setRating(rs.getDouble(5));
                 feedbacks.add(fb);
             }
         } catch (SQLException e) {
@@ -118,7 +119,7 @@ public class FeedbackDAO {
                 fb.setUserId(rs.getInt(2));
                 fb.setPlaceId(rs.getInt(3));
                 fb.setComments(rs.getString(4));
-                fb.setRating(rs.getInt(5));
+                fb.setRating(rs.getDouble(5));
                 feedbacks.add(fb);
             }
         } catch (SQLException e) {

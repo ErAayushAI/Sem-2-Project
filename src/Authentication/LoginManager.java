@@ -1,5 +1,7 @@
 package Authentication;
 
+import Model.Session;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -60,7 +62,7 @@ public class LoginManager {
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 
-            String sql = "SELECT password, fullName FROM customer WHERE username = ?";
+            String sql = "SELECT Id, password, fullName FROM customer WHERE username = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setString(1, username);
                 ResultSet rs = stmt.executeQuery();
@@ -68,10 +70,12 @@ public class LoginManager {
                 if (rs.next()) {
                     String dbPassword = rs.getString("password");
                     String fullName = rs.getString("fullName");
+                    int customerId = rs.getInt("Id");
 
                     if (password.equals(dbPassword)) {
+                        Session.setCustomerId(customerId); // ✅ Store ID globally
                         System.out.println("✅ Customer login successful!");
-                        System.out.println("Welcome, " + fullName + "!");
+                        System.out.println("Welcome, " + fullName + " (ID: " + customerId + ")");
                         return true;
                     } else {
                         attempts++;
@@ -83,7 +87,6 @@ public class LoginManager {
                 }
             }
         }
-
         System.out.println("⚠️ Maximum login attempts reached. Please try again later.");
         return false;
     }

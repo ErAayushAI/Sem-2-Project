@@ -1,5 +1,6 @@
 package DataBase;
 
+import Model.Session;
 import Model.Ticket;
 import Validation.InputValidator;
 
@@ -38,7 +39,7 @@ public class TicketDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            int uid = getValidInt(scanner, "Enter User Id: ");
+            int uid = Session.getCustomerId();
             stmt.setInt(1, uid);
 
             int rid = getValidInt(scanner, "Enter Route Id: ");
@@ -194,7 +195,7 @@ public class TicketDAO {
         int routeId = getValidInt(scanner, "Enter Route Id: ");
         stmt.setInt(1, routeId);
 
-        int userId = getValidInt(scanner, "Enter User Id: ");
+        int userId = Session.getCustomerId();
         stmt.setInt(2, userId);
 
         ResultSet rs = stmt.executeQuery();
