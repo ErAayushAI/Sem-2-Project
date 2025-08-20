@@ -52,37 +52,6 @@ public class ParkingLotDAO {
         }
     }
 
-    /**
-     * Get Parking Lot by id.
-     *
-     * @param scanner object for user input
-     * @return Object of Parking lot
-     */
-    public ParkingLot getParkingLotByAreaId(Scanner scanner) {
-        System.out.println("\n========== PARKING LOT BY ID ==========\n");
-
-        String query = "SELECT * FROM ParkingLot WHERE AreaId = ? LIMIT 1";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-
-            int aid = getValidInt(scanner, "Enter Area Id: ");
-            stmt.setInt(1, aid);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                ParkingLot lot = new ParkingLot();
-                lot.setId(rs.getInt(1));
-                lot.setName(rs.getString(2));
-                lot.setAreaId(rs.getInt(3));
-                lot.setCapacity(rs.getInt(4));
-                lot.setCurrentOccupancy(rs.getInt(5));
-                return lot;
-            }
-        } catch (SQLException e) {
-            System.out.println("❌ Failed to load parking lot data: " + e.getMessage());
-        }
-        return null;
-    }
-
     public List<ParkingLot> getParkingLotByAreaIdList(Scanner scanner) {
         System.out.println("\n========== PARKING LOT BY ID ==========\n");
 
@@ -98,9 +67,9 @@ public class ParkingLotDAO {
                 ParkingLot lot = new ParkingLot();
                 lot.setId(rs.getInt(1));
                 lot.setName(rs.getString(2));
-                lot.setCapacity(rs.getInt(3));
-                lot.setCurrentOccupancy(rs.getInt(4));
-                lot.setAreaId(rs.getInt(5));
+                lot.setAreaId(rs.getInt(3));
+                lot.setCapacity(rs.getInt(4));
+                lot.setCurrentOccupancy(rs.getInt(5));
                 lots.add(lot);
             }
         } catch (SQLException e) {

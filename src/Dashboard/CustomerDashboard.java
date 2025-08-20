@@ -217,11 +217,32 @@ public class CustomerDashboard {
                                 Display.printParkingLots(lots);
                                 break;
                             case 3:
-                                ParkingLot selectedLot = lotDAO.getParkingLotByAreaId(scanner);
-                                if (selectedLot != null) {
-                                    selectedLot.bookSlot();
+                                List<ParkingLot> areaLots = lotDAO.getParkingLotByAreaIdList(scanner);
+
+                                if (areaLots.isEmpty()) {
+                                    System.out.println("❌ No parking lots found for the given Area ID.");
+                                } else if (areaLots.size() == 1) {
+                                    ParkingLot singleLot = areaLots.getFirst();
+                                    singleLot.bookSlot();
                                 } else {
-                                    System.out.println("❌ No parking lot found for given Area ID.");
+                                    System.out.println("\nMultiple parking lots found in this area:");
+                                    Display.printParkingLots(areaLots);
+
+                                    int selectedId = InputValidator.getValidInt(scanner, "Enter Parking Lot ID to book: ");
+                                    ParkingLot selectedLot = null;
+
+                                    for (ParkingLot lot : areaLots) {
+                                        if (lot.getId() == selectedId) {
+                                            selectedLot = lot;
+                                            break;
+                                        }
+                                    }
+
+                                    if (selectedLot != null) {
+                                        selectedLot.bookSlot();
+                                    } else {
+                                        System.out.println("❌ Invalid Parking Lot ID.");
+                                    }
                                 }
                                 break;
                             case 0:
