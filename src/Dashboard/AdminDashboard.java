@@ -34,7 +34,7 @@ public class AdminDashboard {
                     while (customerLoop) {
                         System.out.println("\n‍💼 Customer Management");
                         System.out.println("-------------------------------------------------");
-                        System.out.println("1. View All Customer");
+                        System.out.println("1. View All Registered Customer");
                         System.out.println("2. Delete Customer");
                         System.out.println("3. View Deleted Customer");
                         System.out.println("0. Return to Dashboard");

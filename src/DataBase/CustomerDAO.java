@@ -1,7 +1,9 @@
 package DataBase;
 
 import Model.CustomerLog;
+import Validation.InputValidator;
 
+import javax.xml.validation.Validator;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,7 @@ public class CustomerDAO {
     public void deleteCustomerById(Scanner scanner) throws SQLException {
         System.out.println("\n🗑️ Delete Customer by ID (Stored Procedure)");
 
-        System.out.print("Enter customer ID to delete: ");
-        int customerId = Integer.parseInt(scanner.nextLine().trim());
+        int customerId = InputValidator.getValidInt(scanner, "Enter customer ID to delete: ");
 
         String callSql = "{CALL DeleteCustomerById(?)}";
         try (CallableStatement stmt = connection.prepareCall(callSql)) {
