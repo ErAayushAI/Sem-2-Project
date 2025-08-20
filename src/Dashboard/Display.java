@@ -514,11 +514,11 @@ public class Display {
     //Display Feedbacks
     public static void printFeedbacks(List<Feedback> feedbackList) {
         System.out.println("\n----------------- FEEDBACK TABLE -----------------");
-        System.out.printf("%-5s %-8s %-9s %-30s %-6s\n", "ID", "UserID", "PlaceID", "Comments", "Rating");
+        System.out.printf("%-5s %-8s %-9s %-40s %-6s\n", "ID", "UserID", "PlaceID", "Comments", "Rating");
         System.out.println("---------------------------------------------------------------");
 
         for (Feedback fb : feedbackList) {
-            System.out.printf("%-5d %-8d %-9d %-30s %-6s\n",
+            System.out.printf("%-5d %-8d %-9d %-40s %-6s\n",
                     fb.getId(),
                     fb.getUserId(),
                     fb.getPlaceId(),

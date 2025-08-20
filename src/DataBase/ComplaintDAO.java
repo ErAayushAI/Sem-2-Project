@@ -2,13 +2,13 @@ package DataBase;
 
 import DataStructure.CustomQueue;
 import Model.Complaint;
+import Model.Session;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Validation.InputValidator.getValidInt;
 import static Validation.InputValidator.getValidString;
 
 public class ComplaintDAO {
@@ -38,7 +38,7 @@ public class ComplaintDAO {
             String deptName = getValidString(scanner, "Enter Department Name: ");
             stmt.setString(1, deptName);
             
-            int userId = getValidInt(scanner, "Enter User Id: ");
+            int userId = Session.getCustomerId();
             stmt.setInt(2, userId);
 
             System.out.print("Enter Issue: ");
