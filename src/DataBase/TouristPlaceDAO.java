@@ -133,7 +133,7 @@ public class TouristPlaceDAO {
             stmt.setDouble(1, ratings);
 
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 TouristPlace place = new TouristPlace();
                 place.setId(rs.getInt(1));
                 place.setName(rs.getString(2));
