@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2025 at 07:40 PM
+-- Generation Time: Aug 20, 2025 at 11:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteCustomer` (IN `inputId` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteCustomerById` (IN `inputId` INT)   BEGIN
     DECLARE customerExists INT;
 
     SELECT COUNT(*) INTO customerExists
@@ -43,7 +43,7 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_deleted_customers` ()   BEGIN
     SELECT customerId, username, password, email, fullName, deletedAt
-    FROM CustomerLog
+    FROM customerLog
     WHERE deletedAt IS NOT NULL
     ORDER BY deletedAt DESC;
 END$$
@@ -154,7 +154,6 @@ CREATE TABLE `complaint` (
 --
 
 INSERT INTO `complaint` (`Id`, `Department`, `UserId`, `Issue`, `Status`) VALUES
-(1, 'Water Supply', 4, 'Low water pressure in morning', 0),
 (2, 'Electricity', 2, 'Frequent power cuts', 2),
 (3, 'Sanitation', 6, 'Garbage not collected regularly', 1),
 (4, 'Roads and Transport', 3, 'Potholes on main road', 0),
@@ -184,7 +183,6 @@ INSERT INTO `customer` (`Id`, `UserName`, `Password`, `Email`, `FullName`, `Crea
 (1, 'Suhani', 'suhani@123', 'suhani@gmail.com', 'Jain Suhani', '2025-08-14 15:21:13'),
 (2, 'Pranay', 'pranay@123', 'pranay@gmail.com', 'Jain Pranay', '2025-08-14 15:21:13'),
 (3, 'Aayush', 'aayush@123', 'aayush@gmail.com', 'Kanth Aayush', '2025-08-14 15:21:13'),
-(4, 'Teja', 'teja@123', 'teja@gamil.com', 'Teja Sajja', '2025-08-15 10:41:30'),
 (5, 'Yami', 'yami@123', 'yami@gamil.com', 'Yami Gautam', '2025-08-15 10:32:54'),
 (6, 'Amritha', 'amritha@123', 'amritha@gmail.com', 'Amritha Aiyer', '2025-08-15 10:38:34');
 
@@ -193,7 +191,7 @@ INSERT INTO `customer` (`Id`, `UserName`, `Password`, `Email`, `FullName`, `Crea
 --
 DELIMITER $$
 CREATE TRIGGER `LogDeletedCustomer` BEFORE DELETE ON `customer` FOR EACH ROW BEGIN
-    INSERT INTO customer_log(customerId,username,password,email,fullName,deletedAt) VALUES(OLD.id,OLD.UserName,OLD.Password,OLD.Email,OLD.FullName,NOW());
+    INSERT INTO customerLog(customerId,username,password,email,fullName,deletedAt) VALUES(OLD.id,OLD.UserName,OLD.Password,OLD.Email,OLD.FullName,NOW());
 END
 $$
 DELIMITER ;
@@ -201,10 +199,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer_log`
+-- Table structure for table `customerlog`
 --
 
-CREATE TABLE `customer_log` (
+CREATE TABLE `customerlog` (
   `logId` int(11) NOT NULL,
   `customerId` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -213,6 +211,13 @@ CREATE TABLE `customer_log` (
   `fullName` varchar(100) NOT NULL,
   `deletedAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customerlog`
+--
+
+INSERT INTO `customerlog` (`logId`, `customerId`, `username`, `password`, `email`, `fullName`, `deletedAt`) VALUES
+(1, 4, 'Teja', 'teja@123', 'teja@gamil.com', 'Teja Sajja', '2025-08-20 07:44:16');
 
 -- --------------------------------------------------------
 
@@ -251,7 +256,7 @@ CREATE TABLE `feedback` (
   `UserID` int(11) NOT NULL,
   `PlaceId` int(11) NOT NULL,
   `Comments` text NOT NULL,
-  `Rating` int(11) NOT NULL
+  `Rating` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -259,10 +264,10 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`Id`, `UserID`, `PlaceId`, `Comments`, `Rating`) VALUES
-(2, 1, 5, 'The aquarium is fantastic', 7),
-(3, 4, 7, 'An excellent location for strolling', 5),
+(2, 1, 5, 'The aquarium is fantastic', 5),
 (4, 1, 3, 'Awesome collection of vintage cars', 9),
-(5, 6, 6, 'Very historical Stepwell', 6);
+(5, 6, 6, 'Very historical Stepwell', 6),
+(8, 3, 2, 'very good place to visit', 4);
 
 -- --------------------------------------------------------
 
@@ -449,7 +454,6 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`Id`, `UserID`, `RouteId`, `IsBusTransport`, `IsMetroTransport`, `Time`, `TotalBill`, `Distance`) VALUES
-(1, 4, 10, 1, 0, '2025-08-15 10:50:41', 25, 22.5),
 (2, 1, 5, 0, 1, '2025-08-15 10:46:52', 30, 21.2),
 (3, 5, 8, 1, 0, '2025-08-15 10:50:41', 15, 6.9),
 (4, 2, 6, 0, 1, '2025-08-15 10:50:41', 20, 18.7),
@@ -476,7 +480,7 @@ CREATE TABLE `touristplace` (
 --
 
 INSERT INTO `touristplace` (`Id`, `Name`, `AreaId`, `Category`, `Ratings`) VALUES
-(2, 'Sidi Saiyyed Masjid', 380001, 'cultural', 4.5),
+(2, 'Sidi Saiyyed Masjid', 380001, 'cultural', 4),
 (3, 'Auto World Vintage Car Museum', 382350, 'cultural', 4.4),
 (5, 'Science City', 380052, 'man made', 4.4),
 (6, 'Adalaj Stepwell', 382421, 'cultural', 4.5),
@@ -523,9 +527,9 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indexes for table `customer_log`
+-- Indexes for table `customerlog`
 --
-ALTER TABLE `customer_log`
+ALTER TABLE `customerlog`
   ADD PRIMARY KEY (`logId`);
 
 --
@@ -636,10 +640,10 @@ ALTER TABLE `customer`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `customer_log`
+-- AUTO_INCREMENT for table `customerlog`
 --
-ALTER TABLE `customer_log`
-  MODIFY `logId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `customerlog`
+  MODIFY `logId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `emergencyservice`
@@ -651,7 +655,7 @@ ALTER TABLE `emergencyservice`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `metro`

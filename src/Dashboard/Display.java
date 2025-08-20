@@ -518,7 +518,7 @@ public class Display {
         System.out.println("---------------------------------------------------------------");
 
         for (Feedback fb : feedbackList) {
-            System.out.printf("%-5d %-8d %-9d %-30s %-6d\n",
+            System.out.printf("%-5d %-8d %-9d %-30s %-6s\n",
                     fb.getId(),
                     fb.getUserId(),
                     fb.getPlaceId(),
