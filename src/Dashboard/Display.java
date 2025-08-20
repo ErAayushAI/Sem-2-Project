@@ -330,7 +330,7 @@ public class Display {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            System.out.println("\n👥 List of All Customers");
+            System.out.println("\n👥 List of All Registered Customers");
             System.out.println("--------------------------------------------------------------------------------");
             System.out.printf("%-5s %-15s %-25s %-20s %-20s%n", "ID", "Username", "Email", "Full Name", "Joined Date");
             System.out.println("--------------------------------------------------------------------------------");
