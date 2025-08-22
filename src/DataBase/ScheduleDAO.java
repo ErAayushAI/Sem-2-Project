@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Validation.InputValidator.getValidBoolean;
 import static Validation.InputValidator.getValidInt;
 
 public class ScheduleDAO {
@@ -29,7 +30,7 @@ public class ScheduleDAO {
     public boolean addSchedule(Scanner scanner) {
         System.out.println("\n========== ADD SCHEDULE ==========\n");
 
-        String query = "INSERT INTO Schedule (RouteId, DepartureTime) VALUES (?, ?)";
+        String query = "INSERT INTO Schedule (RouteId, DepartureTime, isBusSchedule, isMetroSchedule) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             int rid = getValidInt(scanner, "Enter Route Id: ");
@@ -41,6 +42,12 @@ public class ScheduleDAO {
             int second = getValidInt(scanner, "Enter Second: ");
             Time t = new Time(hour, minute, second);
             stmt.setTime(2, t);
+
+            boolean busSchedule = getValidBoolean(scanner, "Enter 'true' if it is Bus Schedule: ");
+            stmt.setBoolean(3, busSchedule);
+
+            boolean metroSchedule = getValidBoolean(scanner, "Enter 'true' if it is Metro Schedule: ");
+            stmt.setBoolean(4, metroSchedule);
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -71,6 +78,8 @@ public class ScheduleDAO {
                 schedule.setId(rs.getInt(1));
                 schedule.setRouteID(rs.getInt(2));
                 schedule.setDepartureTime(rs.getTime(3));
+                schedule.setBusSchedule(rs.getBoolean(4));
+                schedule.setMetroSchedule(rs.getBoolean(5));
                 return schedule;
             }
         } catch (SQLException e) {
@@ -94,6 +103,8 @@ public class ScheduleDAO {
                 schedule.setId(rs.getInt(1));
                 schedule.setRouteID(rs.getInt(2));
                 schedule.setDepartureTime(rs.getTime(3));
+                schedule.setBusSchedule(rs.getBoolean(4));
+                schedule.setMetroSchedule(rs.getBoolean(5));
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -111,7 +122,7 @@ public class ScheduleDAO {
     public boolean updateSchedule(Scanner scanner) {
         System.out.println("\n========== UPDATE SCHEDULE ==========\n");
 
-        String query = "UPDATE Schedule SET RouteId = ?, DepartureTime = ? WHERE id = ?";
+        String query = "UPDATE Schedule SET RouteId = ?, DepartureTime = ?, isBusSchedule = ?, isMetroSchedule = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             int id = getValidInt(scanner, "Enter Schedule ID to update: ");
@@ -127,6 +138,20 @@ public class ScheduleDAO {
             stmt.setTime(2, departureTime);
             stmt.setInt(3, id);
 
+            boolean metroTransport = false;
+            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Schedule: ");
+            stmt.setBoolean(2, BusTransport);
+            if(BusTransport){
+                stmt.setBoolean(3, false);
+            } else {
+                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Schedule: ");
+                stmt.setBoolean(3, metroTransport);
+            }
+
+            if(!BusTransport && !metroTransport){
+                System.out.println("You should choose any of the above transport update Schedule.");
+                return false;
+            }
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {

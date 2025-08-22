@@ -1,6 +1,8 @@
 package Model;
 
-public class Feedback {
+import Display.Displayable;
+
+public class Feedback implements Displayable {
     int id;
     int userId;
     int placeId;
@@ -119,5 +121,23 @@ public class Feedback {
         stars.append("☆".repeat(Math.max(0, emptyStars)));
 
         return stars.toString();
+    }
+
+    @Override
+    public void displaySummary() {
+        System.out.printf("%-5s %-8s %-9s %-40s %-6s\n",
+                id, userId, placeId, comments, rating);
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n----------------- FEEDBACK DETAILS -----------------");
+        System.out.println("Feedback ID : " + id);
+        System.out.println("User ID     : " + userId);
+        System.out.println("Place ID    : " + placeId);
+        System.out.println("Comments    : " + comments);
+        System.out.println("Rating      : " + rating);
+        System.out.println("----------------------------------------------------\n");
+
     }
 }

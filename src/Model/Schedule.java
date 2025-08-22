@@ -1,11 +1,15 @@
 package Model;
 
+import Display.Displayable;
+
 import java.sql.Time;
 
-public class Schedule {
+public class Schedule implements Displayable {
     int id;
     int routeID;
     Time departureTime;
+    boolean isBusSchedule;
+    boolean isMetroSchedule;
 
     /**
      * Default Constructor.
@@ -20,24 +24,6 @@ public class Schedule {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * getter for schedule for route.
-     *
-     * @return schedule's route id
-     */
-    public int getRouteID() {
-        return routeID;
-    }
-
-    /**
-     * getter for departure time of bus or metro.
-     *
-     * @return time of departure
-     */
-    public Time getDepartureTime() {
-        return departureTime;
     }
 
     /**
@@ -66,4 +52,45 @@ public class Schedule {
     public void setDepartureTime(Time departureTime) {
         this.departureTime = departureTime;
     }
+
+    /**
+     * setter for bus schedule
+     *
+     * @param busSchedule true if it is bus schedule
+     */
+    public void setBusSchedule(boolean busSchedule) {
+        isBusSchedule = busSchedule;
+    }
+
+    /**
+     * setter for metro schedule
+     *
+     * @param metroSchedule true if it is metro schedule
+     */
+    public void setMetroSchedule(boolean metroSchedule) {
+        isMetroSchedule = metroSchedule;
+    }
+
+    @Override
+    public void displaySummary() {
+        String busStatus = isBusSchedule ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroSchedule ? "✅ Yes" : "❌ No";
+        System.out.printf("%-5s %-10s %-15s %-15s %-15s%n",
+                id, routeID, departureTime, busStatus, metroStatus);
+    }
+
+    @Override
+    public void displayDetails() {
+        String busStatus = isBusSchedule ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroSchedule ? "✅ Yes" : "❌ No";
+        System.out.println("\n🕒 Schedule Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %s%n", id);
+        System.out.printf("Route ID: %s%n", routeID);
+        System.out.printf("Departure Time: %s%n", departureTime);
+        System.out.printf("Bus Schedule: %s%n", busStatus);
+        System.out.printf("Metro Schedule: %s%n", metroStatus);
+        System.out.println("--------------------------------------------------");
+    }
+
 }

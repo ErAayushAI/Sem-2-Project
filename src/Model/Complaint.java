@@ -1,6 +1,8 @@
 package Model;
 
-public class Complaint {
+import Display.Displayable;
+
+public class Complaint implements Displayable {
     int id = 1;
     String department;
     int userId;
@@ -115,5 +117,37 @@ public class Complaint {
      */
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public void displaySummary() {
+        String format = "| %-4d | %-20s | %-7d | %-9s | %-45s |%n";
+        String statusStr = status ? "Resolved" : "Pending";
+        String preview = getIssuePreview(issue, 45);
+        System.out.format(format, id, department, userId, statusStr, preview);
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n📝 Full Issue for Complaint ID: " + id);
+        System.out.println("--------------------------------------------------");
+        System.out.println(indentMultilineText(issue, "--> "));
+        System.out.println("--------------------------------------------------");
+    }
+
+    private String getIssuePreview(String issue, int maxLength) {
+        if (issue == null || issue.isEmpty()) return "(No issue)";
+        issue = issue.replaceAll("\\r?\\n", " ");
+        return issue.length() <= maxLength ? issue : issue.substring(0, maxLength - 3) + "...";
+    }
+
+    private String indentMultilineText(String text, String indent) {
+        if (text == null || text.isEmpty()) return indent + "(No issue description)";
+        String[] lines = text.split("\\r?\\n");
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(indent).append(line).append("\n");
+        }
+        return sb.toString();
     }
 }

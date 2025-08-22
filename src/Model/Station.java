@@ -1,6 +1,8 @@
 package Model;
 
-public class Station {
+import Display.Displayable;
+
+public class Station implements Displayable {
     int id;
     String name;
     int AreaId;
@@ -102,4 +104,27 @@ public class Station {
     public void setMetroStation(boolean metroStation) {
         isMetroStation = metroStation;
     }
+
+    @Override
+    public void displaySummary() {
+        String busStatus = isBusStation ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroStation ? "✅ Yes" : "❌ No";
+        System.out.printf("%-5s %-20s %-10s %-15s %-15s%n",
+                id, name, AreaId, busStatus, metroStatus);
+    }
+
+    @Override
+    public void displayDetails() {
+        String busStatus = isBusStation ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroStation ? "✅ Yes" : "❌ No";
+        System.out.println("\n🚏 Station Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Area ID: %d%n", AreaId);
+        System.out.printf("Bus Station: %s%n", busStatus);
+        System.out.printf("Metro Station: %s%n", metroStatus);
+        System.out.println("--------------------------------------------------");
+    }
+
 }

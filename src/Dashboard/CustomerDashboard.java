@@ -4,6 +4,7 @@ import DataBase.*;
 import DataStructure.AreaEmergencyDispatcher;
 import Model.*;
 import Validation.InputValidator;
+import Display.DisplayUtil;
 
 import java.sql.SQLException;
 
@@ -24,7 +25,7 @@ public class CustomerDashboard {
 
         while (running) {
 
-            Display.showCustomerMenu();
+            showCustomerMenu();
             Choice = InputValidator.getChoice(scanner);
 
             switch (Choice) {
@@ -49,15 +50,15 @@ public class CustomerDashboard {
                         switch (choice) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
-                                Display.printRoutes(routes);
+                                DisplayUtil.printList(routes, "Route");
                                 break;
                             case 2:
                                 route = routeDAO.getRouteById(scanner);
-                                Display.printRoute(route);
+                                DisplayUtil.printDetails(route, "Route");
                                 break;
                             case 3:
                                 schedule = scheduleDAO.getScheduleByRouteId(scanner);
-                                Display.printSchedule(schedule);
+                                DisplayUtil.printDetails(schedule, "Schedule");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Customer Dashboard...");
@@ -89,11 +90,11 @@ public class CustomerDashboard {
                         switch (choice) {
                             case 1:
                                 services = e.getAllEmergencyService();
-                                Display.printEmergencyServices(services);
+                                DisplayUtil.printList(services, "Emergency");
                                 break;
                             case 2:
                                 services = e.getEmergencyServiceByType(scanner);
-                                Display.printEmergencyServices(services);
+                                DisplayUtil.printList(services, "Emergency");
                                 break;
                             case 3:
                                 dispatcher = new AreaEmergencyDispatcher(e.getAllEmergencyService());
@@ -128,8 +129,8 @@ public class CustomerDashboard {
 
                         switch (choice) {
                             case 1:
-                                List<Station> station = stationDAO.getStopsByAreaId(scanner);
-                                Display.printStations(station);
+                                List<Station> stations = stationDAO.getStopsByAreaId(scanner);
+                                DisplayUtil.printList(stations, "Station");
                                 break;
                             case 2:
                                 if (ticketDAO.addTicket(scanner)) System.out.println("✅ Added successfully");
@@ -166,17 +167,17 @@ public class CustomerDashboard {
                         switch (choice) {
                             case 1:
                                 places = tpDAO.displayAllPlaces();
-                                Display.printTouristPlaces(places);
+                                DisplayUtil.printList(places, "Place");
                                 break;
                             case 2:
                                 places = tpDAO.displayTopRatedPlaces(scanner);
-                                Display.printTouristPlaces(places);
+                                DisplayUtil.printList(places, "Place");
                                 break;
                             case 3:
                                 List<String> categories = tpDAO.getAllCategories();
-                                Display.printCategories(categories);
+                                TouristPlace.printCategories(categories);
                                 places = tpDAO.displayPlacesByCategory(scanner);
-                                Display.printTouristPlaces(places);
+                                DisplayUtil.printList(places, "Place");
                                 break;
                             case 4:
                                 tpDAO.applyFeedback(scanner);
@@ -210,11 +211,11 @@ public class CustomerDashboard {
                         switch (choice) {
                             case 1:
                                 lots = lotDAO.getAvailableParkingLots();
-                                Display.printParkingLots(lots);
+                                DisplayUtil.printList(lots, "Parking");
                                 break;
                             case 2:
                                 lots = lotDAO.getParkingLotByAreaIdList(scanner);
-                                Display.printParkingLots(lots);
+                                DisplayUtil.printList(lots, "Parking");
                                 break;
                             case 3:
                                 List<ParkingLot> areaLots = lotDAO.getParkingLotByAreaIdList(scanner);
@@ -226,7 +227,7 @@ public class CustomerDashboard {
                                     singleLot.bookSlot();
                                 } else {
                                     System.out.println("\nMultiple parking lots found in this area:");
-                                    Display.printParkingLots(areaLots);
+                                    DisplayUtil.printList(areaLots, "Parking");
 
                                     int selectedId = InputValidator.getValidInt(scanner, "Enter Parking Lot ID to book: ");
                                     ParkingLot selectedLot = null;
@@ -276,5 +277,16 @@ public class CustomerDashboard {
                     System.out.println("⚠️ Invalid option! Please try again.");
             }
         }
+    }
+
+    //Display Customer Dashboard Menu
+    public static void showCustomerMenu() {
+        System.out.println("\n🧑‍💼 Customer Dashboard");
+        System.out.println("-------------------------------------------------------------");
+        System.out.printf("%-35s %-30s%n", "1. Travelling Routes & Schedules", "5. Parking Lot");
+        System.out.printf("%-35s %-30s%n", "2. Emergency Services", "6. Submit Feedback");
+        System.out.printf("%-35s %-30s%n", "3. Book Tickets & View Stations", "7. File a Complaint");
+        System.out.printf("%-35s %-30s%n", "4. Tourist Places", "0. Logout");
+        System.out.println("-------------------------------------------------------------");
     }
 }

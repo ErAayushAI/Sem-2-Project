@@ -67,4 +67,63 @@ public class CustomerDAO {
 
         return logs;
     }
+
+    //Display List of Customers
+    public void viewAllCustomers() throws SQLException {
+        String sql = "SELECT id, username, email, fullName, createdAt FROM customer";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            System.out.println("\n👥 List of All Registered Customers");
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.printf("%-5s %-15s %-25s %-20s %-20s%n", "ID", "Username", "Email", "Full Name", "Joined Date");
+            System.out.println("--------------------------------------------------------------------------------");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String fullName = rs.getString("fullName");
+                Timestamp createdAt = rs.getTimestamp("createdAt");
+
+                System.out.printf("%-5d %-15s %-25s %-20s %-20s%n",
+                        id,
+                        username,
+                        email,
+                        fullName,
+                        createdAt.toLocalDateTime().toLocalDate());
+            }
+
+            System.out.println("--------------------------------------------------------------------------------");
+        }
+    }
+
+    //Display deleted customer List
+    public void printDeletedCustomer(List<CustomerLog> logs) {
+        if (logs == null || logs.isEmpty()) {
+            System.out.println("⚠️ No deleted customer records found.");
+            return;
+        }
+
+        System.out.println("\n🗑️ Deleted Customer List");
+        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.printf("%-5s %-20s %-20s %-25s %-20s%n", "ID", "Username", "Email", "Deleted At", "Full Name");
+        System.out.println("--------------------------------------------------------------------------------------------------");
+
+        for (CustomerLog log : logs) {
+            String username = (log.getUsername() != null) ? log.getUsername() : "—";
+            String email = (log.getEmail() != null) ? log.getEmail() : "—";
+            String fullName = (log.getFullName() != null) ? log.getFullName() : "—";
+            String deletedAt = (log.getDeletedAt() != null) ? log.getDeletedAt().toString() : "—";
+
+            System.out.printf("%-5d %-20s %-20s %-25s %-20s%n",
+                    log.getCustomerId(),
+                    username,
+                    email,
+                    deletedAt,
+                    fullName);
+        }
+
+        System.out.println("--------------------------------------------------------------------------------------------------");
+    }
 }

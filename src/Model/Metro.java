@@ -1,6 +1,8 @@
 package Model;
 
-public class Metro {
+import Display.Displayable;
+
+public class Metro implements Displayable {
     int id;
     String trainName;
     int capacity;
@@ -102,4 +104,27 @@ public class Metro {
     public void setCurrentAreaID(Integer currentAreaID) {
         this.currentAreaID = currentAreaID;
     }
+
+    @Override
+    public void displaySummary() {
+        System.out.printf("%-5d %-20s %-10d %-15s %-15s%n",
+                id,
+                trainName,
+                capacity,
+                currentRouteID != null ? currentRouteID : "—",
+                currentAreaID != null ? currentAreaID : "—");
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🚇 Metro Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Train Name: %s%n", trainName);
+        System.out.printf("Capacity: %d%n", capacity);
+        System.out.printf("Current Route ID: %s%n", currentRouteID != null ? currentRouteID : "—");
+        System.out.printf("Current Area ID: %s%n", currentAreaID != null ? currentAreaID : "—");
+        System.out.println("--------------------------------------------------");
+    }
+
 }

@@ -125,17 +125,17 @@ public class RouteDAO {
             stmt.setInt(1, length);
 
             boolean metroTransport = false;
-            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Station: ");
+            boolean BusTransport = getValidBoolean(scanner, "Enter 'true' if it is Bus Route: ");
             stmt.setBoolean(2, BusTransport);
             if(BusTransport){
                 stmt.setBoolean(3, false);
             } else {
-                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Transport: ");
+                metroTransport = getValidBoolean(scanner, "Enter 'true' if it is Metro Route: ");
                 stmt.setBoolean(3, metroTransport);
             }
 
             if(!BusTransport && !metroTransport){
-                System.out.println("You should choose any of the above transport to book tickets.");
+                System.out.println("You should choose any of the above transport to update Route.");
                 return false;
             }
 
