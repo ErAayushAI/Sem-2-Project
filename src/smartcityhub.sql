@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2025 at 11:03 AM
+-- Generation Time: Aug 22, 2025 at 09:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,7 +71,9 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`Id`, `UserName`, `Password`, `Email`, `CreatedAt`) VALUES
 (1, 'Admin', 'Admin@789', 'admin@gmail.com', '2025-08-14 11:21:13'),
 (2, 'lju', 'lju@456', 'lju@gmail.com', '2025-08-14 11:23:52'),
-(3, 'Suhani', 'suhani@678', 'suhani@gmail.com', '2025-08-15 08:18:20');
+(3, 'Suhani', 'suhani@678', 'suhani@gmail.com', '2025-08-15 08:18:20'),
+(4, 'Pranay', '0412', 'Pranay0412@gmail.com', '2025-08-20 09:30:43'),
+(5, 'aayush', 'aayush2908', 'aayushkanth@gmail.com', '2025-08-20 09:31:28');
 
 -- --------------------------------------------------------
 
@@ -104,6 +106,7 @@ INSERT INTO `area` (`Id`, `Name`, `Latitude`, `Longitude`, `IsEmergencyPoint`) V
 (380024, 'Bapunagar', 23.0336, 72.6352, 1),
 (380028, 'Bhairavnath Road SO', 26.02, 27.28, 1),
 (380052, 'Thaltej', 23.0504, 72.4991, 1),
+(380054, 'Sindhu Bhavan', 67.25, 78.28, 1),
 (380058, 'Bopal', 26.21, 27.51, 0),
 (382350, 'Nikol', 23.05, 72.67, 1),
 (382418, 'Vastral', 22.9978, 72.666, 1),
@@ -154,6 +157,7 @@ CREATE TABLE `complaint` (
 --
 
 INSERT INTO `complaint` (`Id`, `Department`, `UserId`, `Issue`, `Status`) VALUES
+(1, 'Bus', 8, 'the seats are not comfortable,\r\nall are fighting for seat,\r\nac are not working.', 0),
 (2, 'Electricity', 2, 'Frequent power cuts', 2),
 (3, 'Sanitation', 6, 'Garbage not collected regularly', 1),
 (4, 'Roads and Transport', 3, 'Potholes on main road', 0),
@@ -181,10 +185,13 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`Id`, `UserName`, `Password`, `Email`, `FullName`, `CreatedAt`) VALUES
 (1, 'Suhani', 'suhani@123', 'suhani@gmail.com', 'Jain Suhani', '2025-08-14 15:21:13'),
-(2, 'Pranay', 'pranay@123', 'pranay@gmail.com', 'Jain Pranay', '2025-08-14 15:21:13'),
-(3, 'Aayush', 'aayush@123', 'aayush@gmail.com', 'Kanth Aayush', '2025-08-14 15:21:13'),
+(2, 'Pranay', '0412', 'pranay@gmail.com', 'Jain Pranay', '2025-08-20 09:32:19'),
+(3, 'Aayush', '2908', 'aayush@gmail.com', 'Kanth Aayush', '2025-08-20 09:32:38'),
 (5, 'Yami', 'yami@123', 'yami@gamil.com', 'Yami Gautam', '2025-08-15 10:32:54'),
-(6, 'Amritha', 'amritha@123', 'amritha@gmail.com', 'Amritha Aiyer', '2025-08-15 10:38:34');
+(6, 'Amritha', 'amritha@123', 'amritha@gmail.com', 'Amritha Aiyer', '2025-08-15 10:38:34'),
+(7, 'Mangal ', 'ms12', 'Mangu@gmail.com', 'Daku Mangal Singh', '2025-08-20 09:37:21'),
+(8, 'Chatur', 'rancho', 'chaturra@gmail.com', 'Chatur Ramalingam', '2025-08-20 09:35:23'),
+(9, 'Yash', 'yashu', 'yashla@gmail.com', 'Yash Dayal', '2025-08-20 09:36:33');
 
 --
 -- Triggers `customer`
@@ -217,7 +224,9 @@ CREATE TABLE `customerlog` (
 --
 
 INSERT INTO `customerlog` (`logId`, `customerId`, `username`, `password`, `email`, `fullName`, `deletedAt`) VALUES
-(1, 4, 'Teja', 'teja@123', 'teja@gamil.com', 'Teja Sajja', '2025-08-20 07:44:16');
+(1, 4, 'Teja', 'teja@123', 'teja@gamil.com', 'Teja Sajja', '2025-08-20 07:44:16'),
+(2, 10, 'changu', 'mangu1', 'manu1@gmail.com', 'Changu kumar', '2025-08-20 09:38:44'),
+(3, 11, 'chintu', 'chinti12', 'chintu12@gmail.com', 'Chintu lal', '2025-08-20 09:40:06');
 
 -- --------------------------------------------------------
 
@@ -242,8 +251,15 @@ INSERT INTO `emergencyservice` (`Id`, `Name`, `Type`, `AreaId`, `ContactNumber`,
 (1, 'Navrangpura Police Station', 'Police Station', 380009, 7926345678, 3),
 (2, 'LG Hospital Trauma Center', 'Hospital', 380021, 7925467890, 5),
 (3, 'Maninagar Fire Station', 'Fire Station', 380008, 7925412345, 2),
+(4, 'Aims Hospitals', 'Hospital', 380007, 97932423242, 100),
 (5, 'Paldi Fire Station', 'Fire Station', 380007, 7926512345, 3),
-(6, 'Rajasthan Hospitals', 'Hospital', 380004, 7969086310, 7);
+(6, 'Rajasthan Hospitals', 'Hospital', 380004, 7969086310, 7),
+(7, 'Apollo Hospitals City Center', 'Hospital', 380006, 7966305800, 50),
+(8, 'Zydus Hospital', 'Hospital', 380052, 7966190201, 56),
+(9, 'Satellite Police Station', 'Police station', 380015, 7926861333, 20),
+(10, 'Madhapur Police Station', 'Police station', 380004, 9490617186, 10),
+(11, 'Bodakdev Fire Station', 'fire station', 380054, 7932981440, 56),
+(12, 'Navrangpura Fire Station', 'Fire station', 380009, 7927910203, 5);
 
 -- --------------------------------------------------------
 
@@ -267,7 +283,8 @@ INSERT INTO `feedback` (`Id`, `UserID`, `PlaceId`, `Comments`, `Rating`) VALUES
 (2, 1, 5, 'The aquarium is fantastic', 5),
 (4, 1, 3, 'Awesome collection of vintage cars', 9),
 (5, 6, 6, 'Very historical Stepwell', 6),
-(8, 3, 2, 'very good place to visit', 4);
+(8, 3, 2, 'very good place to visit', 4),
+(9, 3, 2, 'very good', 4.5);
 
 -- --------------------------------------------------------
 
@@ -359,26 +376,28 @@ INSERT INTO `route` (`Id`, `Name`, `Length(km)`, `IsBusRoute`, `IsMetroRoute`) V
 CREATE TABLE `schedule` (
   `Id` int(11) NOT NULL,
   `RouteId` int(11) NOT NULL,
-  `DepartureTime` time NOT NULL
+  `DepartureTime` time NOT NULL,
+  `isBusSchedule` tinyint(1) NOT NULL,
+  `isMetroSchedule` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `schedule`
 --
 
-INSERT INTO `schedule` (`Id`, `RouteId`, `DepartureTime`) VALUES
-(1, 11, '06:30:00'),
-(2, 8, '07:15:00'),
-(3, 9, '08:00:00'),
-(4, 6, '09:00:00'),
-(5, 7, '09:45:00'),
-(6, 1, '10:30:00'),
-(7, 10, '11:15:00'),
-(8, 2, '12:00:00'),
-(9, 5, '12:45:00'),
-(10, 4, '13:30:00'),
-(11, 12, '14:15:00'),
-(12, 3, '15:00:00');
+INSERT INTO `schedule` (`Id`, `RouteId`, `DepartureTime`, `isBusSchedule`, `isMetroSchedule`) VALUES
+(1, 11, '06:30:00', 0, 1),
+(2, 8, '07:15:00', 1, 0),
+(3, 9, '08:00:00', 1, 0),
+(4, 6, '09:00:00', 0, 1),
+(5, 7, '09:45:00', 1, 0),
+(6, 1, '10:30:00', 1, 0),
+(7, 10, '11:15:00', 0, 1),
+(8, 2, '12:00:00', 1, 0),
+(9, 5, '12:45:00', 1, 0),
+(10, 4, '13:30:00', 0, 1),
+(11, 12, '14:15:00', 0, 1),
+(12, 3, '15:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -404,6 +423,7 @@ INSERT INTO `station` (`Id`, `Name`, `AreaId`, `IsBusStation`, `IsMetroStation`)
 (3, 'Navrangpura', 380009, 1, 0),
 (4, 'Gota', 382470, 1, 1),
 (5, 'Thaltej', 380052, 0, 1),
+(6, 'Vastral', 382418, 0, 1),
 (7, 'Bapunagar', 380024, 1, 0),
 (8, 'Apparel Park', 380021, 0, 1),
 (10, 'Motera', 380005, 0, 1);
@@ -613,7 +633,7 @@ ALTER TABLE `touristplace`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `area`
@@ -637,25 +657,25 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `customerlog`
 --
 ALTER TABLE `customerlog`
-  MODIFY `logId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `logId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `emergencyservice`
 --
 ALTER TABLE `emergencyservice`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `metro`

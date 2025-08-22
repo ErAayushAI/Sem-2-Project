@@ -31,10 +31,13 @@ public class ScheduleDAO {
         System.out.println("\n========== ADD SCHEDULE ==========\n");
 
         String query = "INSERT INTO Schedule (RouteId, DepartureTime, isBusSchedule, isMetroSchedule) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        String sql = "SELECT isBusRoute, isMetroRoute FROM Route WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+        PreparedStatement stmt1 = connection.prepareStatement(sql)) {
 
             int rid = getValidInt(scanner, "Enter Route Id: ");
             stmt.setInt(1, rid);
+            stmt1.setInt(1,rid);
 
             System.out.println("Departure Time:");
             int hour = getValidInt(scanner, "Enter Hour: ");
@@ -43,11 +46,14 @@ public class ScheduleDAO {
             Time t = new Time(hour, minute, second);
             stmt.setTime(2, t);
 
-            boolean busSchedule = getValidBoolean(scanner, "Enter 'true' if it is Bus Schedule: ");
-            stmt.setBoolean(3, busSchedule);
+            ResultSet rs = stmt1.executeQuery();
 
-            boolean metroSchedule = getValidBoolean(scanner, "Enter 'true' if it is Metro Schedule: ");
-            stmt.setBoolean(4, metroSchedule);
+            if(rs.next()) {
+                boolean busSchedule = rs.getBoolean(1);
+                stmt.setBoolean(3, busSchedule);
+                boolean metroSchedule = rs.getBoolean(2);
+                stmt.setBoolean(4, metroSchedule);
+            }
 
             int rowsInserted = stmt.executeUpdate();
             return rowsInserted > 0;
@@ -98,7 +104,7 @@ public class ScheduleDAO {
         String query = "SELECT * FROM Schedule";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Schedule schedule = new Schedule();
                 schedule.setId(rs.getInt(1));
                 schedule.setRouteID(rs.getInt(2));
