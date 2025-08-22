@@ -1,7 +1,11 @@
 package Model;
 
 
-public class TouristPlace {
+import Display.Displayable;
+
+import java.util.List;
+
+public class TouristPlace implements Displayable {
     int id;
     String name;
     String category;
@@ -102,6 +106,59 @@ public class TouristPlace {
      */
     public void setRatings(double ratings) {
         this.ratings = ratings;
+    }
+
+    @Override
+    public void displaySummary() {
+        System.out.printf("%-5s %-30s %-25s %-10s %-20s%n",
+                id, name, category, areaId, ratings+" "+getStarRating());
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🗺️ Tourist Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Category: %s%n", category);
+        System.out.printf("Area ID: %s%n", areaId);
+        System.out.printf("Ratings: %s%n", ratings+" "+getStarRating());
+        System.out.println("--------------------------------------------------");
+    }
+
+    public String getStarRating() {
+        int fullStars = (int) ratings;
+        boolean hasHalfStar = ratings - fullStars >= 0.25 && ratings - fullStars < 0.75;
+        int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        StringBuilder stars = new StringBuilder();
+        stars.append("★".repeat(Math.max(0, fullStars)));
+        if (hasHalfStar) stars.append("⯨");
+        stars.append("☆".repeat(Math.max(0, emptyStars)));
+
+        return stars.toString();
+    }
+
+    //Display List of Categories
+    public static void printCategories(List<String> categories) {
+        if (categories == null || categories.isEmpty()) {
+            System.out.println("⚠️ No categories found.");
+            return;
+        }
+
+        String line = "+---------------------------+";
+        String format = "| %-25s |\n";
+
+        System.out.println("\n---------- AVAILABLE CATEGORIES ----------\n");
+        System.out.println(line);
+        System.out.printf(format, "Category");
+        System.out.println(line);
+
+        for (String category : categories) {
+            System.out.printf(format, category);
+        }
+
+        System.out.println(line);
     }
 }
 

@@ -1,6 +1,8 @@
 package Model;
 
-public class Area {
+import Display.Displayable;
+
+public class Area implements Displayable {
     int id;
     String name;
     double latitude;
@@ -119,4 +121,24 @@ public class Area {
     public void setEmergencyPoint(boolean emergencyPoint) {
         isEmergencyPoint = emergencyPoint;
     }
+
+    @Override
+    public void displaySummary() {
+        String emergencyStatus = isEmergencyPoint ? "✅ Yes" : "❌ No";
+        System.out.printf("%-7d %-20s %-12.6f %-12.6f %-18s%n",
+                id, name, latitude, longitude, emergencyStatus);
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🌐 Area Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Latitude: %.6f%n", latitude);
+        System.out.printf("Longitude: %.6f%n", longitude);
+        System.out.printf("Emergency Point: %s%n", isEmergencyPoint ? "✅ Yes" : "❌ No");
+        System.out.println("--------------------------------------------------");
+    }
+
 }

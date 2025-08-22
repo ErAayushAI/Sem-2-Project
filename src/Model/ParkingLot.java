@@ -1,10 +1,11 @@
 package Model;
 
 import DataBase.ParkingLotDAO;
+import Display.Displayable;
 
 import java.util.Random;
 
-public class ParkingLot {
+public class ParkingLot implements Displayable {
     int id;
     String name;
     int areaId;
@@ -142,6 +143,29 @@ public class ParkingLot {
         } else {
             System.out.println("No slots available at " + name);
         }
+    }
+
+    @Override
+    public void displaySummary() {
+        int available = capacity - currentOccupancy;
+        String status = (available > 0) ? "🟢 Available" : "🔴 Full";
+        System.out.printf("%-5d %-30s %-10d %-10d %-15d %-10s%n",
+                id, name, areaId, capacity, currentOccupancy, status);
+    }
+
+    @Override
+    public void displayDetails() {
+        int available = capacity - currentOccupancy;
+        String status = (available > 0) ? "🟢 Available" : "🔴 Full";
+        System.out.println("\n🅿️ Parking Lot Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Area ID: %d%n", areaId);
+        System.out.printf("Total Slots: %d%n", capacity);
+        System.out.printf("Occupied Slots: %d%n", currentOccupancy);
+        System.out.printf("Available Slots: %s%n", status);
+        System.out.println("--------------------------------------------------");
     }
 
 }

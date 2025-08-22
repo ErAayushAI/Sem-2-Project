@@ -1,6 +1,8 @@
 package Model;
 
-public class Street {
+import Display.Displayable;
+
+public class Street implements Displayable {
     int id;
     int startAreaId;
     int endAreaId;
@@ -102,4 +104,24 @@ public class Street {
     public void setDistance(double distance) {
         this.distance = distance;
     }
+
+    @Override
+    public void displaySummary() {
+        String oneWayStatus = isOneWay ? "➡️ Yes" : "↔️ No";
+        System.out.printf("%-5d %-12d %-12d %-13.2f %-10s%n",
+                id, startAreaId, endAreaId, distance, oneWayStatus);
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🛣️ Street Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Start Area ID: %d%n", startAreaId);
+        System.out.printf("End Area ID: %d%n", endAreaId);
+        System.out.printf("Distance: %.2f km%n", distance);
+        System.out.printf("One Way: %s%n", isOneWay ? "➡️ Yes" : "↔️ No");
+        System.out.println("--------------------------------------------------");
+    }
+
 }

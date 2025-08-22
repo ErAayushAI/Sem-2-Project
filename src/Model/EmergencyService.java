@@ -1,8 +1,9 @@
 package Model;
 
 import DataBase.EmergencyServiceDAO;
+import Display.Displayable;
 
-public class EmergencyService {
+public class EmergencyService implements Displayable {
     int id;
     String name;
     String type;
@@ -153,4 +154,24 @@ public class EmergencyService {
             System.out.println("No vehicles available at " + name);
         }
     }
+
+    @Override
+    public void displaySummary() {
+        System.out.printf("%-5d %-30s %-15s %-10d %-15d %-20d%n",
+                id, name, type, areaId, contactNumber, availableVehicles);
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🚨 Emergency Service Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Type: %s%n", type);
+        System.out.printf("Area ID: %d%n", areaId);
+        System.out.printf("Contact Number: %d%n", contactNumber);
+        System.out.printf("Available Vehicles: %d%n", availableVehicles);
+        System.out.println("--------------------------------------------------");
+    }
+
 }

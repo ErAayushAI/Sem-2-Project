@@ -1,6 +1,8 @@
 package Model;
 
-public class Route {
+import Display.Displayable;
+
+public class Route implements Displayable {
     int id;
     String name;
     double length;
@@ -119,4 +121,27 @@ public class Route {
     public void setMetroRoute(boolean metroRoute) {
         isMetroRoute = metroRoute;
     }
+
+    @Override
+    public void displaySummary() {
+        String busStatus = isBusRoute ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroRoute ? "✅ Yes" : "❌ No";
+        System.out.printf("%-5s %-40s %-10s %-15s %-15s%n",
+                id, name, length, busStatus, metroStatus);
+    }
+
+    @Override
+    public void displayDetails() {
+        String busStatus = isBusRoute ? "✅ Yes" : "❌ No";
+        String metroStatus = isMetroRoute ? "✅ Yes" : "❌ No";
+        System.out.println("\n🛣️ Route Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("Name: %s%n", name);
+        System.out.printf("Length: %.2f km%n", length);
+        System.out.printf("Bus Route: %s%n", busStatus);
+        System.out.printf("Metro Route: %s%n", metroStatus);
+        System.out.println("--------------------------------------------------");
+    }
+
 }

@@ -1,6 +1,8 @@
 package Model;
 
-public class Bus {
+import Display.Displayable;
+
+public class Bus implements Displayable {
     int id;
     String licensePlate;
     int capacity;
@@ -118,5 +120,27 @@ public class Bus {
      */
     public void setCurrentAreaID(Integer currentAreaID) {
         this.currentAreaID = currentAreaID;
+    }
+
+    @Override
+    public void displaySummary() {
+        System.out.printf("%-5d %-15s %-10d %-15s %-15s%n",
+                id,
+                licensePlate,
+                capacity,
+                currentRouteId != null ? currentRouteId : "—",
+                currentAreaID != null ? currentAreaID : "—");
+    }
+
+    @Override
+    public void displayDetails() {
+        System.out.println("\n🚌 Bus Details");
+        System.out.println("--------------------------------------------------");
+        System.out.printf("ID: %d%n", id);
+        System.out.printf("License Plate: %s%n", licensePlate);
+        System.out.printf("Capacity: %d%n", capacity);
+        System.out.printf("Current Route ID: %s%n", currentRouteId != null ? currentRouteId : "—");
+        System.out.printf("Current Area ID: %s%n", currentAreaID != null ? currentAreaID : "—");
+        System.out.println("--------------------------------------------------");
     }
 }

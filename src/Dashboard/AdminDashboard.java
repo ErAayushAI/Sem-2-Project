@@ -4,6 +4,7 @@ import DataBase.*;
 import DataStructure.FeedbackLinkedList;
 import Model.*;
 import Validation.InputValidator;
+import Display.DisplayUtil;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class AdminDashboard {
 
         while (running) {
 
-            Display.showAdminMenu();
+            showAdminMenu();
             Choice = InputValidator.getChoice(scanner);
 
             switch (Choice) {
@@ -44,14 +45,14 @@ public class AdminDashboard {
 
                         switch (choice) {
                             case 1:
-                                Display.viewAllCustomers();
+                                customerDAO.viewAllCustomers();
                                 break;
                             case 2:
                                 customerDAO.deleteCustomerById(scanner);
                                 break;
                             case 3:
                                 List<CustomerLog> customerLogs = customerDAO.getDeletedCustomers();
-                                Display.printDeletedCustomerList(customerLogs);
+                                customerDAO.printDeletedCustomer(customerLogs);
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -83,7 +84,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 areas = areaDAO.getAllArea();
-                                Display.printAreas(areas);
+                                DisplayUtil.printList(areas, "Area");
                                 break;
                             case 2:
                                 if (areaDAO.addArea(scanner)) System.out.println("✅ Added successfully");
@@ -99,11 +100,11 @@ public class AdminDashboard {
                                 break;
                             case 5:
                                 area = areaDAO.getAreaById(scanner);
-                                Display.printArea(area);
+                                DisplayUtil.printDetails(area, "Area");
                                 break;
                             case 6:
                                 areas = areaDAO.getAreaInArea(scanner);
-                                Display.printAreas(areas);
+                                DisplayUtil.printList(areas, "Area");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -134,7 +135,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Bus> buses = busDAO.getAllBuses();
-                                Display.printBusList(buses);
+                                DisplayUtil.printList(buses, "Bus");
                                 break;
                             case 2:
                                 if (busDAO.addBus(scanner)) System.out.println("✅ Added successfully");
@@ -150,7 +151,7 @@ public class AdminDashboard {
                                 break;
                             case 5:
                                 bus = busDAO.getBusByID(scanner);
-                                Display.printBus(bus);
+                                DisplayUtil.printDetails(bus, "Bus");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -180,7 +181,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<EmergencyService> services = esDAO.getAllEmergencyService();
-                                Display.printEmergencyServices(services);
+                                DisplayUtil.printList(services, "Emergency");
                                 break;
                             case 2:
                                 if (esDAO.addEmergencyService(scanner)) System.out.println("✅ Added successfully");
@@ -192,7 +193,7 @@ public class AdminDashboard {
                                 break;
                             case 4:
                                 es = esDAO.getEmergencyServiceByID(scanner);
-                                Display.printEmergencyService(es);
+                                DisplayUtil.printDetails(es, "Emergency");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -223,7 +224,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Metro> metros = metroDAO.getAllMetros();
-                                Display.printMetroList(metros);
+                                DisplayUtil.printList(metros, "Metro");
                                 break;
                             case 2:
                                 if (metroDAO.addMetro(scanner)) System.out.println("✅ Added successfully");
@@ -239,7 +240,7 @@ public class AdminDashboard {
                                 break;
                             case 5:
                                 metro = metroDAO.getMetroByID(scanner);
-                                Display.printMetro(metro);
+                                DisplayUtil.printDetails(metro, "Metro");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -268,7 +269,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<ParkingLot> lots = parkingDAO.getAllParkingLots();
-                                Display.printParkingLots(lots);
+                                DisplayUtil.printList(lots, "Parking");
                                 break;
                             case 2:
                                 if (parkingDAO.addParkingLot(scanner)) System.out.println("✅ Added successfully");
@@ -310,7 +311,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Route> routes = routeDAO.getAllRoutes();
-                                Display.printRoutes(routes);
+                                DisplayUtil.printList(routes, "Route");
                                 break;
                             case 2:
                                 if (routeDAO.addRoute(scanner)) System.out.println("✅ Added successfully");
@@ -352,7 +353,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Schedule> schedules = scheduleDAO.getAllSchedule();
-                                Display.printScheduleTable(schedules);
+                                DisplayUtil.printList(schedules, "Schedule");
                                 break;
                             case 2:
                                 if (scheduleDAO.addSchedule(scanner)) System.out.println("✅ Added successfully");
@@ -392,7 +393,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Station> stations = stationDAO.getAllStops();
-                                Display.printStations(stations);
+                                DisplayUtil.printList(stations, "Station");
                                 break;
                             case 2:
                                 if (stationDAO.addStation(scanner)) System.out.println("✅ Added successfully");
@@ -404,7 +405,7 @@ public class AdminDashboard {
                                 break;
                             case 4:
                                 station = stationDAO.getStationById(scanner);
-                                Display.printStation(station);
+                                DisplayUtil.printDetails(station, "Station");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -435,7 +436,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 List<Street> streets = streetDAO.getAllStreet();
-                                Display.printStreets(streets);
+                                DisplayUtil.printList(streets, "Street");
                                 break;
                             case 2:
                                 if (streetDAO.addStreet(scanner)) System.out.println("✅ Added successfully");
@@ -451,11 +452,11 @@ public class AdminDashboard {
                                 break;
                             case 5:
                                 street = streetDAO.getStreetById(scanner);
-                                Display.printStreet(street);
+                                DisplayUtil.printDetails(street, "Street");
                                 break;
                             case 6:
                                 street = streetDAO.getStreetByAreaId(scanner);
-                                Display.printStreet(street);
+                                DisplayUtil.printDetails(street, "Street");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -486,7 +487,7 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 places = placeDAO.displayAllPlaces();
-                                Display.printTouristPlaces(places);
+                                DisplayUtil.printList(places, "Place");
                                 break;
                             case 2:
                                 if (placeDAO.addPlace()) System.out.println("✅ Added successfully");
@@ -494,7 +495,8 @@ public class AdminDashboard {
                                 break;
                             case 3:
                                 places = placeDAO.getPlacesByAreaId(scanner);
-                                Display.printTouristPlaces(places);
+                                DisplayUtil.printList(places, "Place");
+                                break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
                                 placeLoop = false;
@@ -524,12 +526,23 @@ public class AdminDashboard {
                         switch (choice) {
                             case 1:
                                 complaints = complaintDAO.getAllComplaint();
-                                Display.printComplaintTable(complaints);
+                                DisplayUtil.printList(complaints, "Complaint");
                                 break;
                             case 2:
                                 complaints = complaintDAO.getAllComplaint();
-                                System.out.print("Enter Complaint Id: ");
-                                Display.viewFullIssue(complaints, scanner.nextInt());
+                                System.out.print("Enter Complaint ID: ");
+                                int complaintId = scanner.nextInt();
+                                boolean found = false;
+                                for (Complaint c : complaints) {
+                                    if (c.getId() == complaintId) {
+                                        c.displayDetails();
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                                if (!found) {
+                                    System.out.println("❌ Complaint with ID " + complaintId + " not found.");
+                                }
                                 break;
                             case 3:
                                 complaintDAO.resolveNextComplaint();
@@ -569,7 +582,7 @@ public class AdminDashboard {
                                 break;
                             case 3:
                                 List<Feedback> feedbacks = fbDAO.reviewLatestFeedback();
-                                Display.printFeedbacks(feedbacks);
+                                DisplayUtil.printList(feedbacks, "Feedback");
                                 break;
                             case 0:
                                 System.out.println("🔙 Returning to Admin Dashboard...");
@@ -590,5 +603,19 @@ public class AdminDashboard {
                     System.out.println("⚠️ Invalid option!");
             }
         }
+    }
+
+    // Display Admin Dashboard Menu
+    public static void showAdminMenu() {
+        System.out.println("\n🔒 Admin Dashboard");
+        System.out.println("-------------------------------------------------");
+        System.out.printf("%-30s %-25s%n", "1. View & Delete customers", "8. Manage Schedule");
+        System.out.printf("%-30s %-25s%n", "2. Manage Area", "9. Manage Station");
+        System.out.printf("%-30s %-25s%n", "3. Bus Services", "10. Manage Street");
+        System.out.printf("%-30s %-25s%n", "4. Emergency Services", "11. Manage Tourist Places");
+        System.out.printf("%-30s %-25s%n", "5. Metro Services", "12. Complaint");
+        System.out.printf("%-30s %-25s%n", "6. Manage Parking Lot", "13. Feedback");
+        System.out.printf("%-30s %-25s%n", "7. Manage Service Route", "0. Logout");
+        System.out.println("-------------------------------------------------");
     }
 }
