@@ -258,6 +258,11 @@ public class CustomerDashboard {
 
                 case 6:
                     int pid = InputValidator.getValidInt(scanner, "Enter Place Id: ");
+                    TouristPlaceDAO placeDAO = new TouristPlaceDAO();
+                    if (!placeDAO.doesPlaceExist(pid)) {
+                        System.out.println("❌ Invalid Place ID. No tourist place found with ID: " + pid);
+                        break;
+                    }
                     if (new FeedbackDAO().submitFeedback(scanner, pid)) System.out.println("✅ Added successfully");
                     else System.out.println("❌ Failed");
                     break;

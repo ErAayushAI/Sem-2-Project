@@ -69,6 +69,12 @@ public class TouristPlaceDAO {
 
         int placeId = getValidInt(scanner, "Enter Place Id to submit Feedback: ");
 
+        TouristPlaceDAO placeDAO = new TouristPlaceDAO();
+        if (!placeDAO.doesPlaceExist(placeId)) {
+            System.out.println("❌ Invalid Place ID. No tourist place found with ID: " + placeId);
+            return;
+        }
+
         if (fb.submitFeedback(scanner, placeId)) {
             double avgRatings = fb.getAverageRating(placeId);
             String query = "UPDATE TouristPlace SET Ratings = ? WHERE id = ?";
@@ -227,7 +233,23 @@ public class TouristPlaceDAO {
         } catch (SQLException e) {
             System.out.println("❌ Failed to load categories: " + e.getMessage());
         }
-
         return categories;
+    }
+
+    /**
+     * check the place id exist or not
+     * @param placeId enter by user
+     * @return true if id exists
+     */
+    public boolean doesPlaceExist(int placeId) {
+        String query = "SELECT id FROM TouristPlace WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, placeId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println("❌ Error checking place ID: " + e.getMessage());
+            return false;
+        }
     }
 }
