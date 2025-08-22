@@ -44,7 +44,15 @@ public class FeedbackDAO {
             scanner.nextLine();
             stmt.setString(3, scanner.nextLine().trim());
 
-            double rat = getValidDouble(scanner, "Enter Rating Between 1 and 5: ");
+            double rat;
+            while (true) {
+                rat = getValidDouble(scanner, "Enter Rating Between 1 and 5: ");
+                if (rat >= 1 && rat <= 5) {
+                    break;
+                } else {
+                    System.out.println("❌ Invalid rating. Please enter a value between 1 and 5.");
+                }
+            }
             stmt.setDouble(4, rat);
 
             int rowsInserted = stmt.executeUpdate();
