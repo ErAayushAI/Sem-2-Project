@@ -3,7 +3,7 @@ package Display;
 import java.util.List;
 
 public class DisplayUtil {
-    public static void printList(List<? extends Displayable> items, String title) {
+    public static void printList(List< ? extends Displayable> items, String title) {
         //Check if it is null or not
         if (items == null || items.isEmpty()) {
             System.out.println("⚠️ No data found for " + title);
